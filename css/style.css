@@ -1,0 +1,25 @@
+body{
+    text-transform: uppercase;
+    background: url('../img/banner.png') bottom right fixed no-repeat !important;
+    width: 100%;
+}
+
+article{
+    padding: 8%;
+}
+
+.bg-orange{
+    background-color: #F9AD38;
+}
+
+.on:hover{
+    color: #F9AD38 !important;
+}
+
+.drop::after, .drop:hover {
+    color: #F9AD38 !important;
+}
+
+i:hover{
+    color: #F9AD38;
+}
