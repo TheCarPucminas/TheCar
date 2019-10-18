@@ -1,5 +1,9 @@
-package theCar;
-public class Endereco {
+package business;
+
+import java.io.Serializable;
+
+public class Endereco implements Serializable {
+	private static final long serialVersionUID = 1L;
 	//Atributos -----------------------------------------------------------------------------------------------------------------------
 	private String rua;
 	private int numero;

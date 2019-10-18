@@ -1,12 +1,16 @@
-package theCar;
+package business;
 
 import java.io.*;
 //import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class Pessoa {
+public class Pessoa implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	//Atributos -----------------------------------------------------------------------------------------------------------------------
+	private static int idUnico = 0;
+	private int id;
 	private String nome;
 	private String senha;
 	private Documentacao documentacao = new Documentacao();
@@ -34,6 +38,9 @@ public class Pessoa {
 		endereco.setBairro(bairro);
 		endereco.setCidade(cidade);
 		endereco.setEstado(estado);
+		this.setId(idUnico);
+		Pessoa.idUnico++;
+		
 	}
 
 	//Getters e Setters ---------------------------------------------------------------------------------------------------------------
@@ -84,6 +91,14 @@ public class Pessoa {
 		this.endereco = endereco;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}	
+	
 	//Métodos -----------------------------------------------------------------------------------------------------------------------
 	public boolean eSenhaValida(String senha) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		criptografaSenha(senha);
@@ -103,5 +118,18 @@ public class Pessoa {
 	    }
 	    String senhaHash = senhaString.toString();
 		return senhaHash;
-	}	
+	}
+	
+	@Override
+	public String toString() {
+
+		return "Nome: " + this.getNome() + "\nCPF: " + this.getDocumentacao().getCpf() + "\nRG: "+ this.getDocumentacao().getRg() +"\nCNH: " + 
+		this.getDocumentacao().getCnh() + "\n";
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		return this.id == ((Pessoa) obj).getId();
+	}
 }
+

@@ -1,8 +1,9 @@
-package theCar;
+package business;
+
 import java.io.*;
 import java.util.InputMismatchException;
-import java.util.Scanner;
-public class Documentacao {
+public class Documentacao implements Serializable {
+	private static final long serialVersionUID = 1L;
 	//Atributos -----------------------------------------------------------------------------------------------------------------------
 	private String cpf;
 	private String rg;
