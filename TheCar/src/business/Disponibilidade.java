@@ -1,5 +1,6 @@
-package theCar;
+package business;
 import java.time.LocalDateTime;
+
 public class Disponibilidade {
 	//Atributos -----------------------------------------------------------------------------------------------------------------------
 	private LocalDateTime dataInicio;

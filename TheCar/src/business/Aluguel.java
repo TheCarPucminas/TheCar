@@ -1,4 +1,5 @@
-package theCar;
+package business;
+
 import java.time.LocalDateTime;
 public class Aluguel {
 	//Atributos -----------------------------------------------------------------------------------------------------------------------
