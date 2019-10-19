@@ -12,6 +12,35 @@
     <link rel="stylesheet" href="css/style.css">
 
     <title>Document</title>
+
+    <script>
+    	function salvar() {
+		var xmlhttp = new XMLHttpRequest();
+
+		var form = document.getElementById('form-pessoa');
+		var formData = new FormData(form);
+
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4) {
+				// Javascript function JSON.parse to parse JSON data
+				var jsonObj = JSON.parse(xmlhttp.responseText);
+
+				document.getElementById("id").innerHTML = jsonObj.id;
+				document.getElementById("descricao").innerHTML = jsonObj.descricao;
+				document.getElementById("preco").innerHTML = jsonObj.preco;
+				document.getElementById("quant").innerHTML = jsonObj.quant;
+				document.getElementById("dataFabricacao").innerHTML = jsonObj.dataFabricacao;
+				
+				document.getElementById("product-result").style.visibility = "visible";
+			}
+		}
+
+		if (xmlhttp) {
+			xmlhttp.open('post', "http://localhost:880/pessoa", true);
+			xmlhttp.send(formData);
+		}
+	}
+    </script>
 </head>
 <body>
     
@@ -49,7 +78,7 @@
             <div class="card ">
                 <h5 class="card-header bg-orange text-white">Cadastro</h5>
                 <div class="card-body">
-                    <form method="GET" action="">
+                    <form method="GET" action="" id="form-pessoa">
                         <div class="form-row">
                           <div class="form-group col-md-4">
                             <label for="inputEmail4">Email</label>
@@ -105,7 +134,7 @@
                             </div>
                         </div>
                         <div class="form-group col-auto align-self-end float-right">
-                            <button type="submit" class="btn btn-success left">Salvar</button>
+                            <button type="button" onclick="salvar()" class="btn btn-success left">Salvar</button>
                         </div>
                         
                       </form>
