@@ -1,6 +1,6 @@
 body{
     text-transform: uppercase;
-    background: url('../img/banner.png') bottom right fixed no-repeat !important;
+    background: -webkit-linear-gradient(left, #e68c05, #f3b456);
     width: 100%;
 }
 

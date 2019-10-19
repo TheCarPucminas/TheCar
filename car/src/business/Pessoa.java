@@ -5,6 +5,10 @@ import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+
 public class Pessoa implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -100,6 +104,7 @@ public class Pessoa implements Serializable {
 	}	
 	
 	//Métodos -----------------------------------------------------------------------------------------------------------------------
+	
 	public boolean eSenhaValida(String senha) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		criptografaSenha(senha);
 		String senhaDB = " ";
@@ -130,6 +135,15 @@ public class Pessoa implements Serializable {
 	@Override
 	public boolean equals(Object obj) {
 		return this.id == ((Pessoa) obj).getId();
+	}
+	
+	public JSONObject toJson() {
+		JSONObject obj = new JSONObject();
+		obj.put("nome", this.getNome());
+		obj.put("senha", this.getSenha());
+		obj.put("telefone", this.getTelefone());
+		obj.put("celular", this.getCelular());
+		return obj;
 	}
 }
 
