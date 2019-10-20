@@ -12,14 +12,23 @@ article{
     background-color: #F9AD38;
 }
 
+.bg-blue{
+    background: -webkit-linear-gradient(left, #65d6d1, #1761a0);
+}
+
+.bg-oneblue{
+    background-color: #1761a0;
+}
+
 .on:hover{
-    color: #F9AD38 !important;
+    color: black !important;
 }
 
 .drop::after, .drop:hover {
-    color: #F9AD38 !important;
+    color: rgb(255, 255, 255) !important;
 }
 
 i:hover{
-    color: #F9AD38;
+    color: black;
+    cursor: pointer;
 }
