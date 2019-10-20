@@ -1,3 +1,31 @@
+function salvar() {
+    var xmlhttp = new XMLHttpRequest();
+
+    var form = document.getElementById('form-pessoa');
+    var formData = new FormData(form);
+
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4) {
+            // Javascript function JSON.parse to parse JSON data
+            var jsonObj = JSON.parse(xmlhttp.responseText);
+
+            document.getElementById("id").innerHTML = jsonObj.id;
+            document.getElementById("descricao").innerHTML = jsonObj.descricao;
+            document.getElementById("preco").innerHTML = jsonObj.preco;
+            document.getElementById("quant").innerHTML = jsonObj.quant;
+            document.getElementById("dataFabricacao").innerHTML = jsonObj.dataFabricacao;
+            
+            document.getElementById("product-result").style.visibility = "visible";
+        }
+    }
+
+    if (xmlhttp) {
+        xmlhttp.open('post', "http://localhost:880/pessoa", true);
+        xmlhttp.send(formData);
+    }
+}
+
+
 function limpa_formulário_cep() {
     //Limpa valores do formulário de cep.
     document.getElementById('rua').value=("");
@@ -62,3 +90,4 @@ else {
     limpa_formulário_cep();
 }
 };
+
