@@ -3,11 +3,11 @@ Trabalho Interdisciplinar de Software. AinBnb de carros
 
 ## Wireframe Pesquisa
 
-![pesquisa-locador](https://user-images.githubusercontent.com/42702863/66726358-3ef9f700-ee0f-11e9-824e-cbadd7f76d93.png)
+![image](https://user-images.githubusercontent.com/42702863/67163816-c7b1ef00-f349-11e9-95db-78e9ddf567bf.png)
 
 ## Wireframe Lista de pesquisa
 
-![lista-pesquisa-locador](https://user-images.githubusercontent.com/42702863/66726323-0ce89500-ee0f-11e9-9b19-d91f05977849.png)
+![image](https://user-images.githubusercontent.com/42702863/67163792-8faaac00-f349-11e9-8b06-16298a48a50a.png)
 
 ## Wireframe de login
 
