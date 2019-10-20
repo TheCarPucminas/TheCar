@@ -8,14 +8,15 @@ function salvar() {
         if (xmlhttp.readyState == 4) {
             // Javascript function JSON.parse to parse JSON data
             var jsonObj = JSON.parse(xmlhttp.responseText);
-
-            document.getElementById("id").innerHTML = jsonObj.id;
-            document.getElementById("descricao").innerHTML = jsonObj.descricao;
-            document.getElementById("preco").innerHTML = jsonObj.preco;
-            document.getElementById("quant").innerHTML = jsonObj.quant;
-            document.getElementById("dataFabricacao").innerHTML = jsonObj.dataFabricacao;
+            document.getElementById("nome").innerHTML = jsonObj.nome;
+            console.log(jsonObj.nome);
+            document.getElementById("senha").innerHTML = jsonObj.senha;
+            console.log(jsonObj.senha);
+            document.getElementById("celular").innerHTML = jsonObj.telefone;
+            document.getElementById("celular").innerHTML = jsonObj.celular;
+            document.getElementById("bairro").innerHTML = jsonObj.bairro;
             
-            document.getElementById("product-result").style.visibility = "visible";
+            document.getElementById("   ").style.visibility = "visible";
         }
     }
 
@@ -25,13 +26,13 @@ function salvar() {
     }
 }
 
-
+//************************ CONJUNTO DE FUNÇÕES PARA IDENTIFICAR O ENDEREÇO ************************
 function limpa_formulário_cep() {
     //Limpa valores do formulário de cep.
+    document.getElementById('cep').value = ("");
     document.getElementById('rua').value=("");
     document.getElementById('bairro').value=("");
     document.getElementById('cidade').value=("");
-    document.getElementById('uf').value=("");
 }
 
 function meu_callback(conteudo) {
@@ -40,7 +41,7 @@ if (!("erro" in conteudo)) {
     document.getElementById('rua').value=(conteudo.logradouro);
     document.getElementById('bairro').value=(conteudo.bairro);
     document.getElementById('cidade').value=(conteudo.localidade);
-    document.getElementById('uf').value=(conteudo.uf);
+    console.log(conteudo.bairro + conteudo.logradouro + conteudo.localidade);
 } //end if.
 else {
     //CEP não Encontrado.
@@ -53,7 +54,7 @@ function pesquisacep(valor) {
 
 //Nova variável "cep" somente com dígitos.
 var cep = valor.replace(/\D/g, '');
-
+console.log(cep);
 //Verifica se campo cep possui valor informado.
 if (cep != "") {
 
@@ -67,11 +68,10 @@ if (cep != "") {
         document.getElementById('rua').value="...";
         document.getElementById('bairro').value="...";
         document.getElementById('cidade').value="...";
-        document.getElementById('uf').value="...";
 
         //Cria um elemento javascript.
         var script = document.createElement('script');
-
+        console.log(script);
         //Sincroniza com o callback.
         script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
 
@@ -90,4 +90,4 @@ else {
     limpa_formulário_cep();
 }
 };
-
+//************************ AS FUNÇÕES DE IDENTIFICAÇÃO DE ENDEREÇO TERMINAM AQUI ************************
