@@ -1,5 +1,12 @@
 # TheCar
-Trabalho Interdisciplinar de Software. AinBnb de carros
+
+## Trabalho Interdisciplinar de Software: AinBnb de carros
+
+Este trabalho tem por objetivo realizar a interação de pessoas que precisam de um
+serviço de transporte, com um valor mais acessível, seja para uma viagem ou para utilizar na
+própria cidade, realizando desta forma a aproximação (através de um software) de donos de
+veículos que queiram disponibilizá-los para usuários que necessitam destes para suprir suas
+necessidades.
 
 ## Wireframe Pesquisa
 
