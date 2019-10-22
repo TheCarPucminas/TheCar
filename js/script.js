@@ -91,3 +91,26 @@ else {
 }
 };
 //************************ AS FUNÇÕES DE IDENTIFICAÇÃO DE ENDEREÇO TERMINAM AQUI ************************
+
+//************************ VALIDAÇÃO DE EMAIL ************************
+function validaEmail(envelope) {
+    usuario = envelope.value.substring(0, envelope.value.indexOf("@"));
+    dominio = envelope.value.substring(envelope.value.indexOf("@")+ 1, envelope.value.length);
+     
+    if ((usuario.length >=1) &&
+        (dominio.length >=3) && 
+        (usuario.search("@")==-1) && 
+        (dominio.search("@")==-1) &&
+        (usuario.search(" ")==-1) && 
+        (dominio.search(" ")==-1) &&
+        (dominio.search(".")!=-1) &&      
+        (dominio.indexOf(".") >=1)&& 
+        (dominio.lastIndexOf(".") < dominio.length - 1)) {
+    document.getElementById("resposta").innerHTML="E-mail válido";
+    alert("E-mail valido");
+    }
+    else{
+    document.getElementById("resposta").innerHTML="<font color='green'>E-mail inválido </font>";
+    alert("E-mail invalido");
+    }
+    }

@@ -13,22 +13,22 @@
 
     <link rel="stylesheet" href="css/style.css">
 
-    <title>Document</title>
+    <title>TheCar - Cadastro</title>
 
 </head>
 
-<body>
+<body onload="limpa_formulário_cep()">
 
     <div class="container-fluid">
 
         <nav class="fixed-top navbar navbar-expand-lg navbar-light bg-blue text-white p-0 pl-5 pr-5">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="index.html">
                 <img src="img/logo-2.png" class="p-0 m-0" width="130" height="100" alt="TheCar">
             </a>
             <ul class="justify-content-end navbar-nav navbar-collapse">
                 <li class="nav-item">
                     <div>
-                        <i class="fa fa-user-circle fa-3x" aria-hidden="true"></i>
+                        <i class="fa fa-user-circle fa-3x" aria-hidden="true" onclick=""></i>
                     </div>
 
                 </li>
@@ -57,54 +57,57 @@
                 <div class="card-body">
                     <form method="GET" action="" id="form-pessoa">
                         <div class="form-row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-3">
                                 <label for="inputEmail4">Email</label>
-                                <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                                <input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="email" onblur="validaEmail(this.email)">
                             </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputPassword4">Nome</label>
-                                <input type="text" class="form-control" id="nome" placeholder="Nome">
+                            <div class="form-group col-md-3">
+                                <label>Nome</label>
+                                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome">
                             </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputPassword4">Senha</label>
-                                <input type="password" class="form-control" id="inputPassword4" placeholder="Senha">
+                            <div class="form-group col-md-3">
+                                <label>CPF</label>
+                                <input type="text" maxlength="11" class="form-control" name="cpf" id="cpf" placeholder="CPF" onblur="validaCPF(this.cpf)">
+                                
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Senha</label>
+                                <input type="password" class="form-control" name="senha" id="inputPassword4" placeholder="Senha">
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group col-md-3">
                                 <label for="inputAddress">CEP</label>
-                                <input type="text" class="form-control" id="cep" placeholder="EX.: 00000-00" value=""
-                                    size="10" maxlength="9" onblur="pesquisacep(this.value);"/>
+                                <input type="text" class="form-control" id="cep" placeholder="EX.: 00000-00" name="cep" size="10" maxlength="9" onblur="pesquisacep(this.cep);"/>
                             </div>
                             <div class= " form-group col-md-3">
                                 <label for="inputEmail4">Rua</label>
-                                <input type="text" class="form-control" id="rua" placeholder="EX.: Rua Alvarenga">
+                                <input type="text" class="form-control" id="rua" name="rua" placeholder="EX.: Rua Alvarenga">
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="inputPassword4">Bairro</label>
-                                <input type="text" class="form-control" id="bairro" placeholder="EX.: Nova Contagem">
+                                <input type="text" class="form-control" id="bairro" name="bairro" placeholder="EX.: Nova Contagem">
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="inputPassword4">Cidade</label>
-                                <input type="text" class="form-control" id="cidade" placeholder="EX.: Belo Horizonte">
+                                <input type="text" class="form-control" id="cidade" name="cidade" placeholder="EX.: Belo Horizonte">
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label for="inputAddress2">Telefone</label>
-                                <input type="text" class="form-control" id="telefone"
-                                    placeholder="EX.: (00) 9 9999-9999">
+                                <input type="text" class="form-control" id="telefone" name="telefone" placeholder="EX.: (00) 9 9999-9999">
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputCity">Celular</label>
-                                <input type="text" class="form-control" id="numero" placeholder="EX.: (00) 9 9999-9999">
+                                <input type="text" class="form-control" id="numero" name="celular" placeholder="EX.: (00) 9 9999-9999">
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="">Documentação</label>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="customFile">
+                                    <input type="file" class="custom-file-input" id="customFile" name="arquivo">
                                     <label class="custom-file-label" for="customFile">Pdf</label>
                                 </div>
                                 <small class="form-text text-muted">
