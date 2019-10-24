@@ -1,10 +1,16 @@
 package business;
 
+import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Veiculo {
+import org.json.JSONObject;
+
+public class Veiculo implements Serializable {
 	//Atributos -----------------------------------------------------------------------------------------------------------------------
+	private static final long serialVersionUID = 1L;
+	private static int idUnico = 0;
+	private int id;
 	private String placa;
 	private String cor;
 	private int anoFabricacao;
@@ -32,6 +38,8 @@ public class Veiculo {
 		this.setNumeroPortas(numeroPortas);
 		this.setQuilometragem(quilometragem);
 		this.setCombustivel(combustivel);
+		this.setId(idUnico);
+		Veiculo.idUnico++;
 	}
 	
 	//Getters e Setters ---------------------------------------------------------------------------------------------------------------
@@ -146,4 +154,30 @@ public class Veiculo {
 	    if (matcherZero.find() || matcherEspaco.find() || matcherRepetir.find() || matcherCaract.find() || !matcherUltimos.find()) return false;
 	    return true;
 	  }
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public JSONObject toJson() {
+		JSONObject obj = new JSONObject();
+		obj.put("id", this.getId());
+		obj.put("placa", this.getPlaca());
+		obj.put("cor", this.getCor());
+		obj.put("anoFabricacao", this.getAnoFabricacao());
+		obj.put("anoModelo", this.getAnoModelo());
+		obj.put("chassi", this.getChassi());
+		obj.put("renavam", this.getRenavam());
+		obj.put("marca", this.getMarca());
+		obj.put("modelo", this.getModelo());
+		obj.put("numeroPortas", this.getNumeroPortas());
+		obj.put("quilometragem", this.getQuilometragem());
+		obj.put("combustivel", this.getCombustivel());
+
+		return obj;
+	}
 }

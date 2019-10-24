@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/Jully K/Downloads/external/simple/simple-common-6.0.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Jully K/Downloads/external/simple/simple-http-6.0.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Jully K/Downloads/external/simple/simple-transport-6.0.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Jully K/Downloads/external/simple/simple-xml-2.7.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Jully K/Downloads/external/gson-2.8.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Jully K/Downloads/external/json-20160810.jar"/>
+	<classpathentry kind="lib" path="C:/Users/carol/OneDrive/Documentos/GitHub/external/gson-2.8.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/carol/OneDrive/Documentos/GitHub/external/json-20160810.jar"/>
+	<classpathentry kind="lib" path="C:/Users/carol/OneDrive/Documentos/GitHub/external/simple/simple-common-6.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/carol/OneDrive/Documentos/GitHub/external/simple/simple-http-6.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/carol/OneDrive/Documentos/GitHub/external/simple/simple-transport-6.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/carol/OneDrive/Documentos/GitHub/external/simple/simple-xml-2.7.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

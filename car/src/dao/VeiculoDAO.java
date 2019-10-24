@@ -16,12 +16,12 @@ import business.Endereco;
 import business.Pessoa;
 import business.Veiculo;
 
-public class PessoaDAO implements DAO<Pessoa, String> {
+public class VeiculoDAO implements DAO<Veiculo, String> {
 	private File file;
 	private FileOutputStream fos;
 	private ObjectOutputStream outputFile;
 
-	public PessoaDAO(String filename) throws IOException {
+	public VeiculoDAO(String filename) throws IOException {
 		file = new File(filename);
 		if (file.exists())
 			file.delete();
@@ -29,24 +29,24 @@ public class PessoaDAO implements DAO<Pessoa, String> {
 		outputFile = new ObjectOutputStream(fos);
 	}
 
-	public void add(Pessoa pessoa) {
+	public void add(Veiculo veiculo) {
 		try {
-			outputFile.writeObject(pessoa);
+			outputFile.writeObject(veiculo);
 		} catch (Exception e) {
-			System.out.println("ERRO ao gravar a pessoa '" + pessoa.getNome() + "' no disco!");
+			System.out.println("ERRO ao gravar a pessoa '" + veiculo.getPlaca() + "' no disco!");
 			e.printStackTrace();
 		}
 	}
 
-	public Pessoa get(String chave) {
-		Pessoa pessoa = null;
+	public Veiculo getVeiculo(String chave) {
+		Veiculo veiculo = null;
 
 		try (FileInputStream fis = new FileInputStream(file); ObjectInputStream inputFile = new ObjectInputStream(fis)) {
 			while (fis.available() > 0) {
-				pessoa = (Pessoa) inputFile.readObject();
+				veiculo = (Veiculo) inputFile.readObject();
 
 				if (chave.contentEquals(chave)) {
-					return pessoa;
+					return veiculo;
 				}
 			}
 		} catch (Exception e) {
@@ -56,49 +56,49 @@ public class PessoaDAO implements DAO<Pessoa, String> {
 		return null;
 	}
 
-	public List<Pessoa> getAll() {
-		List<Pessoa> pessoas = new ArrayList<Pessoa>();
-		Pessoa pessoa = null;
+	public List<Veiculo> getAll() {
+		List<Veiculo> veiculos = new ArrayList<Veiculo>();
+		Veiculo veiculo = null;
 		try (FileInputStream fis = new FileInputStream(file); ObjectInputStream inputFile = new ObjectInputStream(fis)) {
 
 			while (fis.available() > 0) {
-				pessoa = (Pessoa) inputFile.readObject();
-				pessoas.add(pessoa);
+				veiculo = (Veiculo) inputFile.readObject();
+				veiculos.add(veiculo);
 			}
 		} catch (Exception e) {
 			System.out.println("ERRO ao gravar pessoa no disco!");
 			e.printStackTrace();
 		}
-		return pessoas;
+		return veiculos;
 	}
 
-	public void update(Pessoa p) {
-		List<Pessoa> pessoas = getAll();
-		int index = pessoas.indexOf(p);
+	public void update(Veiculo p) {
+		List<Veiculo> veiculos = getAll();
+		int index = veiculos.indexOf(p);
 
 		if (index != -1) {
-			pessoas.set(index, p);
+			veiculos.set(index, p);
 		}
-		saveToFile(pessoas);
+		saveToFile(veiculos);
 	}
 
-	public void remove(Pessoa p) {
-		List<Pessoa> pessoas = getAll();
-		int index = pessoas.indexOf(p);
+	public void remove(Veiculo p) {
+		List<Veiculo> veiculos = getAll();
+		int index = veiculos.indexOf(p);
 		if (index != -1) {
-			pessoas.remove(index);
+			veiculos.remove(index);
 		}
-		saveToFile(pessoas);
+		saveToFile(veiculos);
 	}
 
-	private void saveToFile(List<Pessoa> pessoas) {
+	private void saveToFile(List<Veiculo> veiculos) {
 		try {
 			close();
 			fos = new FileOutputStream(file, false); 
 			outputFile = new ObjectOutputStream(fos);
 
-			for (Pessoa pessoa : pessoas) {
-				outputFile.writeObject(pessoa);
+			for (Veiculo veiculo : veiculos) {
+				outputFile.writeObject(veiculo);
 			}
 			outputFile.flush();
 		} catch (Exception e) {
@@ -142,7 +142,7 @@ public class PessoaDAO implements DAO<Pessoa, String> {
 	}
 
 	@Override
-	public Veiculo getVeiculo(String chave) {
+	public Pessoa get(String chave) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -16,12 +16,12 @@ import business.Endereco;
 import business.Pessoa;
 import business.Veiculo;
 
-public class PessoaDAO implements DAO<Pessoa, String> {
+public class DisponibilidadeDAO implements DAO<Disponibilidade, String>{
 	private File file;
 	private FileOutputStream fos;
 	private ObjectOutputStream outputFile;
 
-	public PessoaDAO(String filename) throws IOException {
+	public DisponibilidadeDAO(String filename) throws IOException {
 		file = new File(filename);
 		if (file.exists())
 			file.delete();
@@ -29,76 +29,76 @@ public class PessoaDAO implements DAO<Pessoa, String> {
 		outputFile = new ObjectOutputStream(fos);
 	}
 
-	public void add(Pessoa pessoa) {
+	public void add(Disponibilidade disponibilidade) {
 		try {
-			outputFile.writeObject(pessoa);
+			outputFile.writeObject(disponibilidade);
 		} catch (Exception e) {
-			System.out.println("ERRO ao gravar a pessoa '" + pessoa.getNome() + "' no disco!");
+			System.out.println("ERRO ao gravar a pessoa '" + disponibilidade.getId() + "' no disco!");
 			e.printStackTrace();
 		}
 	}
 
-	public Pessoa get(String chave) {
-		Pessoa pessoa = null;
+	public Disponibilidade getDisponibilidade(String chave) {
+		Disponibilidade disponibilidade = null;
 
 		try (FileInputStream fis = new FileInputStream(file); ObjectInputStream inputFile = new ObjectInputStream(fis)) {
 			while (fis.available() > 0) {
-				pessoa = (Pessoa) inputFile.readObject();
+				disponibilidade = (Disponibilidade) inputFile.readObject();
 
 				if (chave.contentEquals(chave)) {
-					return pessoa;
+					return disponibilidade;
 				}
 			}
 		} catch (Exception e) {
-			System.out.println("ERRO ao ler o produto '" + chave + "' do disco!");
+			System.out.println("ERRO ao ler o aluguel '" + chave + "' do disco!");
 			e.printStackTrace();
 		}
 		return null;
 	}
 
-	public List<Pessoa> getAll() {
-		List<Pessoa> pessoas = new ArrayList<Pessoa>();
-		Pessoa pessoa = null;
+	public List<Disponibilidade> getAll() {
+		List<Disponibilidade> disponibilidades = new ArrayList<Disponibilidade>();
+		Disponibilidade disponibilidade = null;
 		try (FileInputStream fis = new FileInputStream(file); ObjectInputStream inputFile = new ObjectInputStream(fis)) {
-
 			while (fis.available() > 0) {
-				pessoa = (Pessoa) inputFile.readObject();
-				pessoas.add(pessoa);
+				disponibilidade = (Disponibilidade) inputFile.readObject();
+				disponibilidades.add(disponibilidade);
+				
 			}
 		} catch (Exception e) {
 			System.out.println("ERRO ao gravar pessoa no disco!");
 			e.printStackTrace();
 		}
-		return pessoas;
+		return disponibilidades;
 	}
 
-	public void update(Pessoa p) {
-		List<Pessoa> pessoas = getAll();
-		int index = pessoas.indexOf(p);
+	public void update(Disponibilidade a) {
+		List<Disponibilidade> disponibilidades = getAll();
+		int index = disponibilidades.indexOf(a);
 
 		if (index != -1) {
-			pessoas.set(index, p);
+			disponibilidades.set(index, a);
 		}
-		saveToFile(pessoas);
+		saveToFile(disponibilidades);
 	}
 
-	public void remove(Pessoa p) {
-		List<Pessoa> pessoas = getAll();
-		int index = pessoas.indexOf(p);
+	public void remove(Disponibilidade a) {
+		List<Disponibilidade> disponibilidades = getAll();
+		int index = disponibilidades.indexOf(a);
 		if (index != -1) {
-			pessoas.remove(index);
+			disponibilidades.remove(index);
 		}
-		saveToFile(pessoas);
+		saveToFile(disponibilidades);
 	}
 
-	private void saveToFile(List<Pessoa> pessoas) {
+	private void saveToFile(List<Disponibilidade> disponibilidades) {
 		try {
 			close();
 			fos = new FileOutputStream(file, false); 
 			outputFile = new ObjectOutputStream(fos);
 
-			for (Pessoa pessoa : pessoas) {
-				outputFile.writeObject(pessoa);
+			for (Disponibilidade disponibilidade : disponibilidades) {
+				outputFile.writeObject(disponibilidade);
 			}
 			outputFile.flush();
 		} catch (Exception e) {
@@ -117,14 +117,13 @@ public class PessoaDAO implements DAO<Pessoa, String> {
 		this.close();
 	}
 
-	@Override
-	public Aluguel getAluguel(String chave) {
+	public Pessoa get(String chave) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Disponibilidade getDisponibilidade(String chave) {
+	public Aluguel getAluguel(String chave) {
 		// TODO Auto-generated method stub
 		return null;
 	}

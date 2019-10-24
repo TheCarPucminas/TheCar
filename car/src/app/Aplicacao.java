@@ -2,6 +2,7 @@ package app;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.simpleframework.http.core.Container;
@@ -9,9 +10,15 @@ import org.simpleframework.http.core.ContainerSocketProcessor;
 import org.simpleframework.transport.connect.Connection;
 import org.simpleframework.transport.connect.SocketConnection;
 
+import business.Aluguel;
+import business.Disponibilidade;
 import business.Pessoa;
+import business.Veiculo;
+import dao.AluguelDAO;
 import dao.DAO;
+import dao.DisponibilidadeDAO;
 import dao.PessoaDAO;
+import dao.VeiculoDAO;
 import services.PessoaService;
 
 import java.io.IOException;
@@ -39,9 +46,10 @@ public class Aplicacao  implements Container {
 			JSONObject mensagem;
 
 			System.out.println("Path: " +  path + "  method: " + method);
+			System.out.println("Query:" + request.getQuery().toString());
 			
 			// Verifica qual ação está sendo chamada
-			if (path.equalsIgnoreCase("/pessoa") && "POST".equals(method)) {
+			if (path.equalsIgnoreCase("/pessoa/todos") && "POST".equals(method)) {
 				// http://127.0.0.1:880/adicionarProduto?descricao=leite&preco=3.59&quant=10&tipo=2&dataFabricacao=2017-01-01
 				mensagem = pessoaService.add(request);
 				this.enviaResposta(Status.CREATED, response, mensagem);
@@ -67,7 +75,7 @@ public class Aplicacao  implements Container {
 
 		response.setValue("Content-Type", "application/json");
 		response.setValue("Server", "Controle de Estoque Service (1.0)");
-		response.setValue("Access-Control-Allow-Origin", "null");
+		response.setValue("Access-Control-Allow-Origin", "*");
 		response.setDate("Date", time);
 		response.setDate("Last-Modified", time);
 		response.setStatus(status);
@@ -79,10 +87,11 @@ public class Aplicacao  implements Container {
 
 	
 	public static void main(String[] args) throws IOException {
+		LocalDateTime agora = LocalDateTime.now();
 		int porta = 880;
 
 		// Configura uma conexão soquete para o servidor HTTP.
-		Container container = new Aplicacao();
+		/*Container container = new Aplicacao();
 		ContainerSocketProcessor servidor = new ContainerSocketProcessor(container);
 		Connection conexao = new SocketConnection(servidor);
 		SocketAddress endereco = new InetSocketAddress(porta);
@@ -92,38 +101,38 @@ public class Aplicacao  implements Container {
 		System.in.read();
 
 		conexao.close();
-		servidor.stop();
+		servidor.stop();*/
 		
 		DAO<Pessoa, String> pessoaDAO = new PessoaDAO("pessoa.bin");
 		Pessoa p1 = new Pessoa("Dayane", "1234", "379.250.846-00", "24.061.773-3", "91224498844", "(31)3434-9999", "(31)99999-9999",
 				"Rua teste", 33, "Bairro teste", "Belo Horizonte", "Minas Gerais");
 		
-		pessoaDAO.add(p1);
+		DAO<Aluguel, String> aluguelDAO = new AluguelDAO("aluguel.bin");
+		Aluguel a1 = new Aluguel(agora, agora, 100, false, false);
+		aluguelDAO.add(a1);
+		List<Aluguel> alugueis = aluguelDAO.getAll();
 		
-		pessoaDAO.add(new Pessoa("Hugo", "1234668", "379.250.846-00", "24.061.773-3", "91224498844", "(31)3434-9999", "(31)99999-9999",
-				"Rua teste", 33, "Bairro teste", "Belo Horizonte", "Minas Gerais"));
-		
-		List<Pessoa> pessoas = pessoaDAO.getAll();
-
-		p1.setNome("CAROLINA");
-		pessoaDAO.update(p1);
-		
-		pessoas = pessoaDAO.getAll();
-
-		System.out.println("---------------- UPDATE -------------------");
-		for (Pessoa pessoa : pessoas) {
-			System.out.println(pessoa);
+		DAO<Disponibilidade, String> disponibilidadeDAO = new DisponibilidadeDAO("disponibilidade.bin");
+		Disponibilidade d1 = new Disponibilidade(agora, agora, 100);
+		disponibilidadeDAO.add(d1);
+		List<Disponibilidade> disponibilidades = disponibilidadeDAO.getAll();
+		System.out.println("jshkjhskdjhkjash");
+		for (Disponibilidade disponibilidade : disponibilidades) {
+			System.out.println(disponibilidade.getValorDaDiaria());
 			System.out.println("---------------------------------------------");
+			
 		}
-
-		pessoaDAO.remove(p1);
 		
-		pessoas = pessoaDAO.getAll();
-
-		System.out.println("---------------- REMOVE -------------------");
-		for (Pessoa pessoa : pessoas) {
-			System.out.println(pessoa);
+		DAO<Veiculo, String> veiculoDAO = new VeiculoDAO("veiculo.bin");
+		Veiculo v1 = new Veiculo("CCC1111", "Azul", 2019, 2019, "CHSHHD87872", "hsgahsa",
+				"FIAT", "Palio", 4, 1000, "Gasolina");
+		veiculoDAO.add(v1);
+		List<Veiculo> veiculos = veiculoDAO.getAll();
+		
+		for (Veiculo veiculo : veiculos) {
+			System.out.println(veiculo.getPlaca());
 			System.out.println("---------------------------------------------");
+			
 		}
 	}
 }

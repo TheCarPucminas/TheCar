@@ -1,25 +1,33 @@
 package business;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
-public class Aluguel {
+
+import org.json.JSONObject;
+public class Aluguel implements Serializable {
 	//Atributos -----------------------------------------------------------------------------------------------------------------------
+	private static final long serialVersionUID = 1L;
+	private static int idUnico = 0;
+	private int id;
 	private LocalDateTime dataEmprestimo;
 	private LocalDateTime dataDevolucao;
-	private double valorAlguel;
+	private double valorAluguel;
 	private boolean devolvido;
 	public boolean pago;
 	
 	//Construtor ----------------------------------------------------------------------------------------------------------------------
-	public Aluguel(LocalDateTime dataEmprestimo, LocalDateTime dataDevolucao, double valorAlguel, boolean devolvido,
+	public Aluguel(LocalDateTime dataEmprestimo, LocalDateTime dataDevolucao, double valorAluguel, boolean devolvido,
 			boolean pago) {
 		super();
 		this.setDataEmprestimo(dataEmprestimo);
 		this.setDataDevolucao(dataDevolucao);
-		this.setValorAlguel(valorAlguel);
+		this.setValorAluguel(valorAluguel);
 		this.setDevolvido(devolvido);
 		this.setPago(pago);
+		this.setId(idUnico);
+		Aluguel.idUnico++;
 	}
-	
+
 	//Getters e Setters ---------------------------------------------------------------------------------------------------------------
 	public LocalDateTime getDataEmprestimo() {
 		return dataEmprestimo;
@@ -33,11 +41,11 @@ public class Aluguel {
 	public void setDataDevolucao(LocalDateTime dataDevolucao) {
 		this.dataDevolucao = dataDevolucao;
 	}
-	public double getValorAlguel() {
-		return valorAlguel;
+	public double getValorAluguel() {
+		return valorAluguel;
 	}
-	public void setValorAlguel(double valorAlguel) {
-		this.valorAlguel = valorAlguel;
+	public void setValorAluguel(double valorAlguel) {
+		this.valorAluguel = valorAlguel;
 	}
 	public boolean isDevolvido() {
 		return devolvido;
@@ -52,5 +60,21 @@ public class Aluguel {
 		this.pago = pago;
 	}
 	
+	public int getId() {
+		return id;
+	}
+
+	private void setId(int id) {
+		this.id = id;
+	}	
+	
+	public JSONObject toJson() {
+		JSONObject obj = new JSONObject();
+		obj.put("id", this.getId());
+		obj.put("valor", this.getValorAluguel());
+		obj.put("devolvido", this.isDevolvido());
+		obj.put("pago", this.isPago());
+		return obj;
+	}
 	//Métodos -------------------------------------------------------------------------------------------------------------------------
 }

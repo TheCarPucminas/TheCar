@@ -2,6 +2,8 @@ package business;
 
 import java.io.Serializable;
 
+import org.json.JSONObject;
+
 public class Endereco implements Serializable {
 	private static final long serialVersionUID = 1L;
 	//Atributos -----------------------------------------------------------------------------------------------------------------------
@@ -50,5 +52,15 @@ public class Endereco implements Serializable {
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+	
+	public JSONObject toJson() {
+		JSONObject obj = new JSONObject();
+		obj.put("rua", this.getRua());
+		obj.put("numero", this.getNumero());
+		obj.put("bairro", this.getBairro());
+		obj.put("cidade", this.getCidade());
+		obj.put("estado", this.getEstado());
+		return obj;
 	}
 }

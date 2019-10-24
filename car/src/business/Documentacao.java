@@ -2,9 +2,13 @@ package business;
 
 import java.io.*;
 import java.util.InputMismatchException;
+
+import org.json.JSONObject;
 public class Documentacao implements Serializable {
 	private static final long serialVersionUID = 1L;
 	//Atributos -----------------------------------------------------------------------------------------------------------------------
+	private static int idUnico = 0;
+	private int id;
 	private String cpf;
 	private String rg;
 	private String cnh;
@@ -14,20 +18,29 @@ public class Documentacao implements Serializable {
 	private File certificadoBonsAntecedentesImg;
 	
 	//Construtor ----------------------------------------------------------------------------------------------------------------------
-//	public Documentacao(String cpf, String rg, String cnh, File cpfImg, File cnhImg,
-//			File certificadoBonsAntecedentesImg) {
-//		super();
-//		this.setCpf(cpf);
-//		this.setRg(rg);
-//		this.setCnh(cnh);
-//		this.setCpfImg(cpfImg);
-//		this.setCnhImg(cnhImg);
-//		this.setCertificadoBonsAntecedentesImg(certificadoBonsAntecedentesImg);
-//	}	
+	/*public Documentacao(String cpf, String rg, String cnh, File cpfImg, File cnhImg,
+		File certificadoBonsAntecedentesImg) {
+		super();
+		this.setCpf(cpf);
+		this.setRg(rg);
+		this.setCnh(cnh);
+		this.setCpfImg(cpfImg);
+		this.setCnhImg(cnhImg);
+		this.setCertificadoBonsAntecedentesImg(certificadoBonsAntecedentesImg);
+		this.setId(idUnico);
+		Documentacao.idUnico++;
+	}	*/
 	
 	//Getters e Setters ---------------------------------------------------------------------------------------------------------------
+	
 	public String getCpf() {
 		return cpf;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
@@ -148,5 +161,18 @@ public class Documentacao implements Serializable {
 
 		return (String.valueOf(vl1) + String.valueOf(vl2)).equals(cnh.substring(cnh.length() - 2));
 
+	}
+
+	public JSONObject toJson() {
+		JSONObject obj = new JSONObject();
+		obj.put("id", this.getId());
+		obj.put("cpf", this.getCpf());
+		obj.put("rg", this.getRg());
+		obj.put("cnh", this.getCnh());
+		obj.put("cpfImg", this.getCpfImg());
+		obj.put("rgImg", this.getRgImg());
+		obj.put("cnhImg", this.getCnhImg());
+		obj.put("certificadoBonsAntecedentesImg", this.getCertificadoBonsAntecedentesImg());
+		return obj;
 	}
 }
