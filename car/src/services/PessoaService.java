@@ -47,6 +47,7 @@ public class PessoaService {
 			pessoa.add(pessoa);
 		}*/
 
+		System.out.println(pessoa.toJson());
 		return pessoa.toJson();
 
 	}

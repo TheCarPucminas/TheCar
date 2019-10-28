@@ -3,6 +3,10 @@ function salvar() {
 
     var form = document.getElementById('form-pessoa');
     var formData = new FormData(form);
+    var url = "nome=" + formData.get("nome") + 
+    ";cpf=" + formData.get("cpf") + 
+    ";senha=" + formData.get("senha") + 
+    ";email=" + formData.get("email"); 
 
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4) {
@@ -20,9 +24,10 @@ function salvar() {
         }
     }
 
+
     if (xmlhttp) {
-        xmlhttp.open('post', "http://localhost:880/pessoa", true);
-        xmlhttp.send(formData);
+        xmlhttp.open('get', "http://localhost:880/pessoa?" + url, true);
+        xmlhttp.send();
     }
 }
 

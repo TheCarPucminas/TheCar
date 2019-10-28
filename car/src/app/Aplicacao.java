@@ -49,7 +49,7 @@ public class Aplicacao  implements Container {
 			System.out.println("Query:" + request.getQuery().toString());
 			
 			// Verifica qual ação está sendo chamada
-			if (path.equalsIgnoreCase("/pessoa/todos") && "POST".equals(method)) {
+			if (path.equalsIgnoreCase("/pessoa") && "GET".equals(method)) {
 				// http://127.0.0.1:880/adicionarProduto?descricao=leite&preco=3.59&quant=10&tipo=2&dataFabricacao=2017-01-01
 				mensagem = pessoaService.add(request);
 				this.enviaResposta(Status.CREATED, response, mensagem);
@@ -91,7 +91,7 @@ public class Aplicacao  implements Container {
 		int porta = 880;
 
 		// Configura uma conexão soquete para o servidor HTTP.
-		/*Container container = new Aplicacao();
+		Container container = new Aplicacao();
 		ContainerSocketProcessor servidor = new ContainerSocketProcessor(container);
 		Connection conexao = new SocketConnection(servidor);
 		SocketAddress endereco = new InetSocketAddress(porta);
@@ -101,7 +101,7 @@ public class Aplicacao  implements Container {
 		System.in.read();
 
 		conexao.close();
-		servidor.stop();*/
+		servidor.stop();
 		
 		DAO<Pessoa, String> pessoaDAO = new PessoaDAO("pessoa.bin");
 		Pessoa p1 = new Pessoa("Dayane", "1234", "379.250.846-00", "24.061.773-3", "91224498844", "(31)3434-9999", "(31)99999-9999",

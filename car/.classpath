@@ -6,11 +6,11 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/carol/OneDrive/Documentos/GitHub/external/gson-2.8.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/carol/OneDrive/Documentos/GitHub/external/json-20160810.jar"/>
-	<classpathentry kind="lib" path="C:/Users/carol/OneDrive/Documentos/GitHub/external/simple/simple-common-6.0.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/carol/OneDrive/Documentos/GitHub/external/simple/simple-http-6.0.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/carol/OneDrive/Documentos/GitHub/external/simple/simple-transport-6.0.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/carol/OneDrive/Documentos/GitHub/external/simple/simple-xml-2.7.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Desktop/external/gson-2.8.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Desktop/external/json-20160810.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Desktop/external/simple/simple-common-6.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Desktop/external/simple/simple-http-6.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Desktop/external/simple/simple-transport-6.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Desktop/external/simple/simple-xml-2.7.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
