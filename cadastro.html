@@ -71,6 +71,14 @@
                                 
                             </div>
                             <div class="form-group col-md-3">
+                                <label>RG</label>
+                                <input type="text" maxlength="11" class="form-control" name="rg" id="rg" placeholder="RG">              
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>CNH</label>
+                                <input type="text" maxlength="11" class="form-control" name="cnh" id="cnh" placeholder="CNH">              
+                            </div>
+                            <div class="form-group col-md-3">
                                 <label>Senha</label>
                                 <input type="password" class="form-control" name="senha" id="senha" placeholder="Senha">
                             </div>
@@ -85,6 +93,10 @@
                                 <label for="inputEmail4">Rua</label>
                                 <input type="text" class="form-control" id="rua" name="rua" placeholder="EX.: Rua Alvarenga">
                             </div>
+                            <div class= " form-group col-md-3">
+                                <label for="inputEmail4">Número</label>
+                                <input type="text" class="form-control" id="numero" name="numero" placeholder="EX.: 118">
+                            </div>
                             <div class="form-group col-md-3">
                                 <label for="inputPassword4">Bairro</label>
                                 <input type="text" class="form-control" id="bairro" name="bairro" placeholder="EX.: Nova Contagem">
@@ -92,6 +104,10 @@
                             <div class="form-group col-md-3">
                                 <label for="inputPassword4">Cidade</label>
                                 <input type="text" class="form-control" id="cidade" name="cidade" placeholder="EX.: Belo Horizonte">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="inputPassword4">Estado</label>
+                                <input type="text" class="form-control" id="estado" name="estado" placeholder="EX.: Minas Gerais">
                             </div>
                         </div>
 
@@ -102,7 +118,7 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputCity">Celular</label>
-                                <input type="text" class="form-control" id="numero" name="celular" placeholder="EX.: (00) 9 9999-9999">
+                                <input type="text" class="form-control" id="celular" name="celular" placeholder="EX.: (00) 9 9999-9999">
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="">Documentação</label>
@@ -116,7 +132,7 @@
                             </div>
                         </div>
                         <div class="form-group col-auto align-self-end float-right">
-                            <button type="button" onclick="salvar('http://127.0.0.1:880/pessoa')" class="btn btn-success left">Salvar</button>
+                            <button type="button" onclick="salvarPessoa('http://127.0.0.1:880/pessoa')" class="btn btn-success left">Salvar</button>
                         </div>
 
                     </form>

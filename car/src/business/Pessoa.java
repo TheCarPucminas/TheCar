@@ -16,18 +16,21 @@ public class Pessoa implements Serializable {
 	private static int idUnico = 0;
 	private int id;
 	private String nome;
+	private String email;
 	private String senha;
 	private Documentacao documentacao = new Documentacao();
 	private String telefone;
 	private String celular;
+	private String cpf;
 	private Endereco endereco = new Endereco();
 	
 	//Construtor ----------------------------------------------------------------------------------------------------------------------
-	public Pessoa(String nome, String senha, String cpf, String rg, String cnh, /*File cpfImg, File rgImg, File cnhImg,
-			File certificadoBonsAntecedentesImg,*/ String telefone, String celular, String rua, int numero, String bairro, String cidade,
-			String estado) {
+	public Pessoa(String nome, String email, String cpf, String rg, String cnh, String senha, String cep, String rua, int numero, String bairro, String cidade, String estado, String telefone, String celular
+			 /*, File cpfImg, File rgImg, File cnhImg,File certificadoBonsAntecedentesImg*/) {
 		this.setNome(nome);
+		this.setEmail(email);
 		this.setSenha(senha);
+		this.setCpf(cpf);
 		documentacao.setCpf(cpf);
 		documentacao.setRg(rg);
 		documentacao.setCnh(cnh);
@@ -37,6 +40,7 @@ public class Pessoa implements Serializable {
 //		documentacao.setCertificadoBonsAntecedentesImg(certificadoBonsAntecedentesImg);
 		this.setTelefone(telefone);
 		this.setCelular(celular);
+		endereco.setCep(cep);
 		endereco.setRua(rua);
 		endereco.setNumero(numero);
 		endereco.setBairro(bairro);
@@ -127,9 +131,7 @@ public class Pessoa implements Serializable {
 	
 	@Override
 	public String toString() {
-
-		return "Nome: " + this.getNome() + "\nCPF: " + this.getDocumentacao().getCpf() + "\nRG: "+ this.getDocumentacao().getRg() +"\nCNH: " + 
-		this.getDocumentacao().getCnh() + "\n";
+		return "ID: " + this.getId() + "\nEmail: " + this.getEmail() + "\nNome: " + this.getNome() + "\nCPF: " + this.getDocumentacao().getCpf() + "\nCEP: " + this.getEndereco().getCep() + "\nRua: " + this.getEndereco().getRua() + "\nNúmero: " + this.getEndereco().getNumero() + "\nBairro: " + this.getEndereco().getBairro() + "\nCidade: " + this.getEndereco().getCidade() + "\nEstado: " + this.getEndereco().getEstado() + "\nTelefone: " + this.getTelefone() + "\nCelular: " + this.getCelular();
 	}
 	
 	@Override
@@ -139,11 +141,36 @@ public class Pessoa implements Serializable {
 	
 	public JSONObject toJson() {
 		JSONObject obj = new JSONObject();
+		obj.put("email", this.getEmail());
 		obj.put("nome", this.getNome());
+		obj.put("cpf", this.getCpf());
 		obj.put("senha", this.getSenha());
+		obj.put("cep", this.getEndereco().getCep());
+		obj.put("rua", this.getEndereco().getRua());
+		obj.put("numero", this.getEndereco().getNumero());
+		obj.put("bairro", this.getEndereco().getBairro());
+		obj.put("cidade", this.getEndereco().getCidade());
+		obj.put("estado", this.getEndereco().getEstado());
 		obj.put("telefone", this.getTelefone());
 		obj.put("celular", this.getCelular());
+		
 		return obj;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 }
 

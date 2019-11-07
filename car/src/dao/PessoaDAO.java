@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,14 +18,13 @@ import business.Veiculo;
 public class PessoaDAO implements DAO<Pessoa, String> {
 	private File file;
 	private FileOutputStream fos;
-	private ObjectOutputStream outputFile;
+	private AppendableObjectOutputStream outputFile;
 
 	public PessoaDAO(String filename) throws IOException {
 		file = new File(filename);
-		if (file.exists())
-			file.delete();
-		fos = new FileOutputStream(file, false); 
-		outputFile = new ObjectOutputStream(fos);
+		boolean append = file.exists();
+		fos = new FileOutputStream(file, append); 
+		outputFile = new AppendableObjectOutputStream(fos, append);
 	}
 
 	public void add(Pessoa pessoa) {
@@ -37,15 +35,48 @@ public class PessoaDAO implements DAO<Pessoa, String> {
 			e.printStackTrace();
 		}
 	}
-
-	public Pessoa get(String chave) {
+	
+	public Pessoa get(int chave) {
 		Pessoa pessoa = null;
 
 		try (FileInputStream fis = new FileInputStream(file); ObjectInputStream inputFile = new ObjectInputStream(fis)) {
 			while (fis.available() > 0) {
 				pessoa = (Pessoa) inputFile.readObject();
+				if (pessoa.getId() == chave) {
+					return pessoa;
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("ERRO ao ler o produto '" + chave + "' do disco!");
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public Pessoa getEmail(String chave) {
+		Pessoa pessoa = null;
 
-				if (chave.contentEquals(chave)) {
+		try (FileInputStream fis = new FileInputStream(file); ObjectInputStream inputFile = new ObjectInputStream(fis)) {
+			while (fis.available() > 0) {
+				pessoa = (Pessoa) inputFile.readObject();
+				if (pessoa.getEmail().contentEquals(chave)) {
+					return pessoa;
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("ERRO ao ler o produto '" + chave + "' do disco!");
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public Pessoa getSenha(String chave) {
+		Pessoa pessoa = null;
+
+		try (FileInputStream fis = new FileInputStream(file); ObjectInputStream inputFile = new ObjectInputStream(fis)) {
+			while (fis.available() > 0) {
+				pessoa = (Pessoa) inputFile.readObject();
+				if (pessoa.getSenha().contentEquals(chave)) {
 					return pessoa;
 				}
 			}
@@ -60,7 +91,6 @@ public class PessoaDAO implements DAO<Pessoa, String> {
 		List<Pessoa> pessoas = new ArrayList<Pessoa>();
 		Pessoa pessoa = null;
 		try (FileInputStream fis = new FileInputStream(file); ObjectInputStream inputFile = new ObjectInputStream(fis)) {
-
 			while (fis.available() > 0) {
 				pessoa = (Pessoa) inputFile.readObject();
 				pessoas.add(pessoa);
@@ -94,8 +124,9 @@ public class PessoaDAO implements DAO<Pessoa, String> {
 	private void saveToFile(List<Pessoa> pessoas) {
 		try {
 			close();
-			fos = new FileOutputStream(file, false); 
-			outputFile = new ObjectOutputStream(fos);
+			boolean append = file.exists();
+			fos = new FileOutputStream(file, append); 
+			outputFile = new AppendableObjectOutputStream(fos, append);
 
 			for (Pessoa pessoa : pessoas) {
 				outputFile.writeObject(pessoa);
@@ -146,4 +177,5 @@ public class PessoaDAO implements DAO<Pessoa, String> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }

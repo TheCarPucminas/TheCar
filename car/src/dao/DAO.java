@@ -9,7 +9,7 @@ import business.Pessoa;
 import business.Veiculo;
 
 public interface DAO<T, K> {
-	public Pessoa get(K chave);
+	public Pessoa get(int i);
 	public Aluguel getAluguel(K chave);
 	public Disponibilidade getDisponibilidade(K chave);
 	public Documentacao getDocumentacao(K chave);

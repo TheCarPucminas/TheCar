@@ -1,5 +1,7 @@
 package services;
 
+import java.io.IOException;
+
 import org.json.JSONObject;
 import org.simpleframework.http.Query;
 import org.simpleframework.http.Request;
@@ -7,12 +9,38 @@ import org.simpleframework.http.Request;
 import business.Documentacao;
 import business.Endereco;
 import business.Pessoa;
+import dao.PessoaDAO;
 
 public class PessoaService {
 	private Pessoa pessoa;
 
-	public JSONObject add(Request request) {
+	public JSONObject login (Request request) throws IOException {
+		String email;
+		String senha;
+		
+		Query query = request.getQuery();
+		
+		senha = query.get("senha");
+		email = query.get("email");
+		
+		PessoaDAO pessoaDAO = new PessoaDAO("pessoa.bin");
+		
+		Pessoa p1 = pessoaDAO.getEmail(email);
+		if (p1 != null) {
+			p1 = pessoaDAO.getSenha(senha);
+			if (p1 != null) {
+				System.out.println("AQUI");
+				return p1.toJson();
+			}
+				
+		}
+		
+		return null;
+	}
+	
+	public JSONObject add(Request request) throws IOException {
 		String nome;
+		String email;
 		String senha;
 		String cpf;
 		String rg;
@@ -24,30 +52,35 @@ public class PessoaService {
 		String bairro;
 		String cidade;
 		String estado;
+		String cep;
 
 		Query query = request.getQuery();
 
 		nome = query.get("nome");
-		senha = query.get("senha");
+		email = query.get("email");
 		cpf = query.get("cpf");
 		rg = query.get("rg");
 		cnh = query.get("cnh");
-		telefone = query.get("telefone");
-		celular = query.get("celular");
+		senha = query.get("senha");
+		cep = query.get("cep");
 		rua = query.get("rua");
 		numero = query.getInteger("numero");
 		bairro = query.get("bairro");
 		cidade = query.get("cidade");
 		estado = query.get("estado");
+		telefone = query.get("telefone");
+		celular = query.get("celular");
 
-		pessoa = new Pessoa (nome, senha, cpf, rg, cnh, /*File cpfImg, File rgImg, File cnhImg,
-				File certificadoBonsAntecedentesImg,*/ telefone, celular, rua, numero, bairro, cidade, estado);
+		pessoa = new Pessoa (nome, email, cpf, rg, cnh, senha, cep, rua, numero, bairro, cidade, estado, telefone, celular /*File cpfImg, File rgImg, File cnhImg,
+				File certificadoBonsAntecedentesImg,*/);
+
+		PessoaDAO pessoaDAO = new PessoaDAO("pessoa.bin");
+		pessoaDAO.add(pessoa);
 
 		/*if (pessoa != null) {
 			pessoa.add(pessoa);
 		}*/
 
-		System.out.println(pessoa.toJson());
 		return pessoa.toJson();
 
 	}

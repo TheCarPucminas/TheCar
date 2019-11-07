@@ -72,22 +72,6 @@ public class DocumentacaoDAO implements DAO<Documentacao, String> {
 		return documentacoes;
 	}
 
-	private void saveToFile(List<Documentacao> documentacoes) {
-		try {
-			close();
-			fos = new FileOutputStream(file, false); 
-			outputFile = new ObjectOutputStream(fos);
-
-			for (Documentacao documentacao : documentacoes) {
-				outputFile.writeObject(documentacao);
-			}
-			outputFile.flush();
-		} catch (Exception e) {
-			System.out.println("ERRO ao gravar produto no disco!");
-			e.printStackTrace();
-		}
-	}
-	
 	private void close() throws IOException {
 		outputFile.close();
 		fos.close();
@@ -96,12 +80,6 @@ public class DocumentacaoDAO implements DAO<Documentacao, String> {
 	@Override
 	protected void finalize() throws Throwable {
 		this.close();
-	}
-
-	@Override
-	public Pessoa get(String chave) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -136,6 +114,12 @@ public class DocumentacaoDAO implements DAO<Documentacao, String> {
 
 	@Override
 	public Veiculo getVeiculo(String chave) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Pessoa get(int i) {
 		// TODO Auto-generated method stub
 		return null;
 	}

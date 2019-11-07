@@ -1,32 +1,41 @@
-function salvar() {
+function salvarPessoa() {
     var xmlhttp = new XMLHttpRequest();
 
     var form = document.getElementById('form-pessoa');
     var formData = new FormData(form);
     var url = "nome=" + formData.get("nome") + 
-    ";cpf=" + formData.get("cpf") + 
-    ";senha=" + formData.get("senha") + 
-    ";email=" + formData.get("email"); 
-
-    xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == 4) {
-            // Javascript function JSON.parse to parse JSON data
-            var jsonObj = JSON.parse(xmlhttp.responseText);
-            document.getElementById("nome").innerHTML = jsonObj.nome;
-            console.log(jsonObj.nome);
-            document.getElementById("senha").innerHTML = jsonObj.senha;
-            console.log(jsonObj.senha);
-            document.getElementById("celular").innerHTML = jsonObj.telefone;
-            document.getElementById("celular").innerHTML = jsonObj.celular;
-            document.getElementById("bairro").innerHTML = jsonObj.bairro;
-            
-            document.getElementById("   ").style.visibility = "visible";
-        }
-    }
+    "&email=" + formData.get("email") + 
+    "&cpf=" + formData.get("cpf") + 
+    "&rg=" + formData.get("rg") + 
+    "&cnh=" + formData.get("cnh") + 
+    "&senha=" + formData.get("senha") + 
+    "&cep=" + formData.get("cep") +
+    "&rua=" + formData.get("rua") + 
+    "&numero=" + formData.get("numero") + 
+    "&bairro=" + formData.get("bairro") + 
+    "&cidade=" + formData.get("cidade") + 
+    "&estado=" + formData.get("estado") + 
+    "&telefone=" + formData.get("telefone") + 
+    "&celular=" + formData.get("celular");
 
 
     if (xmlhttp) {
         xmlhttp.open('get', "http://localhost:880/pessoa?" + url, true);
+        xmlhttp.send();
+    }
+}
+
+function salvarLogin() {
+    var xmlhttp = new XMLHttpRequest();
+
+    var form = document.getElementById('form-login');
+    var formData = new FormData(form);
+    var url = "email=" + formData.get("email") + 
+    "&senha=" + formData.get("senha");
+
+
+    if (xmlhttp) {
+        xmlhttp.open('get', "http://localhost:880/login?" + url, true);
         xmlhttp.send();
     }
 }

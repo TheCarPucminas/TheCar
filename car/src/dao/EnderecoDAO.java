@@ -136,13 +136,13 @@ public class EnderecoDAO  implements DAO<Endereco, String> {
 	}
 
 	@Override
-	public Pessoa get(String chave) {
+	public Veiculo getVeiculo(String chave) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Veiculo getVeiculo(String chave) {
+	public Pessoa get(int i) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -7,6 +7,7 @@ import org.json.JSONObject;
 public class Endereco implements Serializable {
 	private static final long serialVersionUID = 1L;
 	//Atributos -----------------------------------------------------------------------------------------------------------------------
+	private String cep;
 	private String rua;
 	private int numero;
 	private String bairro;
@@ -62,5 +63,13 @@ public class Endereco implements Serializable {
 		obj.put("cidade", this.getCidade());
 		obj.put("estado", this.getEstado());
 		return obj;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
 	}
 }

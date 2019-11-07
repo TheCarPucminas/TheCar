@@ -145,4 +145,10 @@ public class DisponibilidadeDAO implements DAO<Disponibilidade, String>{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Pessoa get(int i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

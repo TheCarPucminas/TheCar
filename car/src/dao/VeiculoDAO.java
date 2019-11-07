@@ -142,7 +142,7 @@ public class VeiculoDAO implements DAO<Veiculo, String> {
 	}
 
 	@Override
-	public Pessoa get(String chave) {
+	public Pessoa get(int i) {
 		// TODO Auto-generated method stub
 		return null;
 	}

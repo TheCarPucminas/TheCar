@@ -119,12 +119,6 @@ public class AluguelDAO implements DAO<Aluguel, String> {
 	}
 
 	@Override
-	public Pessoa get(String chave) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Disponibilidade getDisponibilidade(String chave) {
 		// TODO Auto-generated method stub
 		return null;
@@ -144,6 +138,12 @@ public class AluguelDAO implements DAO<Aluguel, String> {
 
 	@Override
 	public Veiculo getVeiculo(String chave) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Pessoa get(int i) {
 		// TODO Auto-generated method stub
 		return null;
 	}

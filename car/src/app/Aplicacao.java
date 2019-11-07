@@ -44,16 +44,16 @@ public class Aplicacao  implements Container {
 			String path = request.getPath().getPath();
 			String method = request.getMethod();
 			JSONObject mensagem;
-
-			System.out.println("Path: " +  path + "  method: " + method);
-			System.out.println("Query:" + request.getQuery().toString());
 			
 			// Verifica qual ação está sendo chamada
 			if (path.equalsIgnoreCase("/pessoa") && "GET".equals(method)) {
-				// http://127.0.0.1:880/adicionarProduto?descricao=leite&preco=3.59&quant=10&tipo=2&dataFabricacao=2017-01-01
 				mensagem = pessoaService.add(request);
 				this.enviaResposta(Status.CREATED, response, mensagem);
-
+			}	
+			
+			if (path.equalsIgnoreCase("/login") && "GET".equals(method)) {
+				mensagem = pessoaService.login(request);
+				this.enviaResposta(Status.CREATED, response, mensagem);
 			}	
 
 		} catch (Exception e) {
@@ -98,41 +98,19 @@ public class Aplicacao  implements Container {
 		conexao.connect(endereco);
 
 		System.out.println("Tecle ENTER para interromper o servidor...");
+		
 		System.in.read();
-
+		
 		conexao.close();
 		servidor.stop();
 		
-		DAO<Pessoa, String> pessoaDAO = new PessoaDAO("pessoa.bin");
-		Pessoa p1 = new Pessoa("Dayane", "1234", "379.250.846-00", "24.061.773-3", "91224498844", "(31)3434-9999", "(31)99999-9999",
-				"Rua teste", 33, "Bairro teste", "Belo Horizonte", "Minas Gerais");
-		
-		DAO<Aluguel, String> aluguelDAO = new AluguelDAO("aluguel.bin");
-		Aluguel a1 = new Aluguel(agora, agora, 100, false, false);
-		aluguelDAO.add(a1);
-		List<Aluguel> alugueis = aluguelDAO.getAll();
-		
-		DAO<Disponibilidade, String> disponibilidadeDAO = new DisponibilidadeDAO("disponibilidade.bin");
-		Disponibilidade d1 = new Disponibilidade(agora, agora, 100);
-		disponibilidadeDAO.add(d1);
-		List<Disponibilidade> disponibilidades = disponibilidadeDAO.getAll();
-		System.out.println("jshkjhskdjhkjash");
-		for (Disponibilidade disponibilidade : disponibilidades) {
-			System.out.println(disponibilidade.getValorDaDiaria());
-			System.out.println("---------------------------------------------");
-			
-		}
-		
-		DAO<Veiculo, String> veiculoDAO = new VeiculoDAO("veiculo.bin");
-		Veiculo v1 = new Veiculo("CCC1111", "Azul", 2019, 2019, "CHSHHD87872", "hsgahsa",
-				"FIAT", "Palio", 4, 1000, "Gasolina");
-		veiculoDAO.add(v1);
-		List<Veiculo> veiculos = veiculoDAO.getAll();
-		
-		for (Veiculo veiculo : veiculos) {
-			System.out.println(veiculo.getPlaca());
-			System.out.println("---------------------------------------------");
-			
-		}
+//		DAO<Pessoa, String> pessoaDAO = new PessoaDAO("pessoa.bin");
+//		List<Pessoa> pessoas = pessoaDAO.getAll();
+//		for (Pessoa pessoa : pessoas) {
+//	 		System.out.println(pessoa);
+//			System.out.println("---------------------------------");
+//		}
+//		System.out.println("----------------------------------");
+//		System.out.println();
 	}
 }
