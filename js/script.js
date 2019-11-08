@@ -18,7 +18,6 @@ function salvarPessoa() {
     "&telefone=" + formData.get("telefone") + 
     "&celular=" + formData.get("celular");
 
-
     if (xmlhttp) {
         xmlhttp.open('get', "http://localhost:880/pessoa?" + url, true);
         xmlhttp.send();
@@ -68,12 +67,28 @@ function salvarLogin() {
     var formData = new FormData(form);
     var url = "email=" + formData.get("email") + 
     "&senha=" + formData.get("senha");
-
-
     if (xmlhttp) {
         xmlhttp.open('get', "http://localhost:880/login?" + url, true);
         xmlhttp.send();
     }
+
+    console.log(xmlhttp);
+    console.log(xmlhttp.responseText);
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState === 4) {
+            if (xmlhttp.responseText != "") {
+                var responseJSON = JSON.parse(xmlhttp.responseText);
+                if (responseJSON != null && responseJSON != "") {
+                    var id = responseJSON.id;
+                    console.log(id);
+                    alert("Usuário válido");
+                } 
+            }
+            else {
+                alert("LOGIN OU SENHA INVÁLIDOS");
+            }
+        }
+      }
 }
 
 //************************ CONJUNTO DE FUNÇÕES PARA IDENTIFICAR O ENDEREÇO ************************

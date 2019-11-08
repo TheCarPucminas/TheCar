@@ -141,6 +141,7 @@ public class Pessoa implements Serializable {
 	
 	public JSONObject toJson() {
 		JSONObject obj = new JSONObject();
+		obj.put("id", this.getId());
 		obj.put("email", this.getEmail());
 		obj.put("nome", this.getNome());
 		obj.put("cpf", this.getCpf());

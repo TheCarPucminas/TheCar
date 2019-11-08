@@ -64,6 +64,7 @@ public class Aplicacao  implements Container {
 			}
 			
 			if (path.equalsIgnoreCase("/login") && "GET".equals(method)) {
+				System.out.println("REQUEST: "+ request);
 				mensagem = pessoaService.login(request);
 				this.enviaResposta(Status.CREATED, response, mensagem);
 			}	
@@ -116,14 +117,14 @@ public class Aplicacao  implements Container {
 		conexao.close();
 		servidor.stop();
 		
-//		DAO<Pessoa, String> pessoaDAO = new PessoaDAO("pessoa.bin");
-//		List<Pessoa> pessoas = pessoaDAO.getAll();
-//		for (Pessoa pessoa : pessoas) {
-//	 		System.out.println(pessoa);
-//			System.out.println("---------------------------------");
-//		}
-//		System.out.println("----------------------------------");
-//		System.out.println();
+		DAO<Pessoa, String> pessoaDAO = new PessoaDAO("pessoa.bin");
+		List<Pessoa> pessoas = pessoaDAO.getAll();
+		for (Pessoa pessoa : pessoas) {
+	 		System.out.println(pessoa);
+			System.out.println("---------------------------------");
+		}
+		System.out.println("----------------------------------");
+		System.out.println();
 		
 		DAO<Veiculo, String> veiculoDAO = new VeiculoDAO("veiculo.bin");
 		List<Veiculo> veiculos = veiculoDAO.getAll();
