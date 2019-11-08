@@ -20,6 +20,7 @@ import dao.DisponibilidadeDAO;
 import dao.PessoaDAO;
 import dao.VeiculoDAO;
 import services.PessoaService;
+import services.VeiculoService;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -37,6 +38,7 @@ import org.simpleframework.transport.connect.SocketConnection;
 
 public class Aplicacao  implements Container {
 	static PessoaService pessoaService = new PessoaService();
+	static VeiculoService veiculoService = new VeiculoService();
 	public void handle(Request request, Response response) {
 		try {
 			// Recupera a URL e o método utilizado.
@@ -50,6 +52,16 @@ public class Aplicacao  implements Container {
 				mensagem = pessoaService.add(request);
 				this.enviaResposta(Status.CREATED, response, mensagem);
 			}	
+			
+			if (path.equalsIgnoreCase("/veiculo") && "GET".equals(method)) {
+				mensagem = veiculoService.add(request);
+				this.enviaResposta(Status.CREATED, response, mensagem);
+			}	
+			
+			if (path.equalsIgnoreCase("/excluir-veiculo") && "GET".equals(method)) {
+				mensagem = veiculoService.remove(request);
+				this.enviaResposta(Status.CREATED, response, mensagem);
+			}
 			
 			if (path.equalsIgnoreCase("/login") && "GET".equals(method)) {
 				mensagem = pessoaService.login(request);
@@ -112,5 +124,14 @@ public class Aplicacao  implements Container {
 //		}
 //		System.out.println("----------------------------------");
 //		System.out.println();
+		
+		DAO<Veiculo, String> veiculoDAO = new VeiculoDAO("veiculo.bin");
+		List<Veiculo> veiculos = veiculoDAO.getAll();
+		for (Veiculo veiculo : veiculos) {
+	 		System.out.println(veiculo);
+			System.out.println("---------------------------------");
+		}
+		System.out.println("----------------------------------");
+		System.out.println();
 	}
 }

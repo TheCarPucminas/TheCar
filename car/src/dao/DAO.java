@@ -1,4 +1,5 @@
 package dao;
+import java.io.IOException;
 import java.util.List;
 
 import business.Aluguel;
@@ -17,6 +18,6 @@ public interface DAO<T, K> {
 	public Veiculo getVeiculo(K chave);
 	public void add(T p);
 	public void update(T p);
-	public void remove(T p);
+	public void remove(T p) throws IOException;
 	public List<T> getAll();
 }

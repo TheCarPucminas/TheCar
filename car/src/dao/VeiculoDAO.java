@@ -19,14 +19,13 @@ import business.Veiculo;
 public class VeiculoDAO implements DAO<Veiculo, String> {
 	private File file;
 	private FileOutputStream fos;
-	private ObjectOutputStream outputFile;
+	private AppendableObjectOutputStream outputFile;
 
 	public VeiculoDAO(String filename) throws IOException {
 		file = new File(filename);
-		if (file.exists())
-			file.delete();
-		fos = new FileOutputStream(file, false); 
-		outputFile = new ObjectOutputStream(fos);
+		boolean append = file.exists();
+		fos = new FileOutputStream(file, append); 
+		outputFile = new AppendableObjectOutputStream(fos, append);
 	}
 
 	public void add(Veiculo veiculo) {
@@ -45,12 +44,12 @@ public class VeiculoDAO implements DAO<Veiculo, String> {
 			while (fis.available() > 0) {
 				veiculo = (Veiculo) inputFile.readObject();
 
-				if (chave.contentEquals(chave)) {
+				if (veiculo.getPlaca().contentEquals(chave)) {
 					return veiculo;
 				}
 			}
 		} catch (Exception e) {
-			System.out.println("ERRO ao ler o produto '" + chave + "' do disco!");
+			System.out.println("ERRO ao ler a placa '" + chave + "' do disco!");
 			e.printStackTrace();
 		}
 		return null;
@@ -82,20 +81,38 @@ public class VeiculoDAO implements DAO<Veiculo, String> {
 		saveToFile(veiculos);
 	}
 
-	public void remove(Veiculo p) {
+	public void remove(Veiculo p) throws IOException {
 		List<Veiculo> veiculos = getAll();
-		int index = veiculos.indexOf(p);
+		
+		//int index = veiculos.indexOf(p);
+		int index = procuraVeiculoPlaca(veiculos, p.getPlaca());
+		
 		if (index != -1) {
 			veiculos.remove(index);
+			close();
+			file.delete();
+			saveToFile(veiculos);
 		}
-		saveToFile(veiculos);
+	}
+	
+	private int procuraVeiculoPlaca (List<Veiculo> veiculos, String placa) {
+		int i = 0;
+		for (Veiculo veiculo : veiculos) {
+			if (veiculo.getPlaca().contentEquals(placa)) {
+				return i;
+			}
+			i++;	
+		}
+			
+		return -1;
 	}
 
 	private void saveToFile(List<Veiculo> veiculos) {
 		try {
 			close();
-			fos = new FileOutputStream(file, false); 
-			outputFile = new ObjectOutputStream(fos);
+			boolean append = file.exists();
+			fos = new FileOutputStream(file, append); 
+			outputFile = new AppendableObjectOutputStream(fos, append);
 
 			for (Veiculo veiculo : veiculos) {
 				outputFile.writeObject(veiculo);

@@ -26,7 +26,6 @@ public class Veiculo implements Serializable {
 	//Construtor ----------------------------------------------------------------------------------------------------------------------
 	public Veiculo(String placa, String cor, int anoFabricacao, int anoModelo, String chassi, String renavam,
 			String marca, String modelo, int numeroPortas, long quilometragem, String combustivel) {
-		super();
 		this.setPlaca(placa);
 		this.setCor(cor);
 		this.setAnoFabricacao(anoFabricacao);
@@ -179,5 +178,15 @@ public class Veiculo implements Serializable {
 		obj.put("combustivel", this.getCombustivel());
 
 		return obj;
+	}
+	
+	@Override
+	public String toString() {
+		return "ID: " + this.getId() + "\nPlaca: " + this.getPlaca() + "\nCor: " + this.getCor() + "\nAno de fabricação: " + this.getAnoFabricacao() + "\nAno do modelo: " + this.getAnoModelo() + "\nChassi: " + this.getChassi() + "\nRenavam: " + this.getRenavam() + "\nMarca: " + this.getMarca() + "\nModelo: " + this.getModelo() + "\nNúmero de portas: " + this.getNumeroPortas() + "\nQuilometragem: " + this.getQuilometragem() + "\nCombustível: " + this.getCombustivel();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		return this.placa == ((Veiculo) obj).getPlaca();
 	}
 }

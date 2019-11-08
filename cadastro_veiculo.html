@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://use.fontawesome.com/945e93a52c.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>TheCar - Cadastro</title>
+
+</head>
+
+<body onload="limpa_formulário_cep()">
+
+    <div class="container-fluid">
+
+        <nav class="fixed-top navbar navbar-expand-lg navbar-light bg-blue text-white p-0 pl-5 pr-5">
+            <a class="navbar-brand" href="index.html">
+                <img src="img/logo-2.png" class="p-0 m-0" width="130" height="100" alt="TheCar">
+            </a>
+            <ul class="justify-content-end navbar-nav navbar-collapse">
+                <li class="nav-item">
+                    <div>
+                        <i class="fa fa-user-circle fa-3x" aria-hidden="true" onclick=""></i>
+                    </div>
+
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle ml-3 drop" style="color: white" href="#"
+                        id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        Fulano
+                    </a>
+                    <div class="dropdown-menu bg-oneblue" style="color: white" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">Perfil</a>
+                        <a class="dropdown-item" href="#">Aluguel</a>
+                        <a class="dropdown-item" href="#">Chat</a>
+                        <a class="dropdown-item" href="#">Sair <i class="fa fa-sign-out" aria-hidden="true"></i> </a>
+                    </div>
+                </li>
+            </ul>
+
+        </nav>
+
+        <div class="dropdown-divider pb-5"></div>
+
+        <article class="align-self-center">
+            <div class="card ">
+                <h5 class="card-header bg-blue text-white">Cadastro de veículo</h5>
+                <div class="card-body">
+                    <form method="GET" action="" id="form-veiculo">
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label>Placa</label>
+                                <input type="text" class="form-control" id="placa" placeholder="Placa" name="placa">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Cor</label>
+                                <input type="text" class="form-control" id="cor" name="cor" placeholder="Cor">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Ano Fabricação</label>
+                                <select class="form-control" id="anoFabricacao" name="anoFabricacao">
+                                    <option selected="selected">SELECIONE</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2016">2016</option>
+                                    <option value="2015">2015</option>
+                                    <option value="2014">2014</option>
+                                    <option value="2013">2013</option>
+                                    <option value="2012">2012</option>
+                                    <option value="2011">2011</option>
+                                    <option value="2010">2010</option>
+                                    <option value="2009">2009</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                    <label>Ano Modelo</label>
+                                    <select class="form-control" id="anoModelo" name="anoModelo">
+                                        <option selected="selected">SELECIONE</option>
+                                        <option value="2019">2020</option>
+                                        <option value="2019">2019</option>
+                                        <option value="2018">2018</option>
+                                        <option value="2017">2017</option>
+                                        <option value="2016">2016</option>
+                                        <option value="2015">2015</option>
+                                        <option value="2014">2014</option>
+                                        <option value="2013">2013</option>
+                                        <option value="2012">2012</option>
+                                        <option value="2011">2011</option>
+                                        <option value="2010">2010</option>
+                                        <option value="2009">2009</option>
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label>Chassi</label>
+                                <input type="text" class="form-control" id="chassi" placeholder="Chassi" name="chassi" maxlength="17">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Renavam</label>
+                                <input type="text" class="form-control" id="renavam" name="renavam" placeholder="Renavam" maxlength="11">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Marca</label>
+                                <input type="text" class="form-control" id="marca" name="marca" placeholder="Marca">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Modelo</label>
+                                <input type="text" class="form-control" id="modelo" name="modelo" placeholder="Modelo">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label>Quantidade de portas</label>
+                                <select class="form-control" id="numeroPortas" name="numeroPortas">
+                                    <option selected="selected">SELECIONE</option>                                 
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Quilometragem</label>
+                                <input type="number" class="form-control" id="quilometragem" name="quilometragem" placeholder="Quilometragem">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Combustível</label>
+                                <select class="form-control" id="combustivel" name="combustivel">
+                                        <option selected="selected">SELECIONE</option>
+                                        <option value="Gasolina">Gasolina</option>
+                                        <option value="Etanol">Etanol</option>
+                                        <option value="Gás Natural">Gás Natural</option>
+                                        <option value="Outro">Outro</option>
+                                    </select>
+                            </div>                            
+                            <div class="form-group col-md-3">
+                                <label>Imagem do veículo</label>
+                                <input type="file" class="form-control-file" id="imagemVeiculo" name="imagemVeiculo">
+                            </div>
+                        </div>
+                        <div class="form-group col-auto align-self-end float-right">
+                            <button type="button" onclick="salvarVeiculo('http://127.0.0.1:880/veiculo')" class="btn btn-success left">Salvar</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </article>
+        <div id="product-result" class="row">
+
+        </div>
+
+        <footer class="fixed-bottom p-3 bg-blue text-white">
+            <div class="row">
+                <div class="col-md-9 text-white">
+                    <a href="#" class="text-decoration-none text-white on">TheCar</a>
+                </div>
+                <div class="col-md-1 text-right text-white">
+                    <a href="#" class="text-decoration-none text-white on">contato</a>
+                </div>
+                <div class="col-md-1 text-right text-white">
+                    <a href="#" class="text-decoration-none text-white on">ajuda</a>
+                </div>
+                <div class="col-md-1 text-right text-white">
+                    <a href="#" class="text-decoration-none text-white on">sobre</a>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+        <script src="js/script.js"></script>
+</body>
+
+</html>

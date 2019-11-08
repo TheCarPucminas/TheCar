@@ -29,7 +29,6 @@ public class PessoaService {
 		if (p1 != null) {
 			p1 = pessoaDAO.getSenha(senha);
 			if (p1 != null) {
-				System.out.println("AQUI");
 				return p1.toJson();
 			}
 				

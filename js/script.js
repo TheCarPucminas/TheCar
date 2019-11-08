@@ -25,6 +25,42 @@ function salvarPessoa() {
     }
 }
 
+function salvarVeiculo() {
+    var xmlhttp = new XMLHttpRequest();
+
+    var form = document.getElementById('form-veiculo');
+    var formData = new FormData(form);
+    var url = "placa=" + formData.get("placa") + 
+    "&cor=" + formData.get("cor") + 
+    "&anoFabricacao=" + formData.get("anoFabricacao") + 
+    "&anoModelo=" + formData.get("anoModelo") + 
+    "&chassi=" + formData.get("chassi") + 
+    "&renavam=" + formData.get("renavam") + 
+    "&marca=" + formData.get("marca") +
+    "&modelo=" + formData.get("modelo") + 
+    "&numeroPortas=" + formData.get("numeroPortas") + 
+    "&quilometragem=" + formData.get("quilometragem") + 
+    "&combustivel=" + formData.get("combustivel");
+
+    if (xmlhttp) {
+        xmlhttp.open('get', "http://localhost:880/veiculo?" + url, true);
+        xmlhttp.send();
+    }
+}
+
+function excluirVeiculo() {
+    var xmlhttp = new XMLHttpRequest();
+
+    var form = document.getElementById('form-exclusao-veiculo');
+    var formData = new FormData(form);
+    var url = "placa=" + formData.get("placa");
+
+    if (xmlhttp) {
+        xmlhttp.open('get', "http://localhost:880/excluir-veiculo?" + url, true);
+        xmlhttp.send();
+    }
+}
+
 function salvarLogin() {
     var xmlhttp = new XMLHttpRequest();
 
