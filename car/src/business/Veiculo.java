@@ -79,8 +79,7 @@ public class Veiculo implements Serializable {
 	}
 
 	public void setChassi(String chassi) {
-		if(eChassiValido(chassi)) this.chassi = chassi;
-		else System.out.println("Chassi inválido");
+		this.chassi = chassi;
 	}
 
 	public String getRenavam() {
@@ -132,28 +131,6 @@ public class Veiculo implements Serializable {
 	}
 	
 	//Métodos -------------------------------------------------------------------------------------------------------------------------
-	private boolean eChassiValido(String chassi) {
-		if (chassi.trim().length() != 17) return false;
-
-	    Pattern zeroNoPrimeiroDigito = Pattern.compile ("^0"); 
-	    Matcher matcherZero  = zeroNoPrimeiroDigito.matcher(chassi);
-
-	    Pattern espacoNoChassi = Pattern.compile (" ");  
-	    Matcher matcherEspaco = espacoNoChassi.matcher(chassi);
-
-	    Pattern repeticaoMaisDe6Vezes = Pattern.compile ("^.{4,}([0-9A-Z])\\1{5,}");  
-	    Matcher matcherRepetir = repeticaoMaisDe6Vezes.matcher(chassi);
-
-	    Pattern caracteresiIoOqQ = Pattern.compile ("[iIoOqQ]");  
-	    Matcher matcherCaract = caracteresiIoOqQ.matcher(chassi);
-
-	    Pattern ultimos6Numericos = Pattern.compile ("[0-9]{6}$"); 
-	    Matcher matcherUltimos = ultimos6Numericos.matcher(chassi);
-
-	    if (matcherZero.find() || matcherEspaco.find() || matcherRepetir.find() || matcherCaract.find() || !matcherUltimos.find()) return false;
-	    return true;
-	  }
-
 	public int getId() {
 		return id;
 	}
