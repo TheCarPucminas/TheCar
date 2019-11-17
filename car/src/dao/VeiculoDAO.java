@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -41,21 +40,6 @@ public class VeiculoDAO implements DAO<Veiculo, String> {
 	public Veiculo getVeiculo(String chave) {
 		List<Veiculo> veiculos = getAll();
 		Stream<Veiculo> stream = veiculos.stream().filter(veiculo -> veiculo.getPlaca().contentEquals(chave));
-		
-//		Veiculo veiculo = null;
-//
-//		try (FileInputStream fis = new FileInputStream(file); ObjectInputStream inputFile = new ObjectInputStream(fis)) {
-//			while (fis.available() > 0) {
-//				veiculo = (Veiculo) inputFile.readObject();
-//
-//				if (veiculo.getPlaca().contentEquals(chave)) {
-//					return veiculo;
-//				}
-//			}
-//		} catch (Exception e) {
-//			System.out.println("ERRO ao ler a placa '" + chave + "' do disco!");
-//			e.printStackTrace();
-//		}
 		return stream.findFirst().get();
 	}
 

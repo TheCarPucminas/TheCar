@@ -73,23 +73,27 @@ public class AluguelDAO implements DAO<Aluguel, String> {
 		return alugueis;
 	}
 
-	public void update(Aluguel a) {
+	public boolean update(Aluguel a) {
 		List<Aluguel> alugueis = getAll();
 		int index = alugueis.indexOf(a);
 
 		if (index != -1) {
 			alugueis.set(index, a);
+			return true;
 		}
 		saveToFile(alugueis);
+		return false;
 	}
 
-	public void remove(Aluguel a) {
+	public boolean remove(Aluguel a) {
 		List<Aluguel> alugueis = getAll();
 		int index = alugueis.indexOf(a);
 		if (index != -1) {
 			alugueis.remove(index);
+			return true;
 		}
 		saveToFile(alugueis);
+		return false;
 	}
 
 	private void saveToFile(List<Aluguel> alugueis) {

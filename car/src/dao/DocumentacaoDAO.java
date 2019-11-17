@@ -89,13 +89,15 @@ public class DocumentacaoDAO implements DAO<Documentacao, String> {
 	}
 
 	@Override
-	public void update(Documentacao p) {
+	public boolean update(Documentacao p) {
 		// TODO Auto-generated method stub
+		return true;
 		
 	}
 
 	@Override
-	public void remove(Documentacao p) {
+	public boolean remove(Documentacao p) {
+		return true;
 		// TODO Auto-generated method stub
 		
 	}

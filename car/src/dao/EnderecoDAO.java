@@ -72,23 +72,27 @@ public class EnderecoDAO  implements DAO<Endereco, String> {
 		return enderecos;
 	}
 
-	public void update(Endereco p) {
+	public boolean update(Endereco p) {
 		List<Endereco> endereco = getAll();
 		int index = endereco.indexOf(p);
 
 		if (index != -1) {
 			endereco.set(index, p);
+			return true;
 		}
 		saveToFile(endereco);
+		return false;
 	}
 
-	public void remove(Endereco p) {
+	public boolean remove(Endereco p) {
 		List<Endereco> endereco = getAll();
 		int index = endereco.indexOf(p);
 		if (index != -1) {
 			endereco.remove(index);
+			return true;
 		}
 		saveToFile(endereco);
+		return false;
 	}
 
 	private void saveToFile(List<Endereco> enderecos) {

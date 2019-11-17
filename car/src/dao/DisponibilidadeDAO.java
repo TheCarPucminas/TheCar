@@ -72,23 +72,27 @@ public class DisponibilidadeDAO implements DAO<Disponibilidade, String>{
 		return disponibilidades;
 	}
 
-	public void update(Disponibilidade a) {
+	public boolean update(Disponibilidade a) {
 		List<Disponibilidade> disponibilidades = getAll();
 		int index = disponibilidades.indexOf(a);
 
 		if (index != -1) {
 			disponibilidades.set(index, a);
+			return true;
 		}
 		saveToFile(disponibilidades);
+		return false;
 	}
 
-	public void remove(Disponibilidade a) {
+	public boolean remove(Disponibilidade a) {
 		List<Disponibilidade> disponibilidades = getAll();
 		int index = disponibilidades.indexOf(a);
 		if (index != -1) {
 			disponibilidades.remove(index);
+			return true;
 		}
 		saveToFile(disponibilidades);
+		return false;
 	}
 
 	private void saveToFile(List<Disponibilidade> disponibilidades) {

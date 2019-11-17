@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import business.Aluguel;
 import business.Disponibilidade;
@@ -36,21 +37,10 @@ public class PessoaDAO implements DAO<Pessoa, String> {
 		}
 	}
 	
-	public Pessoa get(int chave) {
-		Pessoa pessoa = null;
-
-		try (FileInputStream fis = new FileInputStream(file); ObjectInputStream inputFile = new ObjectInputStream(fis)) {
-			while (fis.available() > 0) {
-				pessoa = (Pessoa) inputFile.readObject();
-				if (pessoa.getId() == chave) {
-					return pessoa;
-				}
-			}
-		} catch (Exception e) {
-			System.out.println("ERRO ao ler o produto '" + chave + "' do disco!");
-			e.printStackTrace();
-		}
-		return null;
+	public Pessoa get(int chave) {				
+		List<Pessoa> pessoas = getAll();
+		Stream<Pessoa> stream = pessoas.stream().filter(pessoa -> pessoa.getId() == chave);
+		return stream.findFirst().get();
 	}
 	
 	public Pessoa getEmail(String chave) {
@@ -102,23 +92,27 @@ public class PessoaDAO implements DAO<Pessoa, String> {
 		return pessoas;
 	}
 
-	public void update(Pessoa p) {
+	public boolean update(Pessoa p) {
 		List<Pessoa> pessoas = getAll();
 		int index = pessoas.indexOf(p);
 
 		if (index != -1) {
 			pessoas.set(index, p);
+			return true;
 		}
 		saveToFile(pessoas);
+		return false;
 	}
 
-	public void remove(Pessoa p) {
+	public boolean remove(Pessoa p) {
 		List<Pessoa> pessoas = getAll();
 		int index = pessoas.indexOf(p);
 		if (index != -1) {
 			pessoas.remove(index);
+			return true;
 		}
 		saveToFile(pessoas);
+		return false;
 	}
 
 	private void saveToFile(List<Pessoa> pessoas) {

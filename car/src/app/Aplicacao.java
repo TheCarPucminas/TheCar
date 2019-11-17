@@ -1,8 +1,6 @@
 package app;
-import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.simpleframework.http.core.Container;
@@ -14,6 +12,7 @@ import business.Aluguel;
 import business.Disponibilidade;
 import business.Pessoa;
 import business.Veiculo;
+import collections.ListaPessoa;
 import collections.ListaVeiculo;
 import dao.AluguelDAO;
 import dao.DAO;
@@ -23,19 +22,12 @@ import dao.VeiculoDAO;
 import services.PessoaService;
 import services.VeiculoService;
 
-import java.io.IOException;
 import java.io.PrintStream;
-import java.net.InetSocketAddress;
-import java.net.SocketAddress;
 
 import org.json.JSONObject;
 import org.simpleframework.http.Request;
 import org.simpleframework.http.Response;
 import org.simpleframework.http.Status;
-import org.simpleframework.http.core.Container;
-import org.simpleframework.http.core.ContainerSocketProcessor;
-import org.simpleframework.transport.connect.Connection;
-import org.simpleframework.transport.connect.SocketConnection;
 
 public class Aplicacao  implements Container {
 	static PessoaService pessoaService = new PessoaService();
@@ -100,7 +92,6 @@ public class Aplicacao  implements Container {
 
 	
 	public static void main(String[] args) throws Exception {
-		LocalDateTime agora = LocalDateTime.now();
 		int porta = 880;
 
 		// Configura uma conexão soquete para o servidor HTTP.
@@ -119,14 +110,31 @@ public class Aplicacao  implements Container {
 		
 		
 		System.out.println("PESSOAS CADASTRADAS");
-		DAO<Pessoa, String> pessoaDAO = new PessoaDAO("pessoa.bin");
-		List<Pessoa> pessoas = pessoaDAO.getAll();
-		for (Pessoa pessoa : pessoas) {
-	 		System.out.println(pessoa);
+		ListaPessoa listPessoa = new ListaPessoa();
+		List<Pessoa> pessoas = listPessoa.getAll();
+		
+		for (Pessoa pessoa: pessoas) {
+			System.out.println(pessoa);
 			System.out.println("---------------------------------");
 		}
-		System.out.println("----------------------------------");
-		System.out.println();
+		
+		System.out.println("PROCURANDO POR NOME");
+		for (Pessoa pessoa : listPessoa.getPessoaNome("Dayane Gabriela Santos Cordeiro")) {
+			System.out.println(pessoa);
+			System.out.println("-------------  ---------------");
+		}
+		
+		System.out.println("PROCURANDO POR BAIRRO");
+		for (Pessoa pessoa : listPessoa.getPessoaBairro("Barreiro")) {
+			System.out.println(pessoa);
+			System.out.println("-------------  ---------------");
+		}
+		
+		System.out.println("PROCURANDO POR CIDADE");
+		for (Pessoa pessoa : listPessoa.getPessoaCidade("Nova Lima")) {
+			System.out.println(pessoa);
+			System.out.println("-------------  ---------------");
+		}
 		
 		System.out.println("VEÍCULOS CADASTRADOS");
 		ListaVeiculo listVeiculo = new ListaVeiculo();
