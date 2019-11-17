@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import business.Aluguel;
 import business.Disponibilidade;
@@ -38,21 +39,24 @@ public class VeiculoDAO implements DAO<Veiculo, String> {
 	}
 
 	public Veiculo getVeiculo(String chave) {
-		Veiculo veiculo = null;
-
-		try (FileInputStream fis = new FileInputStream(file); ObjectInputStream inputFile = new ObjectInputStream(fis)) {
-			while (fis.available() > 0) {
-				veiculo = (Veiculo) inputFile.readObject();
-
-				if (veiculo.getPlaca().contentEquals(chave)) {
-					return veiculo;
-				}
-			}
-		} catch (Exception e) {
-			System.out.println("ERRO ao ler a placa '" + chave + "' do disco!");
-			e.printStackTrace();
-		}
-		return null;
+		List<Veiculo> veiculos = getAll();
+		Stream<Veiculo> stream = veiculos.stream().filter(veiculo -> veiculo.getPlaca().contentEquals(chave));
+		
+//		Veiculo veiculo = null;
+//
+//		try (FileInputStream fis = new FileInputStream(file); ObjectInputStream inputFile = new ObjectInputStream(fis)) {
+//			while (fis.available() > 0) {
+//				veiculo = (Veiculo) inputFile.readObject();
+//
+//				if (veiculo.getPlaca().contentEquals(chave)) {
+//					return veiculo;
+//				}
+//			}
+//		} catch (Exception e) {
+//			System.out.println("ERRO ao ler a placa '" + chave + "' do disco!");
+//			e.printStackTrace();
+//		}
+		return stream.findFirst().get();
 	}
 
 	public List<Veiculo> getAll() {
@@ -71,17 +75,20 @@ public class VeiculoDAO implements DAO<Veiculo, String> {
 		return veiculos;
 	}
 
-	public void update(Veiculo p) {
+	public boolean update(Veiculo p) {
 		List<Veiculo> veiculos = getAll();
 		int index = veiculos.indexOf(p);
 
 		if (index != -1) {
 			veiculos.set(index, p);
+			saveToFile(veiculos);
+			return true;
 		}
-		saveToFile(veiculos);
+		
+		return false;
 	}
 
-	public void remove(Veiculo p) throws IOException {
+	public boolean remove(Veiculo p) throws IOException {
 		List<Veiculo> veiculos = getAll();
 		
 		//int index = veiculos.indexOf(p);
@@ -92,7 +99,10 @@ public class VeiculoDAO implements DAO<Veiculo, String> {
 			close();
 			file.delete();
 			saveToFile(veiculos);
+			return true;
 		}
+		
+		return false;
 	}
 	
 	private int procuraVeiculoPlaca (List<Veiculo> veiculos, String placa) {

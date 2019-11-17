@@ -14,6 +14,7 @@ import business.Aluguel;
 import business.Disponibilidade;
 import business.Pessoa;
 import business.Veiculo;
+import collections.ListaVeiculo;
 import dao.AluguelDAO;
 import dao.DAO;
 import dao.DisponibilidadeDAO;
@@ -64,7 +65,6 @@ public class Aplicacao  implements Container {
 			}
 			
 			if (path.equalsIgnoreCase("/login") && "GET".equals(method)) {
-				System.out.println("REQUEST: "+ request);
 				mensagem = pessoaService.login(request);
 				this.enviaResposta(Status.CREATED, response, mensagem);
 			}	
@@ -99,7 +99,7 @@ public class Aplicacao  implements Container {
 	}
 
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 		LocalDateTime agora = LocalDateTime.now();
 		int porta = 880;
 
@@ -117,6 +117,8 @@ public class Aplicacao  implements Container {
 		conexao.close();
 		servidor.stop();
 		
+		
+		System.out.println("PESSOAS CADASTRADAS");
 		DAO<Pessoa, String> pessoaDAO = new PessoaDAO("pessoa.bin");
 		List<Pessoa> pessoas = pessoaDAO.getAll();
 		for (Pessoa pessoa : pessoas) {
@@ -126,13 +128,34 @@ public class Aplicacao  implements Container {
 		System.out.println("----------------------------------");
 		System.out.println();
 		
-		DAO<Veiculo, String> veiculoDAO = new VeiculoDAO("veiculo.bin");
-		List<Veiculo> veiculos = veiculoDAO.getAll();
+		System.out.println("VEÍCULOS CADASTRADOS");
+		ListaVeiculo listVeiculo = new ListaVeiculo();
+		List<Veiculo> veiculos = listVeiculo.getAll();
+		
 		for (Veiculo veiculo : veiculos) {
 	 		System.out.println(veiculo);
 			System.out.println("---------------------------------");
 		}
 		System.out.println("----------------------------------");
 		System.out.println();
+		
+		System.out.println("VEÍCULO ENCONTRADO");
+		System.out.println(listVeiculo.get("CCC2222"));
+		System.out.println("----------------------------------");
+		System.out.println();
+		
+		System.out.println("VEÍCULOS COM PLACA CCC");
+		for (Veiculo veiculo: listVeiculo.search("CCC")) {
+            System.out.println(veiculo);
+            System.out.println("-------------  ---------------");
+        }
+		
+		System.out.println("VEÍCULOS COM ANO DE FABRICAÇÃO MAIOR OU IGUAL A 2019");
+		for (Veiculo veiculo : listVeiculo.getVeiculosAnoFabricacao(2019)) {
+			System.out.println(veiculo);
+			System.out.println("-------------  ---------------");
+		}
+		
+		
 	}
 }

@@ -17,7 +17,7 @@ public interface DAO<T, K> {
 	public Endereco getEndereco(K chave);
 	public Veiculo getVeiculo(K chave);
 	public void add(T p);
-	public void update(T p);
-	public void remove(T p) throws IOException;
+	public boolean update(T p);
+	public boolean remove(T p) throws IOException;
 	public List<T> getAll();
 }
