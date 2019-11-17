@@ -4,9 +4,13 @@ import java.io.*;
 //import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import collections.ListaVeiculo;
 
 
 public class Pessoa implements Serializable {
@@ -23,6 +27,7 @@ public class Pessoa implements Serializable {
 	private String celular;
 	private String cpf;
 	private Endereco endereco = new Endereco();
+	private List<Veiculo> veiculos = new ArrayList<Veiculo>();
 	
 	//Construtor ----------------------------------------------------------------------------------------------------------------------
 	public Pessoa(String nome, String email, String cpf, String rg, String cnh, String senha, String cep, String rua, int numero, String bairro, String cidade, String estado, String telefone, String celular
@@ -83,6 +88,7 @@ public class Pessoa implements Serializable {
 	public void setCelular(String celular) {
 		this.celular = celular;
 	}
+	
 	public Documentacao getDocumentacao() {
 		return documentacao;
 	}
@@ -173,5 +179,6 @@ public class Pessoa implements Serializable {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
+
 }
 

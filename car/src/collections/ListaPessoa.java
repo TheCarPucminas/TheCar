@@ -55,19 +55,19 @@ public class ListaPessoa {
     //Buscas por nome, bairro, cidade
     public List<Pessoa> getPessoaNome(String nome){
     	List<Pessoa> filtrado = new ArrayList<Pessoa>();
-    	pessoas.stream().filter(pessoa -> pessoa.getNome().contentEquals(nome));
+    	pessoas.stream().filter(pessoa -> pessoa.getNome().contentEquals(nome)).forEach(pessoa -> filtrado.add(pessoa));
     	return filtrado;
     }
     
     public List<Pessoa> getPessoaBairro(String bairro){
     	List<Pessoa> filtrado = new ArrayList<Pessoa>();
-    	pessoas.stream().filter(pessoa -> pessoa.getEndereco().getBairro().contentEquals(bairro));
+    	pessoas.stream().filter(pessoa -> pessoa.getEndereco().getBairro().contentEquals(bairro)).forEach(pessoa -> filtrado.add(pessoa));
     	return filtrado;
     }
     
     public List<Pessoa> getPessoaCidade(String cidade){
     	List<Pessoa> filtrado = new ArrayList<Pessoa>();
-    	pessoas.stream().filter(pessoa -> pessoa.getEndereco().getCidade().contentEquals(cidade));
+    	pessoas.stream().filter(pessoa -> pessoa.getEndereco().getCidade().contentEquals(cidade)).forEach(pessoa -> filtrado.add(pessoa));
     	return filtrado;
     }
 }

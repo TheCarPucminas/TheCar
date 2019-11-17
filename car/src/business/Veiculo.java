@@ -22,6 +22,7 @@ public class Veiculo implements Serializable {
 	private int numeroPortas;
 	private long quilometragem;
 	private String combustivel;
+	private int idProprietario;
 	
 	//Construtor ----------------------------------------------------------------------------------------------------------------------
 	public Veiculo(String placa, String cor, int anoFabricacao, int anoModelo, String chassi, String renavam,
@@ -139,6 +140,15 @@ public class Veiculo implements Serializable {
 		this.id = id;
 	}
 	
+	
+	public int getIdProprietario() {
+		return idProprietario;
+	}
+
+	public void setIdProprietario(int idProprietario) {
+		this.idProprietario = idProprietario;
+	}
+
 	public JSONObject toJson() {
 		JSONObject obj = new JSONObject();
 		obj.put("id", this.getId());
@@ -153,7 +163,8 @@ public class Veiculo implements Serializable {
 		obj.put("numeroPortas", this.getNumeroPortas());
 		obj.put("quilometragem", this.getQuilometragem());
 		obj.put("combustivel", this.getCombustivel());
-
+		obj.put("idProprietario", this.getIdProprietario());
+		
 		return obj;
 	}
 	

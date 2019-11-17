@@ -56,8 +56,7 @@ public class VeiculoService {
 
 	    veiculo = new Veiculo (placa, cor, anoFabricacao, anoModelo, chassi, renavam, marca, modelo, numeroPortas, quilometragem, combustivel);
 
-		VeiculoDAO veiculoDAO = new VeiculoDAO("veiculo.bin");
-		veiculoDAO.add(veiculo);
+		
 
 		/*if (pessoa != null) {
 			pessoa.add(pessoa);
