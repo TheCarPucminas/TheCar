@@ -1,10 +1,14 @@
 package business;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.json.JSONObject;
+
+import collections.ListaPessoa;
+import collections.ListaVeiculo;
 
 public class Veiculo implements Serializable {
 	//Atributos -----------------------------------------------------------------------------------------------------------------------
@@ -23,10 +27,14 @@ public class Veiculo implements Serializable {
 	private long quilometragem;
 	private String combustivel;
 	private int idProprietario;
+	private Pessoa proprietario; 
 	
 	//Construtor ----------------------------------------------------------------------------------------------------------------------
-	public Veiculo(String placa, String cor, int anoFabricacao, int anoModelo, String chassi, String renavam,
-			String marca, String modelo, int numeroPortas, long quilometragem, String combustivel) {
+	public Veiculo(int idProprietario, String placa, String cor, int anoFabricacao, int anoModelo, String chassi, String renavam,
+			String marca, String modelo, int numeroPortas, long quilometragem, String combustivel) throws Exception {
+		this.setIdProprietario(idProprietario);
+		ListaPessoa listPessoa = new ListaPessoa();
+		proprietario = listPessoa.get(idProprietario);
 		this.setPlaca(placa);
 		this.setCor(cor);
 		this.setAnoFabricacao(anoFabricacao);
@@ -38,8 +46,11 @@ public class Veiculo implements Serializable {
 		this.setNumeroPortas(numeroPortas);
 		this.setQuilometragem(quilometragem);
 		this.setCombustivel(combustivel);
-		this.setId(idUnico);
-		Veiculo.idUnico++;
+		ListaVeiculo listVeiculo = new ListaVeiculo();
+		List<Veiculo> veiculos = listVeiculo.getAll();
+		int lastId = veiculos.size() == 0 ? 0 : (veiculos.get(veiculos.size()-1).getId() + 1);
+		this.setId(lastId);
+		Veiculo.idUnico = this.getId();
 	}
 	
 	//Getters e Setters ---------------------------------------------------------------------------------------------------------------
@@ -148,9 +159,20 @@ public class Veiculo implements Serializable {
 	public void setIdProprietario(int idProprietario) {
 		this.idProprietario = idProprietario;
 	}
+	
+	
+
+	public Pessoa getProprietario() {
+		return proprietario;
+	}
+
+	public void setProprietario(Pessoa proprietario) {
+		this.proprietario = proprietario;
+	}
 
 	public JSONObject toJson() {
 		JSONObject obj = new JSONObject();
+		obj.put("idProprietario", this.getIdProprietario());
 		obj.put("id", this.getId());
 		obj.put("placa", this.getPlaca());
 		obj.put("cor", this.getCor());
@@ -163,14 +185,27 @@ public class Veiculo implements Serializable {
 		obj.put("numeroPortas", this.getNumeroPortas());
 		obj.put("quilometragem", this.getQuilometragem());
 		obj.put("combustivel", this.getCombustivel());
-		obj.put("idProprietario", this.getIdProprietario());
+		
+		obj.put("id", this.getProprietario().getId());
+		obj.put("email", this.getProprietario().getEmail());
+		obj.put("nome", this.getProprietario().getNome());
+		obj.put("cpf", this.getProprietario().getCpf());
+		obj.put("senha", this.getProprietario().getSenha());
+		obj.put("cep", this.getProprietario().getEndereco().getCep());
+		obj.put("rua", this.getProprietario().getEndereco().getRua());
+		obj.put("numero", this.getProprietario().getEndereco().getNumero());
+		obj.put("bairro", this.getProprietario().getEndereco().getBairro());
+		obj.put("cidade", this.getProprietario().getEndereco().getCidade());
+		obj.put("estado", this.getProprietario().getEndereco().getEstado());
+		obj.put("telefone", this.getProprietario().getTelefone());
+		obj.put("celular", this.getProprietario().getCelular());
 		
 		return obj;
 	}
 	
 	@Override
 	public String toString() {
-		return  "\nPlaca: " + this.getPlaca() + "\nCor: " + this.getCor() + "\nAno de fabricação: " + this.getAnoFabricacao() + "\nAno do modelo: " + this.getAnoModelo() + "\nChassi: " + this.getChassi() + "\nRenavam: " + this.getRenavam() + "\nMarca: " + this.getMarca() + "\nModelo: " + this.getModelo() + "\nNúmero de portas: " + this.getNumeroPortas() + "\nQuilometragem: " + this.getQuilometragem() + "\nCombustível: " + this.getCombustivel();
+		return  proprietario + "\nId: " + this.getId() + "\nPlaca: " + this.getPlaca() + "\nCor: " + this.getCor() + "\nAno de fabricação: " + this.getAnoFabricacao() + "\nAno do modelo: " + this.getAnoModelo() + "\nChassi: " + this.getChassi() + "\nRenavam: " + this.getRenavam() + "\nMarca: " + this.getMarca() + "\nModelo: " + this.getModelo() + "\nNúmero de portas: " + this.getNumeroPortas() + "\nQuilometragem: " + this.getQuilometragem() + "\nCombustível: " + this.getCombustivel();
 	}
 	
 	@Override

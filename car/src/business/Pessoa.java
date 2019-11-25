@@ -10,6 +10,7 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import collections.ListaPessoa;
 import collections.ListaVeiculo;
 
 
@@ -17,7 +18,7 @@ public class Pessoa implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	//Atributos -----------------------------------------------------------------------------------------------------------------------
-	private static int idUnico = 0;
+	private static int idUnico;
 	private int id;
 	private String nome;
 	private String email;
@@ -31,7 +32,7 @@ public class Pessoa implements Serializable {
 	
 	//Construtor ----------------------------------------------------------------------------------------------------------------------
 	public Pessoa(String nome, String email, String cpf, String rg, String cnh, String senha, String cep, String rua, int numero, String bairro, String cidade, String estado, String telefone, String celular
-			 /*, File cpfImg, File rgImg, File cnhImg,File certificadoBonsAntecedentesImg*/) {
+			 /*, File cpfImg, File rgImg, File cnhImg,File certificadoBonsAntecedentesImg*/) throws Exception {
 		this.setNome(nome);
 		this.setEmail(email);
 		this.setSenha(senha);
@@ -51,9 +52,11 @@ public class Pessoa implements Serializable {
 		endereco.setBairro(bairro);
 		endereco.setCidade(cidade);
 		endereco.setEstado(estado);
-		this.setId(idUnico);
-		Pessoa.idUnico++;
-		
+		ListaPessoa listPessoa = new ListaPessoa();
+		List<Pessoa> pessoas = listPessoa.getAll();
+		int lastId = pessoas.size() == 0 ? 0 : (pessoas.get(pessoas.size()-1).getId() + 1);
+		this.setId(lastId);
+		Pessoa.idUnico = this.getId();
 	}
 
 	//Getters e Setters ---------------------------------------------------------------------------------------------------------------

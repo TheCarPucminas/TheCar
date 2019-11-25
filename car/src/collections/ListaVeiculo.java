@@ -65,4 +65,18 @@ public class ListaVeiculo {
 
 		return filtrado;
 	}
+	
+	public List<Veiculo> getVeiculosPorProprietario(int idProprietario) {
+		List<Veiculo> filtrado = new ArrayList<Veiculo>();
+		veiculos.stream().filter(veiculo -> veiculo.getIdProprietario() == idProprietario).forEach(veiculo -> filtrado.add(veiculo));
+
+		return filtrado;
+	}
+	
+	public List<Veiculo> getVeiculosPorBairro(String bairro) {
+		List<Veiculo> filtrado = new ArrayList<Veiculo>();
+		veiculos.stream().filter(veiculo -> veiculo.getProprietario().getEndereco().getBairro().contains(bairro.toUpperCase())).forEach(veiculo -> filtrado.add(veiculo));
+
+		return filtrado;
+	}
 }

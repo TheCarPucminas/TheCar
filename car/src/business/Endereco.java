@@ -32,7 +32,7 @@ public class Endereco implements Serializable {
 	}
 
 	public String getBairro() {
-		return bairro;
+		return bairro.toUpperCase();
 	}
 
 	public void setBairro(String bairro) {

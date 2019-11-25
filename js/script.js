@@ -29,7 +29,8 @@ function salvarVeiculo() {
 
     var form = document.getElementById('form-veiculo');
     var formData = new FormData(form);
-    var url = "placa=" + formData.get("placa") + 
+    var url = "idProprietario=" + localStorage.getItem('id') +
+    "&placa=" + formData.get("placa") + 
     "&cor=" + formData.get("cor") + 
     "&anoFabricacao=" + formData.get("anoFabricacao") + 
     "&anoModelo=" + formData.get("anoModelo") + 
@@ -80,8 +81,8 @@ function salvarLogin() {
                 var responseJSON = JSON.parse(xmlhttp.responseText);
                 if (responseJSON != null && responseJSON != "") {
                     var id = responseJSON.id;
-                    console.log(id);
-                    alert("Usuário válido");
+                    localStorage.setItem('id', id);
+                    window.location.href = "pesquisa.html";
                 } 
             }
             else {
@@ -91,6 +92,44 @@ function salvarLogin() {
       }
 }
 
+function verificaLogin() {
+    if (!localStorage.getItem('id')) {
+        alert("Você não está logado!");
+        window.location.href = "index.html";
+    }
+}
+
+function deslogar() {
+    localStorage.removeItem('id');
+}
+
+function pesquisa() {
+    var xmlhttp = new XMLHttpRequest();
+    var form = document.getElementById('form-pesquisa');
+    var formData = new FormData(form);
+
+    if ( formData.get("bairro"))
+        var url = "?bairro=" + formData.get("bairro");
+    else
+        var url = "";
+
+    if (xmlhttp) {
+        xmlhttp.open('get', "http://localhost:880/pesquisa" + url, true);
+        xmlhttp.send();
+    }
+
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState === 4) {
+            if (xmlhttp.responseText != "") {
+                var responseJSON = JSON.parse(xmlhttp.responseText);
+                if (responseJSON != null && responseJSON != "") {
+                    //RETORNA TODOS OS VEÍCULOS COM SEUS PROPRIETÁRIOS
+                    console.log(responseJSON.values[0]);
+                } 
+            }
+        }
+      }
+}
 //************************ CONJUNTO DE FUNÇÕES PARA IDENTIFICAR O ENDEREÇO ************************
 function limpa_formulário_cep() {
     //Limpa valores do formulário de cep.

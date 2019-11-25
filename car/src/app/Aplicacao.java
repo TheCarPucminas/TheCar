@@ -61,6 +61,15 @@ public class Aplicacao  implements Container {
 				this.enviaResposta(Status.CREATED, response, mensagem);
 			}	
 
+			if (path.equalsIgnoreCase("/pesquisa") && "GET".equals(method)) {
+				mensagem = veiculoService.pesquisa(request);
+				this.enviaResposta(Status.CREATED, response, mensagem);
+			}	
+			
+			if (path.equalsIgnoreCase("/pesquisa") && "GET".equals(method)) {
+				mensagem = veiculoService.pesquisaPorBairro(request);
+				this.enviaResposta(Status.CREATED, response, mensagem);
+			}	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -109,32 +118,32 @@ public class Aplicacao  implements Container {
 		servidor.stop();
 		
 		
-		System.out.println("PESSOAS CADASTRADAS");
-		ListaPessoa listPessoa = new ListaPessoa();
-		List<Pessoa> pessoas = listPessoa.getAll();
-		
-		for (Pessoa pessoa: pessoas) {
-			System.out.println(pessoa);
-			System.out.println("---------------------------------");
-		}
-		
-		System.out.println("PROCURANDO POR NOME");
-		for (Pessoa pessoa : listPessoa.getPessoaNome("Dayane Gabriela Santos Cordeiro")) {
-			System.out.println(pessoa);
-			System.out.println("-------------  ---------------");
-		}
-		
-		System.out.println("PROCURANDO POR BAIRRO");
-		for (Pessoa pessoa : listPessoa.getPessoaBairro("Barreiro")) {
-			System.out.println(pessoa);
-			System.out.println("-------------  ---------------");
-		}
-		
-		System.out.println("PROCURANDO POR CIDADE");
-		for (Pessoa pessoa : listPessoa.getPessoaCidade("Nova Lima")) {
-			System.out.println(pessoa);
-			System.out.println("-------------  ---------------");
-		}
+//		System.out.println("PESSOAS CADASTRADAS");
+//		ListaPessoa listPessoa = new ListaPessoa();
+//		List<Pessoa> pessoas = listPessoa.getAll();
+//		
+//		for (Pessoa pessoa: pessoas) {
+//			System.out.println(pessoa);
+//			System.out.println("---------------------------------");
+//		}
+//		
+//		System.out.println("PROCURANDO POR NOME");
+//		for (Pessoa pessoa : listPessoa.getPessoaNome("Dayane Gabriela Santos Cordeiro")) {
+//			System.out.println(pessoa);
+//			System.out.println("-------------  ---------------");
+//		}
+//		
+//		System.out.println("PROCURANDO POR BAIRRO");
+//		for (Pessoa pessoa : listPessoa.getPessoaBairro("Barreiro")) {
+//			System.out.println(pessoa);
+//			System.out.println("-------------  ---------------");
+//		}
+//		
+//		System.out.println("PROCURANDO POR CIDADE");
+//		for (Pessoa pessoa : listPessoa.getPessoaCidade("Nova Lima")) {
+//			System.out.println(pessoa);
+//			System.out.println("-------------  ---------------");
+//		}
 		
 		System.out.println("VEÍCULOS CADASTRADOS");
 		ListaVeiculo listVeiculo = new ListaVeiculo();
@@ -147,22 +156,29 @@ public class Aplicacao  implements Container {
 		System.out.println("----------------------------------");
 		System.out.println();
 		
-		System.out.println("VEÍCULO ENCONTRADO");
-		System.out.println(listVeiculo.get("CCC2222"));
-		System.out.println("----------------------------------");
+		System.out.println("VEÍCULOS POR PROPRIETÁRIO");
 		System.out.println();
-		
-		System.out.println("VEÍCULOS COM PLACA CCC");
-		for (Veiculo veiculo: listVeiculo.search("CCC")) {
-            System.out.println(veiculo);
-            System.out.println("-------------  ---------------");
-        }
-		
-		System.out.println("VEÍCULOS COM ANO DE FABRICAÇÃO MAIOR OU IGUAL A 2019");
-		for (Veiculo veiculo : listVeiculo.getVeiculosAnoFabricacao(2019)) {
-			System.out.println(veiculo);
-			System.out.println("-------------  ---------------");
-		}
+		for (Veiculo veiculo: listVeiculo.getVeiculosPorProprietario(0)) {
+          System.out.println(veiculo);
+          System.out.println("-------------  ---------------");
+      }
+//		
+//		System.out.println("VEÍCULO ENCONTRADO");
+//		System.out.println(listVeiculo.get("CCC2222"));
+//		System.out.println("----------------------------------");
+//		System.out.println();
+//		
+//		System.out.println("VEÍCULOS COM PLACA CCC");
+//		for (Veiculo veiculo: listVeiculo.search("CCC")) {
+//            System.out.println(veiculo);
+//            System.out.println("-------------  ---------------");
+//        }
+//		
+//		System.out.println("VEÍCULOS COM ANO DE FABRICAÇÃO MAIOR OU IGUAL A 2019");
+//		for (Veiculo veiculo : listVeiculo.getVeiculosAnoFabricacao(2019)) {
+//			System.out.println(veiculo);
+//			System.out.println("-------------  ---------------");
+//		}
 		
 		
 	}

@@ -37,7 +37,7 @@ public class PessoaService {
 		return null;
 	}
 	
-	public JSONObject add(Request request) throws IOException {
+	public JSONObject add(Request request) throws Exception {
 		String nome;
 		String email;
 		String senha;
