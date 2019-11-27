@@ -1,6 +1,10 @@
 package services;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -8,7 +12,9 @@ import org.json.JSONObject;
 import org.simpleframework.http.Query;
 import org.simpleframework.http.Request;
 
+import business.Disponibilidade;
 import business.Veiculo;
+import collections.ListaDisponibilidade;
 import collections.ListaVeiculo;
 import dao.VeiculoDAO;
 
@@ -29,6 +35,7 @@ public class VeiculoService {
 
 		return veiculo.toJson();
 	}
+	
 	public JSONObject add(Request request) throws Exception {
 		int idProprietario;
 		String placa;
@@ -116,8 +123,28 @@ public class VeiculoService {
 		return object;
 	}
 	
-	public VeiculoService() {
-
-	
+	public JSONObject adicionaDisponibilidade (Request request) throws Exception {
+		DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+		int idVeiculo;
+		LocalDateTime dataInicio;
+		LocalDateTime dataFinal;
+		LocalDateTime date;
+		double valorDaDiaria;
+		Query query = request.getQuery();
+		
+		idVeiculo = query.getInteger("idVeiculo");
+		dataInicio = LocalDateTime.parse(query.get("dataInicio"),formatter);
+		dataFinal = LocalDateTime.parse(query.get("dataFinal"),formatter);
+		valorDaDiaria = query.getFloat("valorDaDiaria");
+		
+		ListaVeiculo listVeiculo = new ListaVeiculo();
+		Veiculo veiculo = listVeiculo.getPorId(idVeiculo);
+		Disponibilidade disponibilidade = new Disponibilidade(idVeiculo, dataInicio, dataFinal, valorDaDiaria);
+	    veiculo.addDisponibilidade(disponibilidade);
+	    
+	    ListaDisponibilidade listaDisponibilidades = new ListaDisponibilidade();
+	    listaDisponibilidades.add(disponibilidade);
+	    
+		return disponibilidade.toJson();
 	}
 }

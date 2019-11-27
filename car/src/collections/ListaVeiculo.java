@@ -52,6 +52,12 @@ public class ListaVeiculo {
     	return veiculos;
     }
     
+    public Veiculo getPorId(int id) {
+    	List<Veiculo> filtrado = new ArrayList<Veiculo>();
+		veiculos.stream().filter(veiculo -> veiculo.getId() == id).forEach(veiculo -> filtrado.add(veiculo));
+		return filtrado.get(0);
+    }
+    
     public List<Veiculo> getVeiculosAnoFabricacao(int ano){
     	List<Veiculo> filtrado = new ArrayList<Veiculo>();
     	veiculos.stream().filter(veiculo -> veiculo.getAnoFabricacao() >= ano).forEach(veiculo -> filtrado.add(veiculo));

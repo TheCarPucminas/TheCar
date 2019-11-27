@@ -19,21 +19,20 @@ import business.Veiculo;
 public class DisponibilidadeDAO implements DAO<Disponibilidade, String>{
 	private File file;
 	private FileOutputStream fos;
-	private ObjectOutputStream outputFile;
+	private AppendableObjectOutputStream outputFile;
 
 	public DisponibilidadeDAO(String filename) throws IOException {
 		file = new File(filename);
-		if (file.exists())
-			file.delete();
-		fos = new FileOutputStream(file, false); 
-		outputFile = new ObjectOutputStream(fos);
+		boolean append = file.exists();
+		fos = new FileOutputStream(file, append); 
+		outputFile = new AppendableObjectOutputStream(fos, append);
 	}
 
 	public void add(Disponibilidade disponibilidade) {
 		try {
 			outputFile.writeObject(disponibilidade);
 		} catch (Exception e) {
-			System.out.println("ERRO ao gravar a pessoa '" + disponibilidade.getId() + "' no disco!");
+			System.out.println("ERRO ao gravar a disponibilidade '" + disponibilidade + "' no disco!");
 			e.printStackTrace();
 		}
 	}
@@ -98,8 +97,9 @@ public class DisponibilidadeDAO implements DAO<Disponibilidade, String>{
 	private void saveToFile(List<Disponibilidade> disponibilidades) {
 		try {
 			close();
+			boolean append = file.exists();
 			fos = new FileOutputStream(file, false); 
-			outputFile = new ObjectOutputStream(fos);
+			outputFile = new AppendableObjectOutputStream(fos, append);
 
 			for (Disponibilidade disponibilidade : disponibilidades) {
 				outputFile.writeObject(disponibilidade);

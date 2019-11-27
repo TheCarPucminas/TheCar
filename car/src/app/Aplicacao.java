@@ -12,6 +12,7 @@ import business.Aluguel;
 import business.Disponibilidade;
 import business.Pessoa;
 import business.Veiculo;
+import collections.ListaDisponibilidade;
 import collections.ListaPessoa;
 import collections.ListaVeiculo;
 import dao.AluguelDAO;
@@ -66,10 +67,11 @@ public class Aplicacao  implements Container {
 				this.enviaResposta(Status.CREATED, response, mensagem);
 			}	
 			
-			if (path.equalsIgnoreCase("/pesquisa") && "GET".equals(method)) {
-				mensagem = veiculoService.pesquisaPorBairro(request);
+			if (path.equalsIgnoreCase("/adiciona-disponibilidade") && "GET".equals(method)) {
+				mensagem = veiculoService.adicionaDisponibilidade(request);
 				this.enviaResposta(Status.CREATED, response, mensagem);
-			}	
+			}		
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -101,7 +103,7 @@ public class Aplicacao  implements Container {
 
 	
 	public static void main(String[] args) throws Exception {
-		int porta = 880;
+		int porta = 8080;
 
 		// Configura uma conexão soquete para o servidor HTTP.
 		Container container = new Aplicacao();
@@ -118,14 +120,14 @@ public class Aplicacao  implements Container {
 		servidor.stop();
 		
 		
-//		System.out.println("PESSOAS CADASTRADAS");
-//		ListaPessoa listPessoa = new ListaPessoa();
-//		List<Pessoa> pessoas = listPessoa.getAll();
-//		
-//		for (Pessoa pessoa: pessoas) {
-//			System.out.println(pessoa);
-//			System.out.println("---------------------------------");
-//		}
+		System.out.println("PESSOAS CADASTRADAS");
+		ListaPessoa listPessoa = new ListaPessoa();
+		List<Pessoa> pessoas = listPessoa.getAll();
+		
+		for (Pessoa pessoa: pessoas) {
+			System.out.println(pessoa);
+			System.out.println("---------------------------------");
+		}
 //		
 //		System.out.println("PROCURANDO POR NOME");
 //		for (Pessoa pessoa : listPessoa.getPessoaNome("Dayane Gabriela Santos Cordeiro")) {
@@ -156,12 +158,21 @@ public class Aplicacao  implements Container {
 		System.out.println("----------------------------------");
 		System.out.println();
 		
-		System.out.println("VEÍCULOS POR PROPRIETÁRIO");
-		System.out.println();
-		for (Veiculo veiculo: listVeiculo.getVeiculosPorProprietario(0)) {
-          System.out.println(veiculo);
-          System.out.println("-------------  ---------------");
-      }
+		
+		System.out.println("DISPONIBILIDADES DO VEÍCULO 0");
+		ListaDisponibilidade listDisponibilidade = new ListaDisponibilidade();
+		List<Disponibilidade> disponibilidades = listDisponibilidade.getAll();
+		for (Disponibilidade d : disponibilidades) {
+			System.out.println(d);
+			System.out.println("---");
+		}
+			
+//		System.out.println("VEÍCULOS POR PROPRIETÁRIO");
+//		System.out.println();
+//		for (Veiculo veiculo: listVeiculo.getVeiculosPorProprietario(0)) {
+//          System.out.println(veiculo);
+//          System.out.println("-------------  ---------------");
+//      }
 //		
 //		System.out.println("VEÍCULO ENCONTRADO");
 //		System.out.println(listVeiculo.get("CCC2222"));

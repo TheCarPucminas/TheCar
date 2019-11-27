@@ -1,6 +1,8 @@
 package business;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,6 +30,7 @@ public class Veiculo implements Serializable {
 	private String combustivel;
 	private int idProprietario;
 	private Pessoa proprietario; 
+	private List<Disponibilidade> disponibilidades;
 	
 	//Construtor ----------------------------------------------------------------------------------------------------------------------
 	public Veiculo(int idProprietario, String placa, String cor, int anoFabricacao, int anoModelo, String chassi, String renavam,
@@ -51,6 +54,7 @@ public class Veiculo implements Serializable {
 		int lastId = veiculos.size() == 0 ? 0 : (veiculos.get(veiculos.size()-1).getId() + 1);
 		this.setId(lastId);
 		Veiculo.idUnico = this.getId();
+		disponibilidades = new ArrayList<Disponibilidade>();
 	}
 	
 	//Getters e Setters ---------------------------------------------------------------------------------------------------------------
@@ -162,6 +166,18 @@ public class Veiculo implements Serializable {
 	
 	
 
+	public List<Disponibilidade> getDisponibilidades() {
+		return disponibilidades;
+	}
+
+	public void setDisponibilidades(List<Disponibilidade> disponibilidades) {
+		this.disponibilidades = disponibilidades;
+	}
+
+	public void addDisponibilidade (Disponibilidade disponibilidade) {
+		this.disponibilidades.add(disponibilidade);
+	}
+		
 	public Pessoa getProprietario() {
 		return proprietario;
 	}
