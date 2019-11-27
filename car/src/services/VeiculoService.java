@@ -147,4 +147,27 @@ public class VeiculoService {
 	    
 		return disponibilidade.toJson();
 	}
+	
+	public JSONObject consultaDisponibilidade (Request request) throws Exception {
+		DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+		Query query = request.getQuery();
+		
+		LocalDateTime dataInicial =  LocalDateTime.parse(query.get("dataInicial"),formatter);
+		LocalDateTime dataFinal =  LocalDateTime.parse(query.get("dataFinal"),formatter);
+		
+		ListaDisponibilidade listaDisponibilidade = new ListaDisponibilidade();
+		List<Veiculo> veiculosDisponiveis = new ArrayList<Veiculo>();
+		veiculosDisponiveis = listaDisponibilidade.consultaDisponibilidade(dataInicial, dataFinal);
+		
+		JSONObject object = new JSONObject();
+		JSONArray list = new JSONArray();
+
+		for (Veiculo veiculo : veiculosDisponiveis) {
+	 		list.put(veiculo.toJson());	
+		}
+		
+		object.accumulate("values", list);
+	    
+		return object;
+	}
 }

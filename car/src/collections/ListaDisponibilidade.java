@@ -1,10 +1,12 @@
 package collections;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import business.Disponibilidade;
+import business.Veiculo;
 import dao.DisponibilidadeDAO;
 
 public class ListaDisponibilidade {
@@ -59,5 +61,18 @@ public class ListaDisponibilidade {
 		disponibilidades.stream().filter(disponibilidade -> disponibilidade.getIdVeiculo() == idVeiculo).forEach(disponibilidade -> filtrado.add(disponibilidade));
 
 		return filtrado;
+	}
+	
+	public List<Veiculo> consultaDisponibilidade(LocalDateTime dataInicial, LocalDateTime dataFinal) throws Exception {
+		ListaVeiculo listaVeiculos = new ListaVeiculo();
+		List<Veiculo> veiculosDisponiveis = new ArrayList<Veiculo>();
+		
+		for (Disponibilidade d : disponibilidades) {
+			if ((d.getDataInicio().isBefore(dataInicial) || d.getDataInicio().equals(dataInicial)) && (d.getDataFinal().isAfter(dataFinal) || d.getDataFinal().equals(dataFinal))) {	
+				Veiculo v = listaVeiculos.getPorId(d.getIdVeiculo());
+				veiculosDisponiveis.add(v);
+			}
+		}
+		return veiculosDisponiveis;
 	}
 }

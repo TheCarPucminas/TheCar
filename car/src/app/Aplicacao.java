@@ -70,7 +70,12 @@ public class Aplicacao  implements Container {
 			if (path.equalsIgnoreCase("/adiciona-disponibilidade") && "GET".equals(method)) {
 				mensagem = veiculoService.adicionaDisponibilidade(request);
 				this.enviaResposta(Status.CREATED, response, mensagem);
-			}		
+			}	
+			
+			if (path.equalsIgnoreCase("/consulta-disponibilidade") && "GET".equals(method)) {
+				mensagem = veiculoService.consultaDisponibilidade(request);
+				this.enviaResposta(Status.CREATED, response, mensagem);
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
