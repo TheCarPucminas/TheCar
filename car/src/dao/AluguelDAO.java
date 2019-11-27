@@ -24,10 +24,9 @@ public class AluguelDAO implements DAO<Aluguel, String> {
 
 	public AluguelDAO(String filename) throws IOException {
 		file = new File(filename);
-		if (file.exists())
-			file.delete();
-		fos = new FileOutputStream(file, false); 
-		outputFile = new ObjectOutputStream(fos);
+		boolean append = file.exists();
+		fos = new FileOutputStream(file, append); 
+		outputFile = new AppendableObjectOutputStream(fos, append);
 	}
 
 	public void add(Aluguel aluguel) {
@@ -99,8 +98,9 @@ public class AluguelDAO implements DAO<Aluguel, String> {
 	private void saveToFile(List<Aluguel> alugueis) {
 		try {
 			close();
+			boolean append = file.exists();
 			fos = new FileOutputStream(file, false); 
-			outputFile = new ObjectOutputStream(fos);
+			outputFile = new AppendableObjectOutputStream(fos, append);
 
 			for (Aluguel aluguel : alugueis) {
 				outputFile.writeObject(aluguel);

@@ -2,8 +2,11 @@ package business;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.json.JSONObject;
+
+import collections.ListaAlugueis;
 public class Aluguel implements Serializable {
 	//Atributos -----------------------------------------------------------------------------------------------------------------------
 	private static final long serialVersionUID = 1L;
@@ -13,19 +16,26 @@ public class Aluguel implements Serializable {
 	private LocalDateTime dataDevolucao;
 	private double valorAluguel;
 	private boolean devolvido;
-	public boolean pago;
+	private boolean pago;
+	private int idVeiculo;
+	private int idLocatario;
+	
 	
 	//Construtor ----------------------------------------------------------------------------------------------------------------------
 	public Aluguel(LocalDateTime dataEmprestimo, LocalDateTime dataDevolucao, double valorAluguel, boolean devolvido,
-			boolean pago) {
+			boolean pago, int idVeiculo, int idLocatario) throws Exception {
 		super();
 		this.setDataEmprestimo(dataEmprestimo);
 		this.setDataDevolucao(dataDevolucao);
 		this.setValorAluguel(valorAluguel);
 		this.setDevolvido(devolvido);
 		this.setPago(pago);
-		this.setId(idUnico);
-		Aluguel.idUnico++;
+		this.setIdVeiculo(idVeiculo);
+		this.setIdLocatario(idLocatario);
+		ListaAlugueis listAlugueis = new ListaAlugueis();
+		List<Aluguel> alugueis = listAlugueis.getAll();
+		int lastId = alugueis.size() == 0 ? 0 : (alugueis.get(alugueis.size()-1).getId() + 1);
+		this.setId(lastId);
 	}
 
 	//Getters e Setters ---------------------------------------------------------------------------------------------------------------
@@ -68,6 +78,23 @@ public class Aluguel implements Serializable {
 		this.id = id;
 	}	
 	
+	
+	public int getIdVeiculo() {
+		return idVeiculo;
+	}
+
+	public void setIdVeiculo(int idVeiculo) {
+		this.idVeiculo = idVeiculo;
+	}
+
+	public int getIdLocatario() {
+		return idLocatario;
+	}
+
+	public void setIdLocatario(int idLocatario) {
+		this.idLocatario = idLocatario;
+	}
+
 	public JSONObject toJson() {
 		JSONObject obj = new JSONObject();
 		obj.put("id", this.getId());

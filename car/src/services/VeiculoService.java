@@ -12,8 +12,10 @@ import org.json.JSONObject;
 import org.simpleframework.http.Query;
 import org.simpleframework.http.Request;
 
+import business.Aluguel;
 import business.Disponibilidade;
 import business.Veiculo;
+import collections.ListaAlugueis;
 import collections.ListaDisponibilidade;
 import collections.ListaVeiculo;
 import dao.VeiculoDAO;
@@ -148,6 +150,35 @@ public class VeiculoService {
 		return disponibilidade.toJson();
 	}
 	
+	public JSONObject adicionaAluguel (Request request) throws Exception {
+		DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+		LocalDateTime dataEmprestimo;
+		LocalDateTime dataDevolucao;
+		double valorAluguel;
+		boolean devolvido;
+		boolean pago;
+		int idVeiculo;
+		int idLocatario;
+		Query query = request.getQuery();
+		
+		dataEmprestimo = LocalDateTime.parse(query.get("dataEmprestimo"),formatter);
+		dataDevolucao = LocalDateTime.parse(query.get("dataDevolucao"),formatter);
+		valorAluguel = query.getFloat("valorAluguel");
+		devolvido = query.getBoolean("devolvido");
+		pago = query.getBoolean("pago");
+		idVeiculo = query.getInteger("idVeiculo");
+		idLocatario = query.getInteger("idLocatario");
+		
+		ListaVeiculo listVeiculo = new ListaVeiculo();
+		Veiculo veiculo = listVeiculo.getPorId(idVeiculo);
+		Aluguel aluguel = new Aluguel(dataEmprestimo, dataDevolucao, valorAluguel, devolvido, pago, idVeiculo, idLocatario);
+	    
+		ListaAlugueis listaAlugueis = new ListaAlugueis();
+	    listaAlugueis.add(aluguel);
+	    
+		return aluguel.toJson();
+	}
+	
 	public JSONObject consultaDisponibilidade (Request request) throws Exception {
 		DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 		Query query = request.getQuery();
@@ -164,6 +195,50 @@ public class VeiculoService {
 
 		for (Veiculo veiculo : veiculosDisponiveis) {
 	 		list.put(veiculo.toJson());	
+		}
+		
+		object.accumulate("values", list);
+	    
+		return object;
+	}
+	
+	public JSONObject consultaAluguelVeiculo (Request request) throws Exception {
+		Query query = request.getQuery();
+		
+		int idVeiculo = query.getInteger("idVeiculo");
+		
+		ListaAlugueis listaAlugueis = new ListaAlugueis();
+		List<Aluguel> alugueisCadastrados = new ArrayList<Aluguel>();
+		
+		alugueisCadastrados = listaAlugueis.getAlugueisPorVeiculo(idVeiculo);
+		
+		JSONObject object = new JSONObject();
+		JSONArray list = new JSONArray();
+
+		for (Aluguel aluguel : alugueisCadastrados) {
+	 		list.put(aluguel.toJson());	
+		}
+		
+		object.accumulate("values", list);
+	    
+		return object;
+	}
+	
+	public JSONObject consultaAluguelLocatario (Request request) throws Exception {
+		Query query = request.getQuery();
+		
+		int idLocatario = query.getInteger("idLocatario");
+		
+		ListaAlugueis listaAlugueis = new ListaAlugueis();
+		List<Aluguel> alugueisCadastrados = new ArrayList<Aluguel>();
+		
+		alugueisCadastrados = listaAlugueis.getAlugueisPorLocatario(idLocatario);
+		
+		JSONObject object = new JSONObject();
+		JSONArray list = new JSONArray();
+
+		for (Aluguel aluguel : alugueisCadastrados) {
+	 		list.put(aluguel.toJson());	
 		}
 		
 		object.accumulate("values", list);

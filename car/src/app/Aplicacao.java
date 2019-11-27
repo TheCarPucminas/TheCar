@@ -72,8 +72,27 @@ public class Aplicacao  implements Container {
 				this.enviaResposta(Status.CREATED, response, mensagem);
 			}	
 			
+			// CONSULTA DISPONIBILIDADE COM DATA DE INÍCIO E DATA DE FINAL
 			if (path.equalsIgnoreCase("/consulta-disponibilidade") && "GET".equals(method)) {
 				mensagem = veiculoService.consultaDisponibilidade(request);
+				this.enviaResposta(Status.CREATED, response, mensagem);
+			}
+			
+			// ADICIONA ALUGUEL
+			if (path.equalsIgnoreCase("/adiciona-aluguel") && "GET".equals(method)) {
+				mensagem = veiculoService.adicionaAluguel(request);
+				this.enviaResposta(Status.CREATED, response, mensagem);
+			}
+			
+			// CONSULTA ALUGUEL COM ID DO VEÍCULO
+			if (path.equalsIgnoreCase("/consulta-aluguel-veiculo") && "GET".equals(method)) {
+				mensagem = veiculoService.consultaAluguelVeiculo(request);
+				this.enviaResposta(Status.CREATED, response, mensagem);
+			}
+			
+			// CONSULTA ALUGUEL COM ID DO LOCATÁRIO
+			if (path.equalsIgnoreCase("/consulta-aluguel-locatario") && "GET".equals(method)) {
+				mensagem = veiculoService.consultaAluguelLocatario(request);
 				this.enviaResposta(Status.CREATED, response, mensagem);
 			}
 			
