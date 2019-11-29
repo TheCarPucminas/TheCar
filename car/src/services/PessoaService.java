@@ -2,6 +2,7 @@ package services;
 
 import java.io.IOException;
 
+import error.ExcecaoGeral;
 import org.json.JSONObject;
 import org.simpleframework.http.Query;
 import org.simpleframework.http.Request;
@@ -63,7 +64,11 @@ public class PessoaService {
 		senha = query.get("senha");
 		cep = query.get("cep");
 		rua = query.get("rua");
-		numero = query.getInteger("numero");
+		try {
+			numero = query.getInteger("numero");
+		} catch (Exception e) {
+			throw new ExcecaoGeral("O numero de endereço digitado e invalido");
+		}
 		bairro = query.get("bairro");
 		cidade = query.get("cidade");
 		estado = query.get("estado");

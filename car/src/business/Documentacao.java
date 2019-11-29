@@ -3,6 +3,8 @@ package business;
 import java.io.*;
 import java.util.InputMismatchException;
 
+import collections.ListaPessoa;
+import error.ExcecaoGeral;
 import org.json.JSONObject;
 public class Documentacao implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -42,7 +44,13 @@ public class Documentacao implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public void setCpf(String cpf) {
+	public void setCpf(String cpf) throws Exception {
+		ListaPessoa pessoas = new ListaPessoa();
+		Pessoa p = pessoas.getPessoaCpf(cpf);
+		if(!eCpfValido(cpf))
+			throw new ExcecaoGeral("O CPF informado e invalido");
+		else if (p != null)
+			throw new ExcecaoGeral("O CPF informado ja esta registrado");
 		this.cpf = cpf;
 	}
 	public String getRg() {
@@ -54,7 +62,7 @@ public class Documentacao implements Serializable {
 	public String getCnh() {
 		return cnh;
 	}
-	public void setCnh(String cnh) {
+	public void setCnh(String cnh) throws ExcecaoGeral {
 		this.cnh = cnh;
 	}
 	public File getCpfImg() {

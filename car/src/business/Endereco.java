@@ -2,6 +2,7 @@ package business;
 
 import java.io.Serializable;
 
+import error.ExcecaoGeral;
 import org.json.JSONObject;
 
 public class Endereco implements Serializable {
@@ -19,7 +20,9 @@ public class Endereco implements Serializable {
 		return rua;
 	}
 
-	public void setRua(String rua) {
+	public void setRua(String rua) throws ExcecaoGeral {
+		if (rua.length() < 3 || rua == null)
+			throw new ExcecaoGeral("A rua informada nao e valida");
 		this.rua = rua;
 	}
 
@@ -35,7 +38,9 @@ public class Endereco implements Serializable {
 		return bairro.toUpperCase();
 	}
 
-	public void setBairro(String bairro) {
+	public void setBairro(String bairro) throws ExcecaoGeral {
+		if (bairro.length() < 3 || bairro == null)
+			throw new ExcecaoGeral("O bairro informado e invalido");
 		this.bairro = bairro;
 	}
 
@@ -43,7 +48,9 @@ public class Endereco implements Serializable {
 		return cidade;
 	}
 
-	public void setCidade(String cidade) {
+	public void setCidade(String cidade) throws ExcecaoGeral {
+		if (cidade == null || cidade.length() < 3)
+			throw new ExcecaoGeral("A cidade informada e invalida");
 		this.cidade = cidade;
 	}
 
@@ -51,7 +58,9 @@ public class Endereco implements Serializable {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(String estado) throws ExcecaoGeral {
+		if (estado == null || estado.length() < 3)
+			throw new ExcecaoGeral("O estado informado e invalido");
 		this.estado = estado;
 	}
 	

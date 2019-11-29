@@ -29,8 +29,9 @@ public class Pessoa implements Serializable {
 	private List<Veiculo> veiculos = new ArrayList<Veiculo>();
 	
 	//Construtor ----------------------------------------------------------------------------------------------------------------------
-	public Pessoa(String nome, String email, String cpf, String rg, String cnh, String senha, String cep, String rua, int numero, String bairro, String cidade, String estado, String telefone, String celular
-			 /*, File cpfImg, File rgImg, File cnhImg,File certificadoBonsAntecedentesImg*/) throws Exception {
+	public Pessoa(String nome, String email, String cpf, String rg, String cnh, String senha, String cep, String rua,
+				  int numero, String bairro, String cidade, String estado, String telefone, String celular)
+			throws Exception {
 		this.setNome(nome);
 		this.setEmail(email);
 		this.setSenha(senha);
@@ -38,10 +39,6 @@ public class Pessoa implements Serializable {
 		documentacao.setCpf(cpf);
 		documentacao.setRg(rg);
 		documentacao.setCnh(cnh);
-//		documentacao.setCpfImg(cpfImg);
-//		documentacao.setRgImg(rgImg);
-//		documentacao.setCnhImg(cnhImg);
-//		documentacao.setCertificadoBonsAntecedentesImg(certificadoBonsAntecedentesImg);
 		this.setTelefone(telefone);
 		this.setCelular(celular);
 		endereco.setCep(cep);
@@ -173,7 +170,12 @@ public class Pessoa implements Serializable {
 		return email;
 	}
 
-	public void setEmail(String email) {
+	public void setEmail(String email) throws Exception {
+		ListaPessoa pessoas = new ListaPessoa();
+		Pessoa p = pessoas.getPessoaEmail(email);
+		System.out.println(p);
+		if (p != null)
+			throw new ExcecaoGeral("O email inserido ja foi cadastrado");
 		this.email = email;
 	}
 
@@ -184,6 +186,5 @@ public class Pessoa implements Serializable {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-
 }
 

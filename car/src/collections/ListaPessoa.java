@@ -70,4 +70,20 @@ public class ListaPessoa {
     	pessoas.stream().filter(pessoa -> pessoa.getEndereco().getCidade().contentEquals(cidade)).forEach(pessoa -> filtrado.add(pessoa));
     	return filtrado;
     }
+
+	public Pessoa getPessoaEmail(String email){
+		List<Pessoa> filtrado = new ArrayList<Pessoa>();
+		pessoas.stream().filter(pessoa -> pessoa.getEmail().equalsIgnoreCase(email)).forEach(pessoa -> filtrado.add(pessoa));
+		if (filtrado == null || filtrado.isEmpty())
+			return null;
+		return filtrado.get(0);
+	}
+
+	public Pessoa getPessoaCpf(String cpf){
+		List<Pessoa> filtrado = new ArrayList<Pessoa>();
+		pessoas.stream().filter(pessoa -> pessoa.getDocumentacao().getCpf().equalsIgnoreCase(cpf)).forEach(pessoa -> filtrado.add(pessoa));
+		if (filtrado == null || filtrado.isEmpty())
+			return null;
+		return filtrado.get(0);
+	}
 }
