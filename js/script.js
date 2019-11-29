@@ -137,9 +137,18 @@ function pesquisa() {
         if (xmlhttp.readyState === 4) {
             if (xmlhttp.responseText != "") {
                 var responseJSON = JSON.parse(xmlhttp.responseText);
+                
+                //Informações que vão preencher os campos da tabela
+                var tr = document.createElement('tr');
+                var dados = responseJSON.values[0];
+                var i;
+                //console.log(responseJSON.values[0]);
                 if (responseJSON != null && responseJSON != "") {
-                    //RETORNA TODOS OS VEÍCULOS COM SEUS PROPRIETÁRIOS
-                    console.log(responseJSON.values[0]);
+                    for (i=0; i<dados.length; i++) {
+                        var table = document.getElementById('exibeVeiculos');
+                        var row = table.insertRow(1);
+                        row.innerHTML = "<td>"+dados[i]['nome']+"</td> <td>"+dados[i]['modelo']+"</td><td>"+dados[i]['bairro']+"</td><td>"+dados[i]['celular']+"</td><td>"+'<button class="btn btn-success">Mais</button>'+"</td>";
+                    }
                 } 
             }
         }

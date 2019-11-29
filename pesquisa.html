@@ -54,23 +54,34 @@
         <article class="align-self-center">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-10 col-lg-8">
-                    <form class="card card-sm search" id="form-pesquisa">
-                        <div class="card-body row no-gutters align-items-center">
-                            <div class="col-auto">
+
+                    <div style="background-color: white; border-radius: 6px; border: 1px solid rgba(0,0,0,.125); padding-bottom: 10px;">
+                        <form id="form-pesquisa">
+                            <h5 class="card-header bg-blue text-white">Pesquisar veículos</h5>
+                            <div style="width: 96%; margin-left: auto; margin-right: auto;">
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="inputCity">Bairro</label>
+                                        <input type="text" class="form-control" id="bairro" placeholder="Ex.: Paquetá">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="inputEstado">Data inicio aluguel</label>
+                                        <input type="date" class="form-control" id="dataInicioAluguel">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="inputCEP">Data fim aluguel</label>
+                                        <input type="date" class="form-control" id="dataFimAluguel">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto" style="margin-right: auto; margin-left: auto; width: 181px;">
+                                <button class="btn btn-lg btn-success btn-search" type="button" onclick="pesquisa();">Pesquisa</button>
                                 <i class="fa fa-search h4 text-body fa-2x"></i>
                             </div>
-                            <!--end of col-->
-                            <div class="col">
-                                <input class="form-control form-control-lg form-control-borderless" type="search"
-                                    placeholder="Ex.: Paquetá" id="bairro" name="bairro">
-                            </div>
-                            <!--end of col-->
-                            <div class="col-auto">
-                                <button class="btn btn-lg btn-success btn-search" type="button" onclick="pesquisa();">Pesquisa</button>
-                            </div>
-                            <!--end of col-->
-                        </div>
-                    </form>
+                        </form>
+                    </div>
+
+
                 </div>
                 <!--end of col-->
             </div>
@@ -78,7 +89,7 @@
             <div class="tabela" id="tabela">
 
                 <table class="table table-condensed" id="myTable">
-                    <thead class="thead-dark">
+                    <thead class="card-header bg-blue text-white">
                         <tr>
                             <th scope="col">Locatário</th>
                             <th scope="col">Carro</th>
@@ -87,13 +98,10 @@
                             <th scope="col">Mais sobre</th>
                         </tr>
                     </thead>
-                    <tbody class="table-light">
+                    <tbody class="table-light" id="exibeVeiculos">
                         <tr data-toggle="collapse" class="info" data-target="#demo1" data-parent="#myTable">
-                            <td scope="row">1</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td><button class="btn btn-success">Mais</button></td>
+                            
+                            <!-- <td><button class="btn btn-success">Mais</button></td> -->
                         </tr>
                         <tr id="demo1" class="collapse">
                             <td colspan="6" class="hiddenRow">
