@@ -129,12 +129,15 @@ function deslogar() {
 }
 
 function pesquisa() {
+    console.log("OI");
     var xmlhttp = new XMLHttpRequest();
     var form = document.getElementById('form-pesquisa');
     var formData = new FormData(form);
 
     if ( formData.get("bairro"))
-        var url = "?bairro=" + formData.get("bairro");
+        var url = "?bairro=" + formData.get("bairro") + 
+        "&dataInicial=" +
+        "&dataFinal=";
     else
         var url = "";
 
@@ -149,6 +152,7 @@ function pesquisa() {
                 var responseJSON = JSON.parse(xmlhttp.responseText);
                     //RETORNA TODOS OS VEÍCULOS COM SEUS PROPRIETÁRIOS
                     console.log(responseJSON.values[0]);
+                    return false;
             }
         }
     }
