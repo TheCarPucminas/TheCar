@@ -59,7 +59,7 @@ public class Endereco implements Serializable {
 	}
 
 	public void setEstado(String estado) throws ExcecaoGeral {
-		if (estado == null || estado.length() < 3)
+		if (estado == null || estado.length() < 2)
 			throw new ExcecaoGeral("O estado informado e invalido");
 		this.estado = estado;
 	}

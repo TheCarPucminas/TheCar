@@ -21,11 +21,12 @@ function salvarPessoa() {
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState === 4) {
             var responseJSON = JSON.parse(xmlhttp.responseText);
-            if (xmlhttp.responseText != "" && xmlhttp.status == 200) {
-                if (responseJSON != null && responseJSON != "") {
+            if (xmlhttp.responseText != "") {
+                console.log(xmlhttp.status);
+                if (responseJSON != null && responseJSON != "" && xmlhttp.status == 201) {
                     var id = responseJSON.id;
                     localStorage.setItem('id', id);
-                    window.location.href = "login.html";
+                    window.location.href = "index.html";
                 } 
             }
             else {
