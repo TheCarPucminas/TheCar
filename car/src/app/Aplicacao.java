@@ -109,6 +109,12 @@ public class Aplicacao  implements Container {
 				mensagem = veiculoService.consultaAluguelLocatario(request);
 				this.enviaResposta(Status.CREATED, response, mensagem);
 			}
+
+			// CONSULTA VEÍCULOS DE UM LOCATÁRIO
+			if (path.equalsIgnoreCase("/consulta-veiculos") && "GET".equals(method)) {
+				mensagem = veiculoService.consultaVeiculos(request);
+				this.enviaResposta(Status.CREATED, response, mensagem);
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();

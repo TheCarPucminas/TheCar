@@ -294,4 +294,23 @@ public class VeiculoService {
 	    
 		return object;
 	}
+
+	public JSONObject consultaVeiculos (Request request) throws Exception {
+		Query query = request.getQuery();
+
+		int idProprietario = query.getInteger("idProprietario");
+		ListaVeiculo listaVeiculo = new ListaVeiculo();
+		List<Veiculo> veiculos = listaVeiculo.getVeiculosPorProprietario(idProprietario);
+
+		JSONObject object = new JSONObject();
+		JSONArray list = new JSONArray();
+
+		for (Veiculo veiculo : veiculos) {
+			list.put(veiculo.toJson());
+		}
+
+		object.accumulate("values", list);
+
+		return object;
+	}
 }
