@@ -56,6 +56,7 @@ public class PessoaService {
 
 		Query query = request.getQuery();
 
+		telefone = query.get("telefone");
 		nome = query.get("nome");
 		email = query.get("email");
 		cpf = query.get("cpf");
@@ -72,11 +73,9 @@ public class PessoaService {
 		bairro = query.get("bairro");
 		cidade = query.get("cidade");
 		estado = query.get("estado");
-		telefone = query.get("telefone");
 		celular = query.get("celular");
 
-		pessoa = new Pessoa (nome, email, cpf, rg, cnh, senha, cep, rua, numero, bairro, cidade, estado, telefone, celular /*File cpfImg, File rgImg, File cnhImg,
-				File certificadoBonsAntecedentesImg,*/);
+		pessoa = new Pessoa (nome, email, cpf, rg, cnh, senha, cep, rua, numero, bairro, cidade, estado, telefone, celular);
 
 		PessoaDAO pessoaDAO = new PessoaDAO("pessoa.bin");
 		pessoaDAO.add(pessoa);

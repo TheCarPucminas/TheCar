@@ -86,4 +86,9 @@ public class Disponibilidade implements Serializable {
 	public String toString() {
 		return  "\nData de inicio: " + this.getDataInicio() + "\nData de final: " + this.getDataFinal() + "\nValor da diária: R$" + this.getValorDaDiaria();
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return this.getId() == ((Disponibilidade) obj).getId();
+	}
 }

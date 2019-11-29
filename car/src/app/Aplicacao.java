@@ -56,9 +56,15 @@ public class Aplicacao  implements Container {
 			}	
 			
 			if (path.equalsIgnoreCase("/veiculo") && "GET".equals(method)) {
-				mensagem = veiculoService.add(request);
-				this.enviaResposta(Status.CREATED, response, mensagem);
-			}	
+				try {
+					mensagem = veiculoService.add(request);
+					this.enviaResposta(Status.CREATED, response, mensagem);
+				} catch (ExcecaoGeral e) {
+					JSONObject error = new JSONObject();
+					error.put("error", e.getMensagem());
+					this.enviaResposta(Status.NOT_ACCEPTABLE, response, error);
+				}
+			}
 			
 			if (path.equalsIgnoreCase("/excluir-veiculo") && "GET".equals(method)) {
 				mensagem = veiculoService.remove(request);
@@ -72,7 +78,7 @@ public class Aplicacao  implements Container {
 
 			if (path.equalsIgnoreCase("/pesquisa") && "GET".equals(method)) {
 				mensagem = veiculoService.pesquisa(request);
-				this.enviaResposta(Status.CREATED, response, mensagem);
+				this.enviaResposta(Status.OK, response, mensagem);
 			}	
 			
 			if (path.equalsIgnoreCase("/adiciona-disponibilidade") && "GET".equals(method)) {
@@ -101,6 +107,12 @@ public class Aplicacao  implements Container {
 			// CONSULTA ALUGUEL COM ID DO LOCATÁRIO
 			if (path.equalsIgnoreCase("/consulta-aluguel-locatario") && "GET".equals(method)) {
 				mensagem = veiculoService.consultaAluguelLocatario(request);
+				this.enviaResposta(Status.CREATED, response, mensagem);
+			}
+
+			// CONSULTA VEÍCULOS DE UM LOCATÁRIO
+			if (path.equalsIgnoreCase("/consulta-veiculos") && "GET".equals(method)) {
+				mensagem = veiculoService.consultaVeiculos(request);
 				this.enviaResposta(Status.CREATED, response, mensagem);
 			}
 			

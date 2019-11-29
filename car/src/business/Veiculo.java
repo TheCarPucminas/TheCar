@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import error.ExcecaoGeral;
 import org.json.JSONObject;
 
 import collections.ListaPessoa;
@@ -62,8 +63,24 @@ public class Veiculo implements Serializable {
 		return placa.toUpperCase();
 	}
 
-	public void setPlaca(String placa) {
-		this.placa = placa;
+	public void setPlaca(String placa) throws Exception {
+		ListaVeiculo veiculos = new ListaVeiculo();
+		Veiculo v = veiculos.getVeiculoPlaca(placa);
+
+		if (!ePlacaValida(placa))
+			throw new ExcecaoGeral("A placa informada nao e valida");
+		else if (v != null){
+			throw new ExcecaoGeral("A placa informada ja esta registrada no nosso sistema");
+		}
+		else {
+			this.placa = placa;
+		}
+	}
+
+	private boolean ePlacaValida(String placa) {
+		Pattern pattern = Pattern.compile("[A-Z]{3}[0-9]{4}");
+		Matcher matcher = pattern.matcher(placa);
+		return matcher.matches();
 	}
 
 	public String getCor() {
@@ -189,7 +206,7 @@ public class Veiculo implements Serializable {
 	public JSONObject toJson() {
 		JSONObject obj = new JSONObject();
 		obj.put("idProprietario", this.getIdProprietario());
-		obj.put("id", this.getId());
+		obj.put("idVeiculo", this.getId());
 		obj.put("placa", this.getPlaca());
 		obj.put("cor", this.getCor());
 		obj.put("anoFabricacao", this.getAnoFabricacao());
@@ -201,8 +218,7 @@ public class Veiculo implements Serializable {
 		obj.put("numeroPortas", this.getNumeroPortas());
 		obj.put("quilometragem", this.getQuilometragem());
 		obj.put("combustivel", this.getCombustivel());
-		
-		obj.put("id", this.getProprietario().getId());
+
 		obj.put("email", this.getProprietario().getEmail());
 		obj.put("nome", this.getProprietario().getNome());
 		obj.put("cpf", this.getProprietario().getCpf());
@@ -215,17 +231,17 @@ public class Veiculo implements Serializable {
 		obj.put("estado", this.getProprietario().getEndereco().getEstado());
 		obj.put("telefone", this.getProprietario().getTelefone());
 		obj.put("celular", this.getProprietario().getCelular());
-		
+
 		return obj;
 	}
 	
 	@Override
 	public String toString() {
-		return  proprietario + "\nId: " + this.getId() + "\nPlaca: " + this.getPlaca() + "\nCor: " + this.getCor() + "\nAno de fabricação: " + this.getAnoFabricacao() + "\nAno do modelo: " + this.getAnoModelo() + "\nChassi: " + this.getChassi() + "\nRenavam: " + this.getRenavam() + "\nMarca: " + this.getMarca() + "\nModelo: " + this.getModelo() + "\nNúmero de portas: " + this.getNumeroPortas() + "\nQuilometragem: " + this.getQuilometragem() + "\nCombustível: " + this.getCombustivel();
+		return  proprietario + "\nId veiculo: " + this.getId() + "\nPlaca: " + this.getPlaca() + "\nCor: " + this.getCor() + "\nAno de fabricação: " + this.getAnoFabricacao() + "\nAno do modelo: " + this.getAnoModelo() + "\nChassi: " + this.getChassi() + "\nRenavam: " + this.getRenavam() + "\nMarca: " + this.getMarca() + "\nModelo: " + this.getModelo() + "\nNúmero de portas: " + this.getNumeroPortas() + "\nQuilometragem: " + this.getQuilometragem() + "\nCombustível: " + this.getCombustivel();
 	}
 	
 	@Override
 	public boolean equals(Object obj) {
-		return this.placa == ((Veiculo) obj).getPlaca();
+		return this.getId() == ((Veiculo) obj).getId();
 	}
 }

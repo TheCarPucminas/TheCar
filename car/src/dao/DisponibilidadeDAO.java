@@ -83,14 +83,17 @@ public class DisponibilidadeDAO implements DAO<Disponibilidade, String>{
 		return false;
 	}
 
-	public boolean remove(Disponibilidade a) {
+	public boolean remove(Disponibilidade a) throws IOException {
 		List<Disponibilidade> disponibilidades = getAll();
 		int index = disponibilidades.indexOf(a);
+
 		if (index != -1) {
 			disponibilidades.remove(index);
+			close();
+			file.delete();
+			saveToFile(disponibilidades);
 			return true;
 		}
-		saveToFile(disponibilidades);
 		return false;
 	}
 

@@ -75,4 +75,19 @@ public class ListaDisponibilidade {
 		}
 		return veiculosDisponiveis;
 	}
+
+	public Disponibilidade getDisponibilidade (LocalDateTime dataInicial, LocalDateTime dataFinal, int idVeiculo) {
+
+		for (Disponibilidade d : disponibilidades) {
+			if ((d.getDataInicio().isBefore(dataInicial)
+					|| d.getDataInicio().equals(dataInicial))
+					&& (d.getDataFinal().isAfter(dataFinal)
+					|| d.getDataFinal().equals(dataFinal))
+					&& d.getIdVeiculo() == idVeiculo) {
+				return d;
+			}
+		}
+
+		return null;
+	}
 }

@@ -101,6 +101,8 @@ public class Aluguel implements Serializable {
 		obj.put("valor", this.getValorAluguel());
 		obj.put("devolvido", this.isDevolvido());
 		obj.put("pago", this.isPago());
+		obj.put("dataEmprestimo", this.getDataEmprestimo());
+		obj.put("dataDevolucao", this.getDataDevolucao());
 		return obj;
 	}
 	//Métodos -------------------------------------------------------------------------------------------------------------------------
