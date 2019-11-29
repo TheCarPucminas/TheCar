@@ -21,14 +21,11 @@ function salvarPessoa() {
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState === 4) {
             var responseJSON = JSON.parse(xmlhttp.responseText);
-            if (xmlhttp.responseText != "") {
-                console.log(xmlhttp.status);
-                if (responseJSON != null && responseJSON != "" && xmlhttp.status == 201) {
+                if (xmlhttp.status == 201) {
                     var id = responseJSON.id;
                     localStorage.setItem('id', id);
                     window.location.href = "index.html";
                 } 
-            }
             else {
                 alert(responseJSON.error);
             }
@@ -58,6 +55,21 @@ function salvarVeiculo() {
     "&numeroPortas=" + formData.get("numeroPortas") + 
     "&quilometragem=" + formData.get("quilometragem") + 
     "&combustivel=" + formData.get("combustivel");
+
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState === 4) {
+            var responseJSON = JSON.parse(xmlhttp.responseText);
+            if (xmlhttp.responseText != "") {
+                if (responseJSON != null && responseJSON != "" && xmlhttp.status == 201) {
+                    window.location.href = "pesquisa.html";
+                } 
+            }
+            else {
+                alert("OI");
+                alert(responseJSON.error);
+            }
+        }
+    }
 
     if (xmlhttp) {
         xmlhttp.open('get', "http://localhost:8080/veiculo?" + url, true);

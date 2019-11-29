@@ -56,9 +56,15 @@ public class Aplicacao  implements Container {
 			}	
 			
 			if (path.equalsIgnoreCase("/veiculo") && "GET".equals(method)) {
-				mensagem = veiculoService.add(request);
-				this.enviaResposta(Status.CREATED, response, mensagem);
-			}	
+				try {
+					mensagem = veiculoService.add(request);
+					this.enviaResposta(Status.CREATED, response, mensagem);
+				} catch (ExcecaoGeral e) {
+					JSONObject error = new JSONObject();
+					error.put("error", e.getMensagem());
+					this.enviaResposta(Status.NOT_ACCEPTABLE, response, error);
+				}
+			}
 			
 			if (path.equalsIgnoreCase("/excluir-veiculo") && "GET".equals(method)) {
 				mensagem = veiculoService.remove(request);

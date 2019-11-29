@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import error.ExcecaoGeral;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.simpleframework.http.Query;
@@ -54,17 +55,43 @@ public class VeiculoService {
 
 		Query query = request.getQuery();
 
-		idProprietario = query.getInteger("idProprietario");
+		try {
+			idProprietario = query.getInteger("idProprietario");
+		} catch (Exception e) {
+			throw new ExcecaoGeral("Voce nao esta autenticado para realizar essa operacao");
+		}
 	    placa = query.get("placa");
 	    cor = query.get("cor");
-	    anoFabricacao = query.getInteger("anoFabricacao");
-	    anoModelo = query.getInteger("anoModelo");
+
+	    try {
+			anoFabricacao = query.getInteger("anoFabricacao");
+		} catch (Exception e) {
+	    	throw new ExcecaoGeral("O ano de fabricação digitado e invalido");
+		}
+
+	    try {
+			anoModelo = query.getInteger("anoModelo");
+		} catch (Exception e) {
+	    	throw new ExcecaoGeral("O ano do modelo informado e invalido");
+		}
+
 	    chassi = query.get("chassi");
 	    renavam = query.get("renavam");
 	    marca = query.get("marca");
 	    modelo = query.get("modelo");
-	    numeroPortas = query.getInteger("numeroPortas");
-	    quilometragem = query.getInteger("quilometragem");
+
+	    try {
+			numeroPortas = query.getInteger("numeroPortas");
+		} catch (Exception e) {
+	    	throw new ExcecaoGeral("O numero de portas informado e invalido");
+		}
+
+	    try {
+			quilometragem = query.getInteger("quilometragem");
+		} catch (Exception e) {
+	    	throw new ExcecaoGeral("A quilometragem inserida e invalida");
+		}
+
 	    combustivel = query.get("combustivel");
 	    
 

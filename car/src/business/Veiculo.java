@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import error.ExcecaoGeral;
 import org.json.JSONObject;
 
 import collections.ListaPessoa;
@@ -62,8 +63,24 @@ public class Veiculo implements Serializable {
 		return placa.toUpperCase();
 	}
 
-	public void setPlaca(String placa) {
-		this.placa = placa;
+	public void setPlaca(String placa) throws Exception {
+		ListaVeiculo veiculos = new ListaVeiculo();
+		Veiculo v = veiculos.getVeiculoPlaca(placa);
+
+		if (!ePlacaValida(placa))
+			throw new ExcecaoGeral("A placa informada nao e valida");
+		else if (v != null){
+			throw new ExcecaoGeral("A placa informada ja esta registrada no nosso sistema");
+		}
+		else {
+			this.placa = placa;
+		}
+	}
+
+	private boolean ePlacaValida(String placa) {
+		Pattern pattern = Pattern.compile("[A-Z]{3}[0-9]{4}");
+		Matcher matcher = pattern.matcher(placa);
+		return matcher.matches();
 	}
 
 	public String getCor() {

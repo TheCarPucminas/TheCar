@@ -85,4 +85,12 @@ public class ListaVeiculo {
 
 		return filtrado;
 	}
+
+	public Veiculo getVeiculoPlaca(String placa) {
+		List<Veiculo> filtrado = new ArrayList<Veiculo>();
+		veiculos.stream().filter(veiculo -> veiculo.getPlaca().equalsIgnoreCase(placa)).forEach(veiculo -> filtrado.add(veiculo));
+		if (filtrado.isEmpty())
+			return null;
+		return filtrado.get(0);
+	}
 }
