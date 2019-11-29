@@ -231,7 +231,7 @@ public class Veiculo implements Serializable {
 		obj.put("estado", this.getProprietario().getEndereco().getEstado());
 		obj.put("telefone", this.getProprietario().getTelefone());
 		obj.put("celular", this.getProprietario().getCelular());
-		
+
 		return obj;
 	}
 	

@@ -145,8 +145,9 @@ public class VeiculoService {
 	    for (Veiculo veiculo : veiculosDisponiveis) {
 	 		list.put(veiculo.toJson());
 		}
-	    
+
 	    object.accumulate("values", list);
+
 		return object;
 	}
 	
@@ -212,7 +213,7 @@ public class VeiculoService {
 		pago = query.getBoolean("pago");
 		idVeiculo = query.getInteger("idVeiculo");
 		idLocatario = query.getInteger("idLocatario");
-		
+
 		ListaVeiculo listVeiculo = new ListaVeiculo();
 		Veiculo veiculo = listVeiculo.getPorId(idVeiculo);
 		Aluguel aluguel = new Aluguel(dataEmprestimo, dataDevolucao, valorAluguel, devolvido, pago, idVeiculo, idLocatario);
