@@ -3,6 +3,7 @@ import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.util.List;
 
+import error.ExcecaoGeral;
 import org.simpleframework.http.core.Container;
 import org.simpleframework.http.core.ContainerSocketProcessor;
 import org.simpleframework.transport.connect.Connection;
@@ -43,8 +44,15 @@ public class Aplicacao  implements Container {
 			
 			// Verifica qual ação está sendo chamada
 			if (path.equalsIgnoreCase("/pessoa") && "GET".equals(method)) {
-				mensagem = pessoaService.add(request);
-				this.enviaResposta(Status.CREATED, response, mensagem);
+				try {
+					mensagem = pessoaService.add(request);
+					this.enviaResposta(Status.CREATED, response, mensagem);
+				} catch (ExcecaoGeral e) {
+					JSONObject error = new JSONObject();
+					error.put("error", e.getMensagem());
+					this.enviaResposta(Status.NOT_ACCEPTABLE, response, error);
+				}
+
 			}	
 			
 			if (path.equalsIgnoreCase("/veiculo") && "GET".equals(method)) {

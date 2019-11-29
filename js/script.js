@@ -18,9 +18,25 @@ function salvarPessoa() {
     "&telefone=" + formData.get("telefone") + 
     "&celular=" + formData.get("celular");
 
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState === 4) {
+            var responseJSON = JSON.parse(xmlhttp.responseText);
+            if (xmlhttp.responseText != "" && xmlhttp.status == 200) {
+                if (responseJSON != null && responseJSON != "") {
+                    var id = responseJSON.id;
+                    localStorage.setItem('id', id);
+                    window.location.href = "login.html";
+                } 
+            }
+            else {
+                alert(responseJSON.error);
+            }
+        }
+    }
+
     if (xmlhttp) {
-        xmlhttp.open('get', "http://localhost:880/pessoa?" + url, true);
-        xmlhttp.send();
+        xmlhttp.open('get', "http://localhost:8080/pessoa?" + url, true);
+        xmlhttp.send(null);
     }
 }
 
@@ -43,7 +59,7 @@ function salvarVeiculo() {
     "&combustivel=" + formData.get("combustivel");
 
     if (xmlhttp) {
-        xmlhttp.open('get', "http://localhost:880/veiculo?" + url, true);
+        xmlhttp.open('get', "http://localhost:8080/veiculo?" + url, true);
         xmlhttp.send();
     }
 }
@@ -56,7 +72,7 @@ function excluirVeiculo() {
     var url = "placa=" + formData.get("placa");
 
     if (xmlhttp) {
-        xmlhttp.open('get', "http://localhost:880/excluir-veiculo?" + url, true);
+        xmlhttp.open('get', "http://localhost:8080/excluir-veiculo?" + url, true);
         xmlhttp.send();
     }
 }
@@ -69,12 +85,10 @@ function salvarLogin() {
     var url = "email=" + formData.get("email") + 
     "&senha=" + formData.get("senha");
     if (xmlhttp) {
-        xmlhttp.open('get', "http://localhost:880/login?" + url, true);
+        xmlhttp.open('get', "http://localhost:8080/login?" + url, true);
         xmlhttp.send();
     }
 
-    console.log(xmlhttp);
-    console.log(xmlhttp.responseText);
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState === 4) {
             if (xmlhttp.responseText != "") {
@@ -114,7 +128,7 @@ function pesquisa() {
         var url = "";
 
     if (xmlhttp) {
-        xmlhttp.open('get', "http://localhost:880/pesquisa" + url, true);
+        xmlhttp.open('get', "http://localhost:8080/pesquisa" + url, true);
         xmlhttp.send();
     }
 

@@ -1,17 +1,15 @@
 package business;
 
-import java.io.*;
-//import java.io.UnsupportedEncodingException;
+import collections.ListaPessoa;
+import error.ExcecaoGeral;
+import org.json.JSONObject;
+
+import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import collections.ListaPessoa;
-import collections.ListaVeiculo;
 
 
 public class Pessoa implements Serializable {
@@ -64,7 +62,9 @@ public class Pessoa implements Serializable {
 		return nome;
 	}
 
-	public void setNome(String nome) {
+	public void setNome(String nome) throws ExcecaoGeral {
+		if (nome.length() < 5 || nome == null || nome == "")
+			throw new ExcecaoGeral("O nome inserido e invalido");
 		this.nome = nome;
 	}
 
@@ -72,7 +72,9 @@ public class Pessoa implements Serializable {
 		return senha;
 	}
 
-	public void setSenha(String senha) {
+	public void setSenha(String senha) throws ExcecaoGeral {
+		if (senha.length() < 4 || senha == null || senha == "")
+			throw new ExcecaoGeral("A senha inserida e invalida");
 		this.senha = senha;
 	}
 
@@ -80,7 +82,7 @@ public class Pessoa implements Serializable {
 		return telefone;
 	}
 
-	public void setTelefone(String telefone) {
+	public void setTelefone(String telefone) throws ExcecaoGeral {
 		this.telefone = telefone;
 	}
 
