@@ -24,7 +24,7 @@ import dao.VeiculoDAO;
 public class VeiculoService {
 	private Veiculo veiculo;
 	
-	public JSONObject remove(Request request) throws IOException {
+	public JSONObject remove(Request request) throws IOException, ExcecaoGeral {
 		String placa;
 		
 		Query query = request.getQuery();
@@ -33,7 +33,13 @@ public class VeiculoService {
 	    
 	    
 	    VeiculoDAO veiculoDAO = new VeiculoDAO("veiculo.bin");
-	    Veiculo veiculo = veiculoDAO.getVeiculo(placa);
+	    try {
+			ListaVeiculo veiculos = new ListaVeiculo();
+			Veiculo v = veiculos.getVeiculoPlaca(placa);
+		} catch (Exception e) {
+			throw new ExcecaoGeral("A placa informada nao existe no sistema");
+		}
+
 		veiculoDAO.remove(veiculo);
 
 		return veiculo.toJson();
@@ -109,23 +115,26 @@ public class VeiculoService {
 	}
 
 	public JSONObject pesquisa(Request request) throws Exception {
-		String bairro;
+		DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 		Query query = request.getQuery();
+		String bairro;
+		LocalDateTime dataInicial =  LocalDateTime.parse(query.get("dataInicial"),formatter);
+		LocalDateTime dataFinal =  LocalDateTime.parse(query.get("dataFinal"),formatter);
+
 	    bairro = query.get("bairro");
 	    ListaVeiculo listVeiculo = new ListaVeiculo();
+		ListaDisponibilidade listaDisponibilidade = new ListaDisponibilidade();
+		List<Veiculo> veiculosDisponiveis = new ArrayList<Veiculo>();
+
+		veiculosDisponiveis = listaDisponibilidade.consultaDisponibilidade(dataInicial, dataFinal);
 		JSONObject object = new JSONObject();
 		JSONArray list = new JSONArray();
-		List<Veiculo> veiculos;
-	   
-	    if (bairro == null) {
-	    	veiculos = listVeiculo.getAll();
-	    }
-	    else {
-	    	veiculos = listVeiculo.getVeiculosPorBairro(bairro);
-	    	System.out.println("AQUIII");
+
+	    if (bairro != null) {
+			veiculosDisponiveis.retainAll(listVeiculo.getVeiculosPorBairro(bairro));
 	    }
 	    
-	    for (Veiculo veiculo : veiculos) {
+	    for (Veiculo veiculo : veiculosDisponiveis) {
 	 		list.put(veiculo.toJson());
 		}
 	    
@@ -202,7 +211,12 @@ public class VeiculoService {
 	    
 		ListaAlugueis listaAlugueis = new ListaAlugueis();
 	    listaAlugueis.add(aluguel);
-	    
+
+	    ListaDisponibilidade disponibilidades = new ListaDisponibilidade();
+	    Disponibilidade disponibilidade = disponibilidades.getDisponibilidade(dataEmprestimo, dataDevolucao, idVeiculo);
+	    if (disponibilidade != null) {
+	    	disponibilidades.remove(disponibilidade);
+		}
 		return aluguel.toJson();
 	}
 	

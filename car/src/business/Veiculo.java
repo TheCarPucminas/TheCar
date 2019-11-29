@@ -206,7 +206,7 @@ public class Veiculo implements Serializable {
 	public JSONObject toJson() {
 		JSONObject obj = new JSONObject();
 		obj.put("idProprietario", this.getIdProprietario());
-		obj.put("id", this.getId());
+		obj.put("idVeiculo", this.getId());
 		obj.put("placa", this.getPlaca());
 		obj.put("cor", this.getCor());
 		obj.put("anoFabricacao", this.getAnoFabricacao());
@@ -218,8 +218,7 @@ public class Veiculo implements Serializable {
 		obj.put("numeroPortas", this.getNumeroPortas());
 		obj.put("quilometragem", this.getQuilometragem());
 		obj.put("combustivel", this.getCombustivel());
-		
-		obj.put("id", this.getProprietario().getId());
+
 		obj.put("email", this.getProprietario().getEmail());
 		obj.put("nome", this.getProprietario().getNome());
 		obj.put("cpf", this.getProprietario().getCpf());
@@ -238,11 +237,11 @@ public class Veiculo implements Serializable {
 	
 	@Override
 	public String toString() {
-		return  proprietario + "\nId: " + this.getId() + "\nPlaca: " + this.getPlaca() + "\nCor: " + this.getCor() + "\nAno de fabricação: " + this.getAnoFabricacao() + "\nAno do modelo: " + this.getAnoModelo() + "\nChassi: " + this.getChassi() + "\nRenavam: " + this.getRenavam() + "\nMarca: " + this.getMarca() + "\nModelo: " + this.getModelo() + "\nNúmero de portas: " + this.getNumeroPortas() + "\nQuilometragem: " + this.getQuilometragem() + "\nCombustível: " + this.getCombustivel();
+		return  proprietario + "\nId veiculo: " + this.getId() + "\nPlaca: " + this.getPlaca() + "\nCor: " + this.getCor() + "\nAno de fabricação: " + this.getAnoFabricacao() + "\nAno do modelo: " + this.getAnoModelo() + "\nChassi: " + this.getChassi() + "\nRenavam: " + this.getRenavam() + "\nMarca: " + this.getMarca() + "\nModelo: " + this.getModelo() + "\nNúmero de portas: " + this.getNumeroPortas() + "\nQuilometragem: " + this.getQuilometragem() + "\nCombustível: " + this.getCombustivel();
 	}
 	
 	@Override
 	public boolean equals(Object obj) {
-		return this.placa == ((Veiculo) obj).getPlaca();
+		return this.getId() == ((Veiculo) obj).getId();
 	}
 }

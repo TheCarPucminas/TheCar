@@ -78,7 +78,7 @@ public class Aplicacao  implements Container {
 
 			if (path.equalsIgnoreCase("/pesquisa") && "GET".equals(method)) {
 				mensagem = veiculoService.pesquisa(request);
-				this.enviaResposta(Status.CREATED, response, mensagem);
+				this.enviaResposta(Status.OK, response, mensagem);
 			}	
 			
 			if (path.equalsIgnoreCase("/adiciona-disponibilidade") && "GET".equals(method)) {

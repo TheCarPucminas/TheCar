@@ -21,11 +21,11 @@ function salvarPessoa() {
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState === 4) {
             var responseJSON = JSON.parse(xmlhttp.responseText);
-                if (xmlhttp.status == 201) {
-                    var id = responseJSON.id;
-                    localStorage.setItem('id', id);
-                    window.location.href = "index.html";
-                } 
+            if (xmlhttp.status == 201) {
+                var id = responseJSON.id;
+                localStorage.setItem('id', id);
+                window.location.href = "index.html";
+            } 
             else {
                 alert(responseJSON.error);
             }
@@ -59,11 +59,9 @@ function salvarVeiculo() {
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState === 4) {
             var responseJSON = JSON.parse(xmlhttp.responseText);
-            if (xmlhttp.responseText != "") {
-                if (responseJSON != null && responseJSON != "" && xmlhttp.status == 201) {
-                    window.location.href = "pesquisa.html";
-                } 
-            }
+            if (xmlhttp.status == 201) {
+                window.location.href = "pesquisa.html";
+            } 
             else {
                 alert("OI");
                 alert(responseJSON.error);
@@ -147,15 +145,13 @@ function pesquisa() {
 
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState === 4) {
-            if (xmlhttp.responseText != "") {
+            if (xmlhttp.status == 200) {
                 var responseJSON = JSON.parse(xmlhttp.responseText);
-                if (responseJSON != null && responseJSON != "") {
                     //RETORNA TODOS OS VEÍCULOS COM SEUS PROPRIETÁRIOS
                     console.log(responseJSON.values[0]);
-                } 
             }
         }
-      }
+    }
 }
 //************************ CONJUNTO DE FUNÇÕES PARA IDENTIFICAR O ENDEREÇO ************************
 function limpa_formulário_cep() {
