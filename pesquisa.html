@@ -17,7 +17,7 @@
 
 </head>
 
-<body onload="verificaLogin(); pesquisa();">
+<body onload="verificaLogin(); pesquisa(); exibeNomeUsuario();">
 
     <div class="container-fluid">
 
@@ -35,13 +35,9 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle ml-3 drop" style="color: white" href="#"
                         id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        Fulano
-                    </a>
+                        aria-expanded="false"></a>
                     <div class="dropdown-menu bg-oneblue" style="color: white" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="perfil.html">Perfil</a>
-                        <a class="dropdown-item" href="#">Aluguel</a>
-                        <a class="dropdown-item" href="#">Chat</a>
                         <a class="dropdown-item" href="#">Sair <i class="fa fa-sign-out" aria-hidden="true"></i> </a>
                     </div>
                 </li>
@@ -99,21 +95,7 @@
                         </tr>
                     </thead>
                     <tbody class="table-light" id="exibeVeiculos">
-                        <tr data-toggle="collapse" class="info" data-target="#demo1" data-parent="#myTable">
-                            
-                            <!-- <td><button class="btn btn-success">Mais</button></td> -->
-                        </tr>
-                        <tr id="demo1" class="collapse">
-                            <td colspan="6" class="hiddenRow">
-                                <div>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            This is some text within a card body.
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
+                        <tr></tr>
                     </tbody>
                 </table>
 
@@ -138,6 +120,25 @@
         </footer>
     </div>
 
+    <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content" >
+                <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Dados do Locatário</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+            <div class="modal-body" id="infoAluguel">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-success">Alugar</button>
+              </div>
+          </div>
+        </div>
+      </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

@@ -100,7 +100,7 @@ function salvarLogin() {
                     localStorage.setItem('id', id);
                     localStorage.setItem('nome', nome);
                     window.location.href = "perfil.html";
-                } 
+                }
             }
             else {
                 alert("LOGIN OU SENHA INVÁLIDOS");
@@ -150,17 +150,119 @@ function pesquisa() {
                 var tr = document.createElement('tr');
                 var dados = responseJSON.values[0];
                 var i;
-                
+
                 if (responseJSON != null && responseJSON != "") {
                     for (i = 0; i < dados.length; i++) {
                         var table = document.getElementById('exibeVeiculos');
                         var row = table.insertRow(1);
-                        row.innerHTML = "<td>" + dados[i]['nome'] + "</td> <td>" + dados[i]['modelo'] + "</td><td>" + dados[i]['bairro'] + "</td><td>" + dados[i]['celular'] + "</td><td>" + '<button class="btn btn-success">Mais</button>' + "</td>";
+                        row.innerHTML = `<td scope="row">${dados[i]['nome']}</td>
+                        <td>${ dados[i]['modelo']}</td>
+                        <td>${dados[i]['bairro']}</td>
+                        <td>${dados[i]['celular']}</td>
+                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl" onClick="preencheModal(${i})">Mais</button></td>`;
                     }
                 }
             }
         }
     }
+}
+
+function preencheModal(i) {
+    var xmlhttp = new XMLHttpRequest();
+    var form = document.getElementById('form-pesquisa');
+    var formData = new FormData(form);
+
+    if (xmlhttp) {
+        xmlhttp.open('get', "http://localhost:8080/pesquisa", true);
+        xmlhttp.send();
+    }
+
+    xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState === 4) {
+            if (xmlhttp.responseText != "") {
+                var responseJSON = JSON.parse(xmlhttp.responseText);
+
+                //Informações que vão preencher os campos da tabela
+
+                var dados = responseJSON.values[0];
+                document.getElementById('infoAluguel').innerHTML = `<fieldset disabled><form>
+                <div class="form-group row">
+                  
+                <div class="col-4">
+                <label for="disabledTextInput">Nome</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input" value= "${dados[i]['nome']}">
+                </div>
+                 
+                <div class="col-4">
+                <label for="disabledTextInput">Email</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input" value= "${dados[i]['email']}">
+                </div>
+
+                <div class="col-4">
+                <label for="disabledTextInput">Telefone</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input" value= "${dados[i]['celular']}">
+                </div>
+                </div>
+
+                <div class="form-group row">
+                <div class="col-2">
+                <label for="disabledTextInput">Placa</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input" value= "${dados[i]['placa']}">
+                </div>
+                <div class="col-2">
+                <label for="disabledTextInput">Ano Modelo</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input" value= "${dados[i]['anoModelo']}">
+                </div>
+                <div class="col-2">
+                <label for="disabledTextInput">Ano Fabricação</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input" value= "${dados[i]['anoFabri']}">
+                </div>
+                <div class="col-2">
+                <label for="disabledTextInput">Marca</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input" value= "${dados[i]['marca']}">
+                </div>
+                <div class="col-2">
+                <label for="disabledTextInput">Modelo</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input" value= "${dados[i]['modelo']}">
+                </div>
+                <div class="col-2">
+                <label for="disabledTextInput">Combustível</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input" value= "${dados[i]['combustivel']}">
+                </div>
+                </div>
+
+                <div class="form-group row">
+                <div class="col-2">
+                <label for="disabledTextInput">Número portas</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input" value= "${dados[i]['numeroPortas']}">
+                </div>
+                <div class="col-2">
+                <label for="disabledTextInput">CEP</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input" value= "${dados[i]['cep']}">
+                </div>
+                <div class="col-2">
+                <label for="disabledTextInput">Bairro</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input" value= "${dados[i]['bairro']}">
+                </div>
+                <div class="col-2">
+                <label for="disabledTextInput">Cidade</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input" value= "${dados[i]['cidade']}">
+                </div>
+                <div class="col-2">
+                <label for="disabledTextInput">Estado</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input" value= "${dados[i]['estado']}">
+                </div>
+              </form></fieldset>`
+            }
+        }
+    }
+    //document.getElementById('name').innerHTML = dados[i]['nome'];
+    /* document.getElementById('demo1').innerHTML = db[indice].genero;
+     document.getElementById('demo2').innerHTML = db[indice].temporadas;
+     document.getElementById('demo3').innerHTML = db[indice].personagem;
+     document.getElementById('demo4').innerHTML = db[indice].publico;
+     document.getElementById('demo5').src = db[indice].imagem;
+     document.getElementById('demo6').innerHTML = db[indice].sinopse;*/
 }
 //************************ CONJUNTO DE FUNÇÕES PARA IDENTIFICAR O ENDEREÇO ************************
 function limpa_formulário_cep() {
