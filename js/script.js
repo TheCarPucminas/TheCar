@@ -3,22 +3,22 @@ function salvarPessoa() {
 
     var form = document.getElementById('form-pessoa');
     var formData = new FormData(form);
-    var url = "nome=" + formData.get("nome") + 
-    "&email=" + formData.get("email") + 
-    "&cpf=" + formData.get("cpf") + 
-    "&rg=" + formData.get("rg") + 
-    "&cnh=" + formData.get("cnh") + 
-    "&senha=" + formData.get("senha") + 
-    "&cep=" + formData.get("cep") +
-    "&rua=" + formData.get("rua") + 
-    "&numero=" + formData.get("numero") + 
-    "&bairro=" + formData.get("bairro") + 
-    "&cidade=" + formData.get("cidade") + 
-    "&estado=" + formData.get("estado") + 
-    "&telefone=" + formData.get("telefone") + 
-    "&celular=" + formData.get("celular");
+    var url = "nome=" + formData.get("nome") +
+        "&email=" + formData.get("email") +
+        "&cpf=" + formData.get("cpf") +
+        "&rg=" + formData.get("rg") +
+        "&cnh=" + formData.get("cnh") +
+        "&senha=" + formData.get("senha") +
+        "&cep=" + formData.get("cep") +
+        "&rua=" + formData.get("rua") +
+        "&numero=" + formData.get("numero") +
+        "&bairro=" + formData.get("bairro") +
+        "&cidade=" + formData.get("cidade") +
+        "&estado=" + formData.get("estado") +
+        "&telefone=" + formData.get("telefone") +
+        "&celular=" + formData.get("celular");
 
-    xmlhttp.onreadystatechange = function() {
+    xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState === 4) {
             var responseJSON = JSON.parse(xmlhttp.responseText);
             if (xmlhttp.responseText != "") {
@@ -27,7 +27,7 @@ function salvarPessoa() {
                     var id = responseJSON.id;
                     localStorage.setItem('id', id);
                     window.location.href = "index.html";
-                } 
+                }
             }
             else {
                 alert(responseJSON.error);
@@ -47,17 +47,17 @@ function salvarVeiculo() {
     var form = document.getElementById('form-veiculo');
     var formData = new FormData(form);
     var url = "idProprietario=" + localStorage.getItem('id') +
-    "&placa=" + formData.get("placa") + 
-    "&cor=" + formData.get("cor") + 
-    "&anoFabricacao=" + formData.get("anoFabricacao") + 
-    "&anoModelo=" + formData.get("anoModelo") + 
-    "&chassi=" + formData.get("chassi") + 
-    "&renavam=" + formData.get("renavam") + 
-    "&marca=" + formData.get("marca") +
-    "&modelo=" + formData.get("modelo") + 
-    "&numeroPortas=" + formData.get("numeroPortas") + 
-    "&quilometragem=" + formData.get("quilometragem") + 
-    "&combustivel=" + formData.get("combustivel");
+        "&placa=" + formData.get("placa") +
+        "&cor=" + formData.get("cor") +
+        "&anoFabricacao=" + formData.get("anoFabricacao") +
+        "&anoModelo=" + formData.get("anoModelo") +
+        "&chassi=" + formData.get("chassi") +
+        "&renavam=" + formData.get("renavam") +
+        "&marca=" + formData.get("marca") +
+        "&modelo=" + formData.get("modelo") +
+        "&numeroPortas=" + formData.get("numeroPortas") +
+        "&quilometragem=" + formData.get("quilometragem") +
+        "&combustivel=" + formData.get("combustivel");
 
     if (xmlhttp) {
         xmlhttp.open('get', "http://localhost:8080/veiculo?" + url, true);
@@ -83,14 +83,14 @@ function salvarLogin() {
 
     var form = document.getElementById('form-login');
     var formData = new FormData(form);
-    var url = "email=" + formData.get("email") + 
-    "&senha=" + formData.get("senha");
+    var url = "email=" + formData.get("email") +
+        "&senha=" + formData.get("senha");
     if (xmlhttp) {
         xmlhttp.open('get', "http://localhost:8080/login?" + url, true);
         xmlhttp.send();
     }
 
-    xmlhttp.onreadystatechange = function() {
+    xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState === 4) {
             if (xmlhttp.responseText != "") {
                 var responseJSON = JSON.parse(xmlhttp.responseText);
@@ -106,7 +106,7 @@ function salvarLogin() {
                 alert("LOGIN OU SENHA INVÁLIDOS");
             }
         }
-      }
+    }
 }
 
 function exibeNomeUsuario() {
@@ -131,7 +131,7 @@ function pesquisa() {
     var form = document.getElementById('form-pesquisa');
     var formData = new FormData(form);
 
-    if ( formData.get("bairro"))
+    if (formData.get("bairro"))
         var url = "?bairro=" + formData.get("bairro");
     else
         var url = "";
@@ -141,112 +141,123 @@ function pesquisa() {
         xmlhttp.send();
     }
 
-    xmlhttp.onreadystatechange = function() {
+    xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState === 4) {
             if (xmlhttp.responseText != "") {
                 var responseJSON = JSON.parse(xmlhttp.responseText);
-                
+
                 //Informações que vão preencher os campos da tabela
                 var tr = document.createElement('tr');
                 var dados = responseJSON.values[0];
                 var i;
                 
                 if (responseJSON != null && responseJSON != "") {
-                    for (i=0; i<dados.length; i++) {
+                    for (i = 0; i < dados.length; i++) {
                         var table = document.getElementById('exibeVeiculos');
                         var row = table.insertRow(1);
-                        row.innerHTML = "<td>"+dados[i]['nome']+"</td> <td>"+dados[i]['modelo']+"</td><td>"+dados[i]['bairro']+"</td><td>"+dados[i]['celular']+"</td><td>"+'<button class="btn btn-success">Mais</button>'+"</td>";
+                        row.innerHTML = "<td>" + dados[i]['nome'] + "</td> <td>" + dados[i]['modelo'] + "</td><td>" + dados[i]['bairro'] + "</td><td>" + dados[i]['celular'] + "</td><td>" + '<button class="btn btn-success">Mais</button>' + "</td>";
                     }
-                } 
+                }
             }
         }
-      }
+    }
 }
 //************************ CONJUNTO DE FUNÇÕES PARA IDENTIFICAR O ENDEREÇO ************************
 function limpa_formulário_cep() {
     //Limpa valores do formulário de cep.
+    document.getElementById('email').value = ("");
+    document.getElementById('nome').value = ("");
+    document.getElementById('cpf').value = ("");
+    document.getElementById('rg').value = ("");
+    document.getElementById('cnh').value = ("");
+    document.getElementById('senha').value = ("");
     document.getElementById('cep').value = ("");
-    document.getElementById('rua').value=("");
-    document.getElementById('bairro').value=("");
-    document.getElementById('cidade').value=("");
+    document.getElementById('rua').value = ("");
+    document.getElementById('numero').value = ("");
+    document.getElementById('bairro').value = ("");
+    document.getElementById('cidade').value = ("");
+    document.getElementById('estado').value = ("");
+    document.getElementById('telefone').value = ("");
+    document.getElementById('celular').value = ("");
+
 }
 
 function meu_callback(conteudo) {
-if (!("erro" in conteudo)) {
-    //Atualiza os campos com os valores.
-    document.getElementById('rua').value=(conteudo.logradouro);
-    document.getElementById('bairro').value=(conteudo.bairro);
-    document.getElementById('cidade').value=(conteudo.localidade);
-    console.log(conteudo.bairro + conteudo.logradouro + conteudo.localidade);
-} //end if.
-else {
-    //CEP não Encontrado.
-    limpa_formulário_cep();
-    alert("CEP não encontrado.");
-}
+    if (!("erro" in conteudo)) {
+        //Atualiza os campos com os valores.
+        document.getElementById('rua').value = (conteudo.logradouro);
+        document.getElementById('bairro').value = (conteudo.bairro);
+        document.getElementById('cidade').value = (conteudo.localidade);
+        console.log(conteudo.bairro + conteudo.logradouro + conteudo.localidade);
+    } //end if.
+    else {
+        //CEP não Encontrado.
+        limpa_formulário_cep();
+        alert("CEP não encontrado.");
+    }
 }
 
 function pesquisacep(valor) {
 
-//Nova variável "cep" somente com dígitos.
-var cep = valor.replace(/\D/g, '');
-console.log(cep);
-//Verifica se campo cep possui valor informado.
-if (cep != "") {
+    //Nova variável "cep" somente com dígitos.
+    var cep = valor.replace(/\D/g, '');
+    console.log(cep);
+    //Verifica se campo cep possui valor informado.
+    if (cep != "") {
 
-    //Expressão regular para validar o CEP.
-    var validacep = /^[0-9]{8}$/;
+        //Expressão regular para validar o CEP.
+        var validacep = /^[0-9]{8}$/;
 
-    //Valida o formato do CEP.
-    if(validacep.test(cep)) {
+        //Valida o formato do CEP.
+        if (validacep.test(cep)) {
 
-        //Preenche os campos com "..." enquanto consulta webservice.
-        document.getElementById('rua').value="...";
-        document.getElementById('bairro').value="...";
-        document.getElementById('cidade').value="...";
+            //Preenche os campos com "..." enquanto consulta webservice.
+            document.getElementById('rua').value = "...";
+            document.getElementById('bairro').value = "...";
+            document.getElementById('cidade').value = "...";
 
-        //Cria um elemento javascript.
-        var script = document.createElement('script');
-        console.log(script);
-        //Sincroniza com o callback.
-        script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
+            //Cria um elemento javascript.
+            var script = document.createElement('script');
+            console.log(script);
+            //Sincroniza com o callback.
+            script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
 
-        //Insere script no documento e carrega o conteúdo.
-        document.body.appendChild(script);
+            //Insere script no documento e carrega o conteúdo.
+            document.body.appendChild(script);
 
+        } //end if.
+        else {
+            //cep é inválido.
+            limpa_formulário_cep();
+            alert("Formato de CEP inválido.");
+        }
     } //end if.
     else {
-        //cep é inválido.
+        //cep sem valor, limpa formulário.
         limpa_formulário_cep();
-        alert("Formato de CEP inválido.");
     }
-} //end if.
-else {
-    //cep sem valor, limpa formulário.
-    limpa_formulário_cep();
-}
 };
 //************************ AS FUNÇÕES DE IDENTIFICAÇÃO DE ENDEREÇO TERMINAM AQUI ************************
 
 //************************ VALIDAÇÃO DE EMAIL ************************
 function validaEmail(envelope) {
     usuario = envelope.value.substring(0, envelope.value.indexOf("@"));
-    dominio = envelope.value.substring(envelope.value.indexOf("@")+ 1, envelope.value.length);
-     
-    if ((usuario.length >=1) &&
-        (dominio.length >=3) && 
-        (usuario.search("@")==-1) && 
-        (dominio.search("@")==-1) &&
-        (usuario.search(" ")==-1) && 
-        (dominio.search(" ")==-1) &&
-        (dominio.search(".")!=-1) &&      
-        (dominio.indexOf(".") >=1)&& 
+    dominio = envelope.value.substring(envelope.value.indexOf("@") + 1, envelope.value.length);
+
+    if ((usuario.length >= 1) &&
+        (dominio.length >= 3) &&
+        (usuario.search("@") == -1) &&
+        (dominio.search("@") == -1) &&
+        (usuario.search(" ") == -1) &&
+        (dominio.search(" ") == -1) &&
+        (dominio.search(".") != -1) &&
+        (dominio.indexOf(".") >= 1) &&
         (dominio.lastIndexOf(".") < dominio.length - 1)) {
-    document.getElementById("resposta").innerHTML="E-mail válido";
-    alert("E-mail valido");
+        document.getElementById("resposta").innerHTML = "E-mail válido";
+        alert("E-mail valido");
     }
-    else{
-    document.getElementById("resposta").innerHTML="<font color='green'>E-mail inválido </font>";
-    alert("E-mail invalido");
+    else {
+        document.getElementById("resposta").innerHTML = "<font color='green'>E-mail inválido </font>";
+        alert("E-mail invalido");
     }
-    }
+}
