@@ -96,8 +96,10 @@ function salvarLogin() {
                 var responseJSON = JSON.parse(xmlhttp.responseText);
                 if (responseJSON != null && responseJSON != "") {
                     var id = responseJSON.id;
+                    var nome = responseJSON.nome;
                     localStorage.setItem('id', id);
-                    window.location.href = "pesquisa.html";
+                    localStorage.setItem('nome', nome);
+                    window.location.href = "perfil.html";
                 } 
             }
             else {
@@ -105,6 +107,12 @@ function salvarLogin() {
             }
         }
       }
+}
+
+function exibeNomeUsuario() {
+    if (localStorage.getItem('nome')) {
+        document.getElementById('navbarDropdownMenuLink').innerHTML = localStorage.getItem('nome');
+    }
 }
 
 function verificaLogin() {
@@ -142,7 +150,7 @@ function pesquisa() {
                 var tr = document.createElement('tr');
                 var dados = responseJSON.values[0];
                 var i;
-                //console.log(responseJSON.values[0]);
+                
                 if (responseJSON != null && responseJSON != "") {
                     for (i=0; i<dados.length; i++) {
                         var table = document.getElementById('exibeVeiculos');
