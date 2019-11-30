@@ -17,7 +17,7 @@
 
 </head>
 
-<body onload="limpa_formulário_cep(); verificaLogin();">
+<body onload="exibeNomeUsuario(); limpa_formulário_cep(); verificaLogin();">
 
     <div class="container-fluid">
 
@@ -35,14 +35,10 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle ml-3 drop" style="color: white" href="#"
                         id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        Fulano
-                    </a>
+                        aria-expanded="false"></a>
                     <div class="dropdown-menu bg-oneblue" style="color: white" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Perfil</a>
-                        <a class="dropdown-item" href="#">Aluguel</a>
-                        <a class="dropdown-item" href="#">Chat</a>
-                        <a class="dropdown-item" href="#">Sair <i class="fa fa-sign-out" aria-hidden="true"></i> </a>
+                        <a class="dropdown-item" href="perfil.html">Perfil</a>
+                        <a class="dropdown-item" onclick="deslogar();" href="index.html">Sair <i class="fa fa-sign-out" aria-hidden="true"></i> </a>
                     </div>
                 </li>
             </ul>

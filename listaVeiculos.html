@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://use.fontawesome.com/945e93a52c.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>Meus veículos</title>
+
+</head>
+
+<body onload="exibeNomeUsuario(); verificaLogin();">
+
+    <div class="container-fluid">
+
+        <nav class="fixed-top navbar navbar-expand-lg navbar-light bg-blue text-white p-0 pl-5 pr-5">
+            <a class="navbar-brand" href="#">
+                <img src="img/logo-2.png" class="p-0 m-0" width="130" height="100" alt="TheCar">
+            </a>
+            <ul class="justify-content-end navbar-nav navbar-collapse">
+                <li class="nav-item">
+                    <div>
+                        <i class="fa fa-user-circle fa-3x" aria-hidden="true"></i>
+                    </div>
+
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle ml-3 drop" style="color: white" href="#"
+                        id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false"></a>
+                    <div class="dropdown-menu bg-oneblue" style="color: white" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="perfil.html">Perfil</a>
+                        <a class="dropdown-item" href="index.html" onclick="deslogar();">Sair <i class="fa fa-sign-out" aria-hidden="true"></i> </a>
+                    </div>
+                </li>
+            </ul>
+
+        </nav>
+
+        <div class="dropdown-divider pb-5"></div>
+
+        <article class="align-self-center">
+                <a href="cadastro_veiculo.html"><button type="button" class="btn btn-success">Cadastrar veículo <i class="fa fa-plus"></i></button></a>
+                <a href="exclusao_veiculo.html"><button type="button" class="btn btn-danger">Excluir veículo <i class="fa fa-minus"></i></button></a>
+
+            <div class="tabela" id="tabela">
+
+                <table class="table table-condensed" id="myTable">
+                    <thead class="card-header bg-blue text-white">
+                        <tr>
+                            <th scope="col">Modelo</th>
+                            <th scope="col">Marca</th>
+                            <th scope="col">Placa</th>
+                            <th scope="col">Disponibilidade</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-light" id="exibeVeiculosUsuario">
+                        <tr data-toggle="collapse" class="info" data-target="#demo1" data-parent="#myTable">
+
+                        </tr>
+                        <tr id="demo1" class="collapse">
+                            <td colspan="6" class="hiddenRow">
+                                <div>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            This is some text within a card body.
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </article>
+
+        <footer class="fixed-bottom p-3 bg-blue text-white">
+            <div class="row">
+                <div class="col-md-9 text-white">
+                    <a href="#" class="text-decoration-none text-white on">TheCar</a>
+                </div>
+                <div class="col-md-1 text-right text-white">
+                    <a href="#" class="text-decoration-none text-white on">contato</a>
+                </div>
+                <div class="col-md-1 text-right text-white">
+                    <a href="#" class="text-decoration-none text-white on">ajuda</a>
+                </div>
+                <div class="col-md-1 text-right text-white">
+                    <a href="#" class="text-decoration-none text-white on">sobre</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
